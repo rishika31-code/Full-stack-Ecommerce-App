@@ -4,7 +4,7 @@ import { PiCurrencyInrDuotone } from "react-icons/pi";
 import { GrFormPrevious } from "react-icons/gr";
 const Header = () => {
   return (
-    <header>
+    <header className=" sticky top-0 z-50">
       <div className=" flex justify-between items-center primary-bg-darker gap-4 px-10 py-4 font-poppins">
         <div className="">
           <h1 className="text-3xl text-orange-500 font-bold">RedBubble</h1>

@@ -5,7 +5,7 @@ import { IoCart } from "react-icons/io5";
 const CartFooter = () => {
   return (
     <div className="w-full flex justify-center items-center">
-      <div className=" flex primary-bg-darker-pink text-2xl text-white min-[600px]:hidden fixed bottom-0 justify-between items-center primary-bg-darker gap-4 px-7 py-6 font-poppins w-[95%] rounded-xl">
+      <div className=" flex primary-bg-darker-pink text-2xl text-white min-[600px]:hidden fixed bottom-0 justify-between items-center primary-bg-darker gap-4 px-7 py-3 font-poppins w-[95%] rounded-xl">
         <div className=" flex justify-center items-center gap-2 ">
           <h1>4 Items</h1>
           <h1>|</h1>

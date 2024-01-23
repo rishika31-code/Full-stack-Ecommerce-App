@@ -5,3 +5,26 @@
 .primary-bg-darker-pink {
   background-color: rgba(255, 50, 105, 1);
 }
+
+
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Custom Classes   */
+
+.flex-with-center-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2;
+}
+
+.flex-with-center-6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6;
+}
