@@ -30,17 +30,34 @@ const categoryControllers = {
         }
     },
 
-    // to add different subcategory
-    addSubCategory: async (req, res) => {
-        const { subcategoryName, subcategoryUnit, price, category } = req.body
-        if (subcategoryName, subcategoryUnit, price, category) {
-            try {
-                const dbRes = await SubCategories.create({ subcategoryName, subcategoryUnit, price, category })
-                console.log(dbRes)
 
-            } catch (error) {
-                res.status(400).send({ message: "Something went wrong !" })
+
+    // for adding a subcategory
+    addSubCategory: async (req, res) => {
+        const { name, imageUrl, categoryId } = req.body
+        try {
+            const dbRes = await SubCategories.create({ name, imageUrl, mainCategoryId: categoryId })
+            const addedSubCategory = {
+                name,
+                imageUrl,
+                id: dbRes.id,
+                mainCategoryId: categoryId
             }
+            res.send(addedSubCategory)
+
+        } catch (error) {
+            res.status(400).send({ message: "Something went wrong !" })
+        }
+
+    },
+
+    // for getting all the subcategories 
+    getAllSubCategories: async (req, res) => {
+        try {
+            const dbRes = await SubCategories.findAll()
+            res.send(dbRes)
+        } catch (error) {
+            res.status(400).send({ message: "Something went wrong !" })
         }
     }
 

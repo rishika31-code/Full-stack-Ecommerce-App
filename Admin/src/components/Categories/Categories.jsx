@@ -24,7 +24,7 @@ const Categories = () => {
       <div className="w-full m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
         <div className="  text-xl flex justify-between items-center">
           <div className=" flex justify-center items-center text-4xl file:font-bold gap-4 text-pink-500">
-            <h1>Our Categories</h1>
+            <h1>Categories</h1>
             <button
               className="primary-linear-bg text-white px-3 py-1 rounded-md"
               onClick={() => {

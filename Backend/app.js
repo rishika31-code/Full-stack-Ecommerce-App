@@ -29,7 +29,9 @@ require('./relations/relations')()
 
 
 // sync database and listen
-db.sync({ force: true })
+db.sync(
+    // { force: true }
+)
     .then(() => {
         app.listen(process.env.RUNNING_PORT, () => {
             console.log('App Started ..')

@@ -8,7 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
+
 const SubCategoryTable = () => {
+  const { subCategories } = useSelector((state) => state.categorySlice);
+
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -31,14 +34,15 @@ const SubCategoryTable = () => {
                 <p>SUBCATEGORY ID</p>
               </span>
             </TableCell>
+
             <TableCell style={{ fontWeight: 900 }}>
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>CATEGORY NAME</p>
+                <p>SUBCATEGORY NAME</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }}>
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>SUBCATEGORY NAME</p>
+                <p>IMAGE URL</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }}>
@@ -49,33 +53,40 @@ const SubCategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                1
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                2
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Vegetable & Fruits & Leaf
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Vegetable
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins font-bold py-2">
-                <HiOutlineDotsVertical className="text-base cursor-pointer" />
-              </span>
-            </TableCell>
-          </TableRow>
+          {subCategories.map((values) => {
+            return (
+              <TableRow
+                key={values.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {values.mainCategoryId}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {values.id}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {values.name}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {values.imageUrl ? "True" : "False"}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins font-bold py-2">
+                    <HiOutlineDotsVertical className="text-base cursor-pointer" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

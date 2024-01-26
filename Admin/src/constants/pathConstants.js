@@ -29,14 +29,7 @@ const sideBarPaths = [
         icon: TbLayersSubtract,
         text: "Sub Categories",
         path: "/subcategory"
-    },
-    {
-        icon: TbLayersSubtract,
-        text: "Types",
-        path: "/types"
-    },
-
-
+    }
 ]
 
 

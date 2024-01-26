@@ -68,7 +68,7 @@ const SubCategoryModal = ({ showModal }) => {
           </div>
 
           <div className="px-4 flex justify-center items-center">
-            <AddSubCategory />
+            <AddSubCategory showModal={showModal} />
           </div>
         </Box>
       </Modal>

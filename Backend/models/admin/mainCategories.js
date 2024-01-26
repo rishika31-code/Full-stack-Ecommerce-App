@@ -1,7 +1,7 @@
 const { INTEGER, STRING } = require('sequelize');
 const sequelize = require('../../util/database');
 
-const MainCategories = sequelize.define('MainCategories', {
+const MainCategories = sequelize.define('mainCategories', {
     id: {
         type: INTEGER,
         primaryKey: true,

@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { addCategoryAction } from "../../store/actions/categoryActions";
 import { useState } from "react";
 import { RiLoader3Fill } from "react-icons/ri";
+import toast from "react-hot-toast";
 const AddCategories = ({ showModal }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");

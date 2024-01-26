@@ -4,7 +4,10 @@ import PageWrapper from "../components/Wrapper/PageWrapper";
 import MyRoutes from "../Routes/MyRoutes";
 import "./App.css";
 import { useEffect } from "react";
-import { getAllCategoriesAction } from "../store/actions/categoryActions";
+import {
+  getAllCategoriesAction,
+  getAllSubcategoriesAction,
+} from "../store/actions/categoryActions";
 import { useDispatch } from "react-redux";
 
 const App = () => {
@@ -13,6 +16,7 @@ const App = () => {
   // useffect for fetching all categories
   useEffect(() => {
     dispatch(getAllCategoriesAction());
+    dispatch(getAllSubcategoriesAction());
   }, []);
 
   return (
