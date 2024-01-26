@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-const EmployeesTable = () => {
+const ProductsTable = () => {
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -23,32 +23,27 @@ const EmployeesTable = () => {
           <TableRow>
             <TableCell style={{ fontWeight: 900 }}>
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Sl No</p>
+                <p>Product Id</p>
+              </span>
+            </TableCell>
+            <TableCell>
+              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
+                <p>Products Name</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }} align="right">
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Name</p>
+                <p>Category</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }} align="right">
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Employee Id</p>
+                <p>Amount</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }} align="right">
               <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Mobile No</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Email</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Area</p>
+                <p>Quantity</p>
               </span>
             </TableCell>
             <TableCell style={{ fontWeight: 900 }} align="right">
@@ -59,7 +54,7 @@ const EmployeesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* NOW WE HAVE 2 DUMMY USER  */}
+          {/* NOW WE HAVE 2 DUMMY PRODUCTS  */}
           <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
             <TableCell component="th" scope="row">
               <span className=" flex justify-center items-center font-poppins py-2">
@@ -68,27 +63,22 @@ const EmployeesTable = () => {
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                Sourav Pathak
+                Ammul Dairy Milk with .....
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                2424324
+                Milk
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                6294543902
+                150
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                spathak7431@gmail.com
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Jamda
+                10
               </span>
             </TableCell>
             <TableCell align="right">
@@ -105,27 +95,22 @@ const EmployeesTable = () => {
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                Sourav Pathak
+                Ammul Dairy Milk with .....
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                2424324
+                Milk
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                6294543902
+                150
               </span>
             </TableCell>
             <TableCell align="right">
               <span className=" flex justify-center items-center font-poppins py-2">
-                spathak7431@gmail.com
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Jamda
+                10
               </span>
             </TableCell>
             <TableCell align="right">
@@ -140,4 +125,4 @@ const EmployeesTable = () => {
   );
 };
 
-export default EmployeesTable;
+export default ProductsTable;

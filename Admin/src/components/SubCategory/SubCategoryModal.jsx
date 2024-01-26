@@ -3,11 +3,9 @@ import Modal from "@mui/material/Modal";
 import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
+import AddSubCategory from "./AddSubCategory";
 
-import React from "react";
-import AddEmployee from "./AddEmployee";
-
-const AddEmployeesModel = ({ showModal }) => {
+const SubCategoryModal = ({ showModal }) => {
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -37,7 +35,7 @@ const AddEmployeesModel = ({ showModal }) => {
       (isMediumScreen && "70%") ||
       (isLargeScreen && "60%") ||
       (moreThanlg && "50%"),
-    height: "70%",
+    height: "50%",
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",
@@ -51,43 +49,31 @@ const AddEmployeesModel = ({ showModal }) => {
   };
 
   return (
-    <Modal
-      open={true}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <div className=" flex justify-end items-center sticky bg-white rounded-xl top-0">
-          <div
-            className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md staicky top-0"
-            onClick={() => {
-              showModal(false);
-            }}
-          >
-            <RxCross2 className="text-2xl text-white " />
+    <>
+      <Modal
+        open={true}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className=" flex justify-end items-center sticky bg-white rounded-xl top-0">
+            <div className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md staicky top-0">
+              <RxCross2
+                className="text-2xl text-white "
+                onClick={() => {
+                  showModal(false);
+                }}
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <AddEmployee />
-        </div>
-
-        <div className=" flex justify-end gap-2 items-center py-2 px-10 bg-white sticky bottom-0 w-full">
-          <button className=" bg-blue-500 text-white px-7 py-1.5 rounded-lg">
-            Submit
-          </button>
-          <button
-            className=" bg-red-600 text-white px-7 py-1.5 rounded-lg"
-            onClick={() => {
-              showModal(false);
-            }}
-          >
-            Close
-          </button>
-        </div>
-      </Box>
-    </Modal>
+          <div className="px-4 flex justify-center items-center">
+            <AddSubCategory />
+          </div>
+        </Box>
+      </Modal>
+    </>
   );
 };
 
-export default AddEmployeesModel;
+export default SubCategoryModal;

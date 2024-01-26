@@ -1,12 +1,14 @@
 import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import { CgSearch } from "react-icons/cg";
-import { BsAirplaneFill } from "react-icons/bs";
-import OrdersTable from "./OrdersTable";
-const Orders = () => {
+import { MdAddToPhotos } from "react-icons/md";
+import SubCategoryTable from "./SubCategoryTable";
+import SubCategoryModal from "./SubCategoryModal";
+
+const SubCategory = () => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [statusChangeModal, setStatusChangeModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -18,11 +20,19 @@ const Orders = () => {
   };
   return (
     <>
+      {showModal && <SubCategoryModal showModal={setShowModal} />}
       <div className="w-full m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
         <div className="  text-xl flex justify-between items-center">
-          <div className=" flex justify-center items-center gap-4 text-pink-500">
-            <h1 className=" text-4xl">Placed Orders</h1>
-            <BsAirplaneFill className="text-4xl" />
+          <div className=" flex justify-center items-center text-4xl gap-4 text-pink-500">
+            <h1>Sub Categories</h1>
+            <button
+              className="primary-linear-bg text-white px-3 py-1 rounded-md"
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              <MdAddToPhotos className="text-3xl" />
+            </button>
           </div>
           <div className="flex justify-center items-center gap-4 rounded-md font-poppins">
             <TablePagination
@@ -35,6 +45,7 @@ const Orders = () => {
             />
           </div>
         </div>
+
         <div>
           <div className=" mt-5 flex flex-col min-[900px]:flex-row justify-center gap-4 min-[900px]:gap-0  min-[900px]:justify-between items-center ">
             <div className="flex justify-start items-center bg-gray-100 px-2 py-1 w-full min-[900px]:w-[40%] rounded-md">
@@ -53,7 +64,6 @@ const Orders = () => {
                 <option>pending</option>
                 <option>Shipped</option>
                 <option>Delivered</option>
-                <option>Cancelled</option>
               </select>
               <select
                 className=" px-3 py-3 flex justify-center items-center gap-2 bg-gray-100 rounded-md"
@@ -67,10 +77,10 @@ const Orders = () => {
         </div>
       </div>
       <div className="w-full h-[calc(100vh-18rem)] m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
-        <OrdersTable />
+        <SubCategoryTable />
       </div>
     </>
   );
 };
 
-export default Orders;
+export default SubCategory;
