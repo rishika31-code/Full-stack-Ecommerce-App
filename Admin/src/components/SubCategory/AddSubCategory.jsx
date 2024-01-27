@@ -11,18 +11,24 @@ const AddSubCategory = ({ showModal }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [loader, setLoader] = useState(false);
-  const [categoryId, SetCategoryId] = useState("");
 
+  //  take the first value || we make ""
+  const [categoryId, setCategoryId] = useState(
+    categories.length > 0 ? categories[0].id : ""
+  );
+
+  // for adding a new subcategory
   const onSubCategorySubmit = (e) => {
     e.preventDefault();
-    setLoader(true);
+    const subCategoryVal = {
+      name,
+      imageUrl,
+      categoryId,
+    };
 
-    if (categoryId.trim()) {
-      const subCategoryVal = {
-        name,
-        imageUrl,
-        categoryId,
-      };
+    // checking category id is present or not
+    if (categoryId) {
+      setLoader(true);
       dispatch(addSubCategoryAction(subCategoryVal));
       setLoader(false);
       setName("");
@@ -70,11 +76,9 @@ const AddSubCategory = ({ showModal }) => {
         </label>
         <select
           className="text-black w-full p-2 bg-gray-100 rounded-md"
-          value={categoryId}
           onChange={(e) => {
-            SetCategoryId(e.target.value);
+            setCategoryId(e.target.value);
           }}
-          required
         >
           {categories.map((category) => (
             <option

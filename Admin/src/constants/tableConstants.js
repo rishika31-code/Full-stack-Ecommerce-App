@@ -2,11 +2,12 @@
 
 
 const tableConstants = {
-    categoryConstant: ["CATEGORY ID", "CATEGORY NAME", "IMAGE URL", "ACTION"]
+    categoryConstant: ["CATEGORY ID", "CATEGORY NAME", "IMAGE URL", "ACTION"],
+    subCategoryConstants: ["CATEGORY ID", "SUBCATEGORY ID", "SUBCATEGORY NAME", "IMAGE URL", "ACTION"]
 }
 
 
 
 
 
-export const { categoryConstant } = tableConstants
+export const { categoryConstant, subCategoryConstants } = tableConstants

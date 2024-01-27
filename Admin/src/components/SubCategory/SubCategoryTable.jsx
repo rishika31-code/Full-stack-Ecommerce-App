@@ -1,4 +1,4 @@
-import { categoryConstant } from "../../constants/tableConstants";
+import { subCategoryConstants } from "../../constants/tableConstants";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,32 +24,15 @@ const SubCategoryTable = () => {
           }}
         >
           <TableRow>
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>CATEGORY ID</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>SUBCATEGORY ID</p>
-              </span>
-            </TableCell>
-
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>SUBCATEGORY NAME</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>IMAGE URL</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>ACTION</p>
-              </span>
-            </TableCell>
+            {subCategoryConstants.map((heading, index) => {
+              return (
+                <TableCell key={index} style={{ fontWeight: 900 }}>
+                  <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
+                    <p>{heading}</p>
+                  </span>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>

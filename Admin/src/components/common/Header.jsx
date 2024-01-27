@@ -9,8 +9,8 @@ const Header = () => {
         <HiBell className=" text-4xl cursor-pointer" />
         <RiUser3Fill className=" text-3xl cursor-pointer" />
         <div className=" flex flex-col justify-center text-black">
-          <h1>Rajesh Smp</h1>
-          <h1> User Id : 3552542</h1>
+          <h1>ADMIN</h1>
+          <h1> Id : 3552542</h1>
         </div>
       </div>
     </header>

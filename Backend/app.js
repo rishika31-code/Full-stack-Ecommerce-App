@@ -30,7 +30,7 @@ require('./relations/relations')()
 
 // sync database and listen
 db.sync(
-    // { force: true }
+    { force: true }
 )
     .then(() => {
         app.listen(process.env.RUNNING_PORT, () => {

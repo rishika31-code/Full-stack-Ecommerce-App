@@ -3,10 +3,12 @@ import { useState } from "react";
 import { CgSearch } from "react-icons/cg";
 import { MdAddToPhotos } from "react-icons/md";
 import ProductsTable from "./ProductsTable";
-
+import AddProductModal from "./AddProductModal";
+import AddProductForm from "./AddProductForm";
 const Products = () => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -18,11 +20,17 @@ const Products = () => {
   };
   return (
     <>
+      {showModal && <AddProductModal showModal={setShowModal} />}
       <div className="w-full m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
         <div className="  text-xl flex justify-between items-center">
           <div className=" flex justify-center items-center text-4xl gap-4 text-pink-500">
             <h1>Our Products</h1>
-            <button className="primary-linear-bg text-white px-3 py-1 rounded-md">
+            <button
+              className="primary-linear-bg text-white px-3 py-1 rounded-md"
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
               <MdAddToPhotos className="text-3xl" />
             </button>
           </div>
