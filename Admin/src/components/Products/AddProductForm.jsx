@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { RiLoader3Fill } from "react-icons/ri";
+import { addProductAction } from "../../store/actions/productActions";
+import toast from "react-hot-toast";
 
 const AddProductForm = () => {
   const dispatch = useDispatch();
+  // taking maincategories and subcategories from the store
   const { categories, subCategories } = useSelector(
     (state) => state.categorySlice
   );
   const [name, setName] = useState("");
-  const [imageURLs, setImageURLs] = useState(["", ""]);
-  const [categoryId, setCategoryId] = useState(
+  const [description, setDescription] = useState("");
+  const [imageUrls, setImageURLs] = useState([""]);
+  const [mainCategoryId, setMainCategoryId] = useState(
     categories.length > 0 ? categories[0].id : ""
   );
   const [subCategoryId, setSubCategoryId] = useState(
@@ -17,17 +20,17 @@ const AddProductForm = () => {
   );
 
   const handleImageChange = (index, value) => {
-    const updatedImageURLs = [...imageURLs];
+    const updatedImageURLs = [...imageUrls];
     updatedImageURLs[index] = value;
     setImageURLs(updatedImageURLs);
   };
 
   const addImageInput = () => {
-    setImageURLs([...imageURLs, ""]);
+    setImageURLs([...imageUrls, ""]);
   };
 
   const removeImageInput = (index) => {
-    const updatedImageURLs = [...imageURLs];
+    const updatedImageURLs = [...imageUrls];
     updatedImageURLs.splice(index, 1);
     setImageURLs(updatedImageURLs);
   };
@@ -37,11 +40,17 @@ const AddProductForm = () => {
     e.preventDefault();
     const addedProduct = {
       name,
-      imageURLs,
-      categoryId,
+      imageUrls,
+      mainCategoryId,
       subCategoryId,
+      description,
     };
-    console.log(addedProduct);
+
+    if (mainCategoryId && subCategoryId) {
+      dispatch(addProductAction(addedProduct));
+    } else {
+      toast.error("CATEGORY AND SUBCATEGORY CAN'T BE BLANK ");
+    }
   };
 
   return (
@@ -65,7 +74,7 @@ const AddProductForm = () => {
         />
       </div>
 
-      {imageURLs.map((url, index) => (
+      {imageUrls.map((url, index) => (
         <div key={index} className="w-full flex flex-col gap-1">
           <label htmlFor={`imageurl${index + 1}`} className="text-lg">
             IMAGE URL {index + 1}
@@ -103,8 +112,8 @@ const AddProductForm = () => {
         </label>
         <select
           className="w-full p-2 bg-gray-100 rounded-md"
-          onChange={(e) => setCategoryId(e.target.value)}
-          value={categoryId}
+          onChange={(e) => setMainCategoryId(e.target.value)}
+          value={mainCategoryId}
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -129,6 +138,21 @@ const AddProductForm = () => {
             </option>
           ))}
         </select>
+      </div>
+      <div className="w-full flex flex-col gap-1">
+        <label htmlFor="categoryname" className="text-lg">
+          PRODUCT DESCRIPTION
+        </label>
+        <textarea
+          required
+          type="text"
+          placeholder="Enter name of the product"
+          className="w-full p-2 h-[10rem] bg-gray-100 rounded-md resize-none"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
       </div>
 
       <button

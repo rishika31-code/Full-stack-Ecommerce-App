@@ -7,15 +7,15 @@ const Product = sequelize.define('Product', {
         primaryKey: true,
         autoIncrement: true,
     },
-    productName: {
+    name: {
         type: STRING,
         allowNull: false,
     },
-    imageUrl: {
+    imageUrls: {
         type: JSON,
         allowNull: false,
     },
-    productDes: {
+    description: {
         type: STRING,
         allowNull: true
     }

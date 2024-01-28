@@ -3,31 +3,42 @@ const MainCategories = require('../../models/admin/mainCategories')
 const SubCategories = require('../../models/admin/subCategories')
 
 
+// for add a new product 
 const productController = {
     addProduct: async (req, res) => {
-        const { productName, imageUrl, category, subcategory } = req.body
+        const { name, imageUrls, mainCategoryId, subCategoryId, description } = req.body
         try {
-            const dbRes = await Product.create({ productName, imageUrl: JSON.stringify(imageUrl), category, subcategory })
-            console.log(dbRes)
+            const jsonImages = JSON.stringify(imageUrls)
+            const dbRes = await Product.create({
+                name,
+                imageUrls: jsonImages,
+                description,
+                mainCategoryId,
+                subCategoryId
+            })
+
+            res.send({ id: dbRes.id, message: "Success" })
 
         } catch (error) {
-            res.status(400).send({ message: "Something went wrong" })
+            res.status(500).send({ message: 'Some error occured' })
         }
 
     },
 
+
+    // for fetching all the products 
     getAllProduct: async (req, res) => {
         try {
             const dbRes = await Product.findAll({
                 include: [
                     { model: MainCategories },
-                    { model: SubCategories, }
+                    { model: SubCategories }
                 ]
             })
 
             res.send(dbRes)
         } catch (error) {
-
+            console.log(error)
         }
     }
 

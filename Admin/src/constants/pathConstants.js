@@ -3,6 +3,7 @@ import { AiFillShopping } from "react-icons/ai";
 import { BsBoxSeam } from "react-icons/bs";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbLayersSubtract } from "react-icons/tb";
+import { BiCuboid } from "react-icons/bi";
 
 const sideBarPaths = [
     {
@@ -19,6 +20,11 @@ const sideBarPaths = [
         icon: BsBoxSeam,
         text: "Products",
         path: "/products"
+    },
+    {
+        icon: BiCuboid,
+        text: "Product Types",
+        path: "/producttypes"
     },
     {
         icon: MdOutlineCategory,

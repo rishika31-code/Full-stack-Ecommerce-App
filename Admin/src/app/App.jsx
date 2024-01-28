@@ -8,7 +8,9 @@ import {
   getAllCategoriesAction,
   getAllSubcategoriesAction,
 } from "../store/actions/categoryActions";
+
 import { useDispatch } from "react-redux";
+import { getAllProductsAction } from "../store/actions/productActions";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getAllCategoriesAction());
     dispatch(getAllSubcategoriesAction());
+    dispatch(getAllProductsAction());
   }, []);
 
   return (

@@ -7,8 +7,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { productsConstants } from "../../constants/tableConstants";
+import { useSelector } from "react-redux";
 
 const ProductsTable = () => {
+  const { products } = useSelector((state) => state.productSlice);
+
+  // function for reform the product name
+  const reformName = (values) => {
+    if (values.length <= 20) {
+      return values;
+    }
+    let str = "";
+    for (let i = 0; i < 20; i++) {
+      str += values[i];
+    }
+    return str + "...";
+  };
+
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -21,104 +37,67 @@ const ProductsTable = () => {
           }}
         >
           <TableRow>
-            <TableCell style={{ fontWeight: 900 }}>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Product Id</p>
-              </span>
-            </TableCell>
-            <TableCell>
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Products Name</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Category</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Amount</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Quantity</p>
-              </span>
-            </TableCell>
-            <TableCell style={{ fontWeight: 900 }} align="right">
-              <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
-                <p>Action</p>
-              </span>
-            </TableCell>
+            {productsConstants.map((heading, index) => {
+              return (
+                <TableCell key={index} style={{ fontWeight: 900 }}>
+                  <span className=" flex justify-center items-center gap-1 font-poppins py-1 cursor-pointer">
+                    <p>{heading}</p>
+                  </span>
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* NOW WE HAVE 2 DUMMY PRODUCTS  */}
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                1
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Ammul Dairy Milk with .....
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Milk
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                150
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                10
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins font-bold py-2">
-                <HiOutlineDotsVertical className="text-base cursor-pointer" />
-              </span>
-            </TableCell>
-          </TableRow>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                1
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Ammul Dairy Milk with .....
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Milk
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                150
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                10
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins font-bold py-2">
-                <HiOutlineDotsVertical className="text-base cursor-pointer" />
-              </span>
-            </TableCell>
-          </TableRow>
+          {products.map((product) => {
+            return (
+              <TableRow
+                key={product.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.id}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {reformName(product.name)}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.mainCategoryName}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.subCategoryName}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.imageUrls.length}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.mainCategoryId}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {product.subCategoryId}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins font-bold py-2">
+                    <HiOutlineDotsVertical className="text-base cursor-pointer" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

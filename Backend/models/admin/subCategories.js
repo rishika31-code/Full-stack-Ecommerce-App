@@ -2,7 +2,7 @@ const { INTEGER, STRING, DECIMAL } = require('sequelize');
 const sequelize = require('../../util/database');
 
 
-const SubCategories = sequelize.define('SubCategories', {
+const SubCategories = sequelize.define('subCategories', {
     id: {
         type: INTEGER,
         primaryKey: true,
