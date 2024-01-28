@@ -9,21 +9,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { productsConstants } from "../../constants/tableConstants";
 import { useSelector } from "react-redux";
+import reformName from "../../functions/reformName";
 
 const ProductsTable = () => {
   const { products } = useSelector((state) => state.productSlice);
-
-  // function for reform the product name
-  const reformName = (values) => {
-    if (values.length <= 20) {
-      return values;
-    }
-    let str = "";
-    for (let i = 0; i < 20; i++) {
-      str += values[i];
-    }
-    return str + "...";
-  };
 
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>

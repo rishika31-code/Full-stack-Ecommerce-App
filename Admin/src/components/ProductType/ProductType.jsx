@@ -2,6 +2,8 @@ import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import { CgSearch } from "react-icons/cg";
 import { MdAddToPhotos } from "react-icons/md";
+import ProductTypeTable from "./ProductTypeTable";
+import AddProductTypeModal from "./AddProductTypeModal";
 const ProductType = () => {
   const [page, setPage] = useState(2);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -18,6 +20,7 @@ const ProductType = () => {
 
   return (
     <>
+      {showModal && <AddProductTypeModal showModal={setShowModal} />}
       <div className="w-full m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
         <div className="  text-xl flex justify-between items-center">
           <div className=" flex justify-center items-center text-4xl gap-4 text-pink-500">
@@ -73,7 +76,9 @@ const ProductType = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[calc(100vh-18rem)] m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins"></div>
+      <div className="w-full h-[calc(100vh-18rem)] m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
+        <ProductTypeTable />
+      </div>
     </>
   );
 };
