@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductsWrapper = (props) => {
+const Wrapper = (props) => {
   return (
     <div className=" mt-5 min-[1400px]:w-[1400px] w-[90%] m-auto ">
       {props.children}
@@ -8,4 +8,4 @@ const ProductsWrapper = (props) => {
   );
 };
 
-export default ProductsWrapper;
+export default Wrapper;

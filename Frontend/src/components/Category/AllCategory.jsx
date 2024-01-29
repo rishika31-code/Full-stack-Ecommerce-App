@@ -1,7 +1,9 @@
-import { MdNavigateNext } from "react-icons/md";
+import React from "react";
 import banners from "../../assets/constants/images";
+import { MdNavigateNext } from "react-icons/md";
+// hard coded categories
 
-const ProductsCategory = () => {
+const AllCategory = () => {
   return (
     <div className="mt-10 font-poppins">
       <div className="flex justify-between items-center font-semibold text-2xl">
@@ -57,4 +59,4 @@ const ProductsCategory = () => {
   );
 };
 
-export default ProductsCategory;
+export default AllCategory;

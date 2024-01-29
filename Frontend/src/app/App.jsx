@@ -2,15 +2,15 @@ import React from "react";
 import Header from "../components/common/Header";
 import "./App.css";
 import CartFooter from "../components/common/CartFooter";
-import Products from "../components/Products/Products";
-import ProductsWrapper from "../components/Wrapper/ProductsWrapper";
+import Wrapper from "../components/Wrapper/Wrapper";
+import MyRoutes from "../routes/MyRoutes";
 const App = () => {
   return (
     <>
       <Header />
-      <ProductsWrapper>
-        <Products />
-      </ProductsWrapper>
+      <Wrapper>
+        <MyRoutes />
+      </Wrapper>
       <CartFooter />
     </>
   );
