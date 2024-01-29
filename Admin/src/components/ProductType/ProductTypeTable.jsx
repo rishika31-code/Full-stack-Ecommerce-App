@@ -7,7 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { productTypeConstants } from "../../constants/tableConstants";
+import { useSelector } from "react-redux";
 const ProductTypeTable = () => {
+  const { productTypes } = useSelector((state) => state.productSlice);
+
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -32,38 +35,45 @@ const ProductTypeTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                1
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                Ammul Milk
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                10
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                200ml
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                20
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins font-bold py-2">
-                <HiOutlineDotsVertical className="text-base cursor-pointer" />
-              </span>
-            </TableCell>
-          </TableRow>
+          {productTypes.map((val) => {
+            return (
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                key={val.id}
+              >
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {val.id}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {val.productName}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {val.productId}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {val.type}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {val.price}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins font-bold py-2">
+                    <HiOutlineDotsVertical className="text-base cursor-pointer" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

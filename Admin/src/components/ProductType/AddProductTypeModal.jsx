@@ -67,7 +67,7 @@ const AddProductTypeModal = ({ showModal }) => {
           </div>
 
           <div className="px-4 flex justify-center items-center">
-            <AddProductType />
+            <AddProductType showModal={showModal} />
           </div>
         </Box>
       </Modal>

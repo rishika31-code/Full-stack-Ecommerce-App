@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { addCategoryAction } from "../../store/actions/categoryActions";
 import { useState } from "react";
 import { RiLoader3Fill } from "react-icons/ri";
-import toast from "react-hot-toast";
+
 const AddCategories = ({ showModal }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -19,11 +19,11 @@ const AddCategories = ({ showModal }) => {
       imageUrl,
     };
 
-    dispatch(addCategoryAction(addedCategory));
-    setImageUrl("");
-    setName("");
+    // Dispacthing action to add category
+    dispatch(addCategoryAction(addedCategory, showModal));
     setLoader(false);
-    showModal(false);
+    setName("");
+    setImageUrl("");
   };
 
   return (

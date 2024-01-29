@@ -4,7 +4,8 @@ import { addcategory, makeLoaderTrue, makeLoaderFalse, addSubCategory } from "..
 import axios from "axios"
 
 // to add a main category 
-export const addCategoryAction = (categoryVal) => {
+
+export const addCategoryAction = (categoryVal, showModal) => {
     return async (dispatch, getState) => {
         try {
 
@@ -16,11 +17,10 @@ export const addCategoryAction = (categoryVal) => {
                 imageUrl: data.imageUrl,
                 id: data.id
             }
-
-
             const newCategory = [...categories, categoryAdded]
             dispatch(addcategory(newCategory))
             toast.success("Added !")
+            showModal(false)
         } catch (err) {
             console.log(err)
         }
@@ -33,7 +33,6 @@ export const getAllCategoriesAction = () => {
         try {
             const { data } = await axios.get(GET_ALL_CATEGORIES)
             dispatch(addcategory(data))
-
         } catch (err) {
             console.log(err)
         }
@@ -57,7 +56,8 @@ export const addSubCategoryAction = (subCategoryVal) => {
 
             const newSubCategory = [...subCategories, addedSubcategory]
             dispatch(addSubCategory(newSubCategory))
-            toast.success('Added ! ')
+            toast.success('Subcategory Added ! ')
+            showModal(false)
 
         } catch (error) {
             console.log(error)

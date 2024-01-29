@@ -3,7 +3,7 @@ import { useState } from "react";
 import { addProductAction } from "../../store/actions/productActions";
 import toast from "react-hot-toast";
 
-const AddProductForm = () => {
+const AddProductForm = ({ showModal }) => {
   const dispatch = useDispatch();
   // taking maincategories and subcategories from the store
   const { categories, subCategories } = useSelector(
@@ -12,6 +12,7 @@ const AddProductForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrls, setImageURLs] = useState([""]);
+  const [loader, setLoader] = useState(false);
   const [mainCategoryId, setMainCategoryId] = useState(
     categories.length > 0 ? categories[0].id : ""
   );
@@ -47,7 +48,9 @@ const AddProductForm = () => {
     };
 
     if (mainCategoryId && subCategoryId) {
-      dispatch(addProductAction(addedProduct));
+      setLoader(true);
+      dispatch(addProductAction(addedProduct, showModal));
+      setLoader(false);
     } else {
       toast.error("CATEGORY AND SUBCATEGORY CAN'T BE BLANK ");
     }
@@ -157,9 +160,13 @@ const AddProductForm = () => {
 
       <button
         type="submit"
-        className=" bg-pink-500 w-full text-white mt-5 flex justify-center items-center rounded-md py-2"
+        className="bg-pink-500 text-white mt-5 flex justify-center items-center  rounded-md py-2"
       >
-        Add Product
+        {loader ? (
+          <RiLoader3Fill className="text-2xl animate-spin" />
+        ) : (
+          "Add Product"
+        )}
       </button>
     </form>
   );

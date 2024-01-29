@@ -40,3 +40,8 @@ db.sync(
     })
     .catch(err => console.log(err))
 
+
+
+
+
+    // FNEFU3FBYVFWEVFWEVF

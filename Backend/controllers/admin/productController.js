@@ -1,7 +1,7 @@
 const Product = require('../../models/admin/products')
 const MainCategories = require('../../models/admin/mainCategories')
 const SubCategories = require('../../models/admin/subCategories')
-
+const ProductType = require('../../models/admin/productType')
 
 // for add a new product 
 const productController = {
@@ -33,6 +33,45 @@ const productController = {
                 include: [
                     { model: MainCategories },
                     { model: SubCategories }
+                ]
+            })
+
+            res.send(dbRes)
+        } catch (error) {
+            res.status(500).send({ message: 'Some error occured' })
+        }
+    },
+
+
+    // for adding a product type
+    addProductType: async (req, res) => {
+        const { type, price, productId } = req.body
+        try {
+            const dbRes = await ProductType.create({ type, price, productId })
+            const findProduct = await Product.findOne({ where: { id: productId } })
+
+            const sendRes = {
+                id: dbRes.id,
+                productName: findProduct.name,
+                productId: findProduct.id,
+                type: type,
+                price: price
+            }
+
+            res.status(200).send(sendRes)
+
+        } catch (error) {
+            res.status(500).send({ message: 'Some error occured' })
+        }
+
+    },
+
+    // for getting all the product types
+    getAllProductTypes: async (req, res) => {
+        try {
+            const dbRes = await ProductType.findAll({
+                include: [
+                    { model: Product }
                 ]
             })
 
