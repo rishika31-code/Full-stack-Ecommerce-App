@@ -29,11 +29,10 @@ const AddSubCategory = ({ showModal }) => {
     // checking category id is present or not
     if (categoryId) {
       setLoader(true);
-      dispatch(addSubCategoryAction(subCategoryVal));
+      dispatch(addSubCategoryAction(subCategoryVal,showModal));
       setLoader(false);
       setName("");
       setImageUrl("");
-      showModal(false);
     } else {
       toast.error("Please select category");
     }

@@ -1,8 +1,8 @@
 // Importing models
-const MainCategories = require('../models/admin/mainCategories')
-const Products = require('../models/admin/products')
-const SubCategories = require('../models/admin/subCategories')
-const ProductType = require('../models/admin/productType')
+const MainCategories = require('../models/mainCategories')
+const Products = require('../models/products')
+const SubCategories = require('../models/subCategories')
+const ProductType = require('../models/productType')
 
 module.exports = () => {
 

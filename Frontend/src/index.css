@@ -1,5 +1,38 @@
 /* google fonts  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo&family=Cabin&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+
+
+/* CUSTOMISING SWIPPER JS ARROWS  */
+:root {
+
+    --swiper-navigation-size: 15px !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: #f46aa6 !important;
+    right: .5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    color: #fffefe !important;
+    fill: black !important;
+    stroke: black !important;
+    top: var(--swiper-navigation-top-offset, 50%) !important;
+    border-radius: 5px !important;
+
+}
+
+.swiper-scrollbar-horizontal {
+    top: .1rem !important;
+    background-color: white !important;
+}

@@ -16,6 +16,7 @@ const useFetchAllData = () => {
 
   // useffect for fetching all categories
   useEffect(() => {
+    
     dispatch(getAllCategoriesAction());
     dispatch(getAllSubcategoriesAction());
     dispatch(getAllProductsAction());

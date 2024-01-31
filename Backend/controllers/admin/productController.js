@@ -1,7 +1,7 @@
-const Product = require('../../models/admin/products')
-const MainCategories = require('../../models/admin/mainCategories')
-const SubCategories = require('../../models/admin/subCategories')
-const ProductType = require('../../models/admin/productType')
+const Product = require('../../models/products')
+const MainCategories = require('../../models/mainCategories')
+const SubCategories = require('../../models/subCategories')
+const ProductType = require('../../models/productType')
 
 // for add a new product 
 const productController = {
@@ -20,6 +20,7 @@ const productController = {
             res.send({ id: dbRes.id, message: "Success" })
 
         } catch (error) {
+
             res.status(500).send({ message: 'Some error occured' })
         }
 

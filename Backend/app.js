@@ -4,7 +4,7 @@ require('dotenv').config()
 
 // Imnporting routes 
 const adminRoutes = require('./routes/adminRoutes')
-
+const userRoutes = require('./routes/userRoutes')
 // Importing middlewares
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 
 // appyning routes 
 app.use('/admin', adminRoutes)
-
+app.use('/user', userRoutes)
 
 // associtaions
 require('./relations/relations')()
@@ -44,4 +44,4 @@ db.sync(
 
 
 
-    // FNEFU3FBYVFWEVFWEVF
+// FNEFU3FBYVFWEVFWEVF

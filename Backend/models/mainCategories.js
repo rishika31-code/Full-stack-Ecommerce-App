@@ -1,5 +1,5 @@
 const { INTEGER, STRING } = require('sequelize');
-const sequelize = require('../../util/database');
+const sequelize = require('../util/database');
 
 const MainCategories = sequelize.define('mainCategories', {
     id: {

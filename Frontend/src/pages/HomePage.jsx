@@ -3,7 +3,7 @@ import TopBanner from "../components/Banners/TopBanner";
 import Carousel from "../components/Carousel/Carousel";
 import banners from "../assets/constants/images";
 import AllCategory from "../components/Category/AllCategory";
-
+import ProductsContainer from "../components/Products/ProductsContainer";
 const HomePage = () => {
   return (
     <>
@@ -21,6 +21,7 @@ const HomePage = () => {
         })}
       </Carousel>
       <AllCategory />
+      <ProductsContainer />
     </>
   );
 };

@@ -1,5 +1,5 @@
 const { INTEGER, STRING, DECIMAL } = require('sequelize');
-const sequelize = require('../../util/database');
+const sequelize = require('../util/database');
 
 
 const ProductType = sequelize.define('productType', {

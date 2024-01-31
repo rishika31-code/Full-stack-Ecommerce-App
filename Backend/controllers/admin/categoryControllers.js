@@ -1,5 +1,5 @@
-const MainCategories = require('../../models/admin/mainCategories')
-const SubCategories = require('../../models/admin/subCategories')
+const MainCategories = require('../../models/mainCategories')
+const SubCategories = require('../../models/subCategories')
 const categoryControllers = {
 
     // to add main category 

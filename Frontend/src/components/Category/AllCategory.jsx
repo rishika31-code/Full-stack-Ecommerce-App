@@ -1,8 +1,8 @@
 import React from "react";
 import banners from "../../assets/constants/images";
 import { MdNavigateNext } from "react-icons/md";
-// hard coded categories
 
+// hard coded categories
 const AllCategory = () => {
   return (
     <div className="mt-10 font-poppins">
@@ -20,7 +20,7 @@ const AllCategory = () => {
               <img
                 src={item.link}
                 key={index}
-                className=" h-[12rem] w-[16rem] min-[500px]:w-[11rem] min-[500px]:h-[15rem] md:w-[7rem] md:h-[9rem] min-[980px]:h-[11rem] min-[980px]:w-[9rem]  xl:w-[10rem] xl:h-[13rem]"
+                className=" h-[14rem] w-[15rem] min-[500px]:w-[11rem] min-[500px]:h-[15rem] md:w-[7rem] md:h-[9rem] min-[980px]:h-[11rem] min-[980px]:w-[9rem]  xl:w-[10rem] xl:h-[13rem]"
               />
             ))}
           </div>
