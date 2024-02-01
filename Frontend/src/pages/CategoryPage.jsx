@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PORT } from "../api/agent";
+import Products from "../components/Category/Products";
 const CategoryPage = () => {
   const [categories, setCatgeories] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const { id } = useParams();
 
+  // useeffect for fetching all the subcategory data that relateed to maincategory
   useEffect(() => {
     (async () => {
       try {
@@ -16,6 +18,7 @@ const CategoryPage = () => {
           `http://localhost:${PORT}/user/getcategorybyid?id=${Number(id)}`
         );
         setCatgeories(data);
+        setLoader(false);
       } catch (error) {}
     })();
   }, []);
@@ -26,7 +29,10 @@ const CategoryPage = () => {
         <h1>loader</h1>
       ) : (
         <>
-          <SideBar categories={categories} path={id} />
+          <div className="flex">
+            <SideBar categories={categories} path={id} />
+            <Products />
+          </div>
         </>
       )}
     </div>

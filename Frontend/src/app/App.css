@@ -18,7 +18,10 @@
   display: none;
 }
 
-
+.active {
+  background-color: rgb(153, 42, 238);
+  color: white;
+}
 
 
 /* Custom Classes   */

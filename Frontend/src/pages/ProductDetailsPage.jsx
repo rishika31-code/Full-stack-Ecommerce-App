@@ -11,17 +11,19 @@ import Loader from "../components/ProductDetails/Loader";
 const ProductDetailsPage = () => {
   const [product, setProduct] = useState({});
   const [loader, setLoader] = useState(true);
-  const { id } = useParams();
+  const { productid } = useParams();
 
   // useffect for fetch the product details
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:${PORT}/user/getproductdetails?id=${id}`
+          `http://localhost:${PORT}/user/getproductdetails?id=${productid}`
         );
         setProduct(data);
-        setLoader(false);
+        setTimeout(() => {
+          setLoader(false);
+        }, 1000);
       } catch (error) {
         console.log(error);
       }

@@ -29,8 +29,7 @@ const userCategory = {
         const { id } = req.query
         try {
             const dbRes = await SubCategories.findAll({
-                where: { mainCategoryId: id },
-                include: [{ model: Products }]
+                where: { mainCategoryId: id }
             })
             res.send(dbRes)
 

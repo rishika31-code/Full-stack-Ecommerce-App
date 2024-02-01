@@ -9,7 +9,7 @@ const ProductsContainer = () => {
   const navigate = useNavigate();
 
   const navgigateCatgeory = (id) => {
-    navigate(`/category/${id}`);
+    navigate(`/category/${id}/all`);
   };
 
   return (
