@@ -16,7 +16,7 @@ const ProductsContainer = () => {
     <>
       {categories.map((category) => {
         return (
-          <div className="mt-10" key={category.id}>
+          <div className="mt-10 px-5 md:px-0" key={category.id}>
             <div className="flex justify-between items-center font-semibold text-2xl">
               <h1>{category.name} </h1>
               <button

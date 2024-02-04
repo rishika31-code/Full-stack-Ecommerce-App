@@ -28,7 +28,7 @@ const ProductCarousel = ({ images }) => {
                 className="flex justify-center items-center"
               >
                 <div className="w-[15rem] h-[20rem]">
-                  <img src={images} className="w-full h-full object-cover" />
+                  <img src={images} className="w-full h-full object-contain" />
                 </div>
               </SwiperSlide>
             );

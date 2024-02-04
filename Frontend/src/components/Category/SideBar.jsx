@@ -13,7 +13,7 @@ const SideBar = ({ categories, path, setShowCategoryName }) => {
             <div className=" flex items-center px-4 py-2 gap-4 hover:bg-gray-100 border-y cursor-pointer font-medium text-base">
               <div className=" w-[3rem] h-[3rem] rounded-full bg-[#f7f0fa]">
                 <img
-                  src="https://cdn.zeptonow.com/production///tr:w-90,ar-500-500,pr-true,f-auto,q-80/cms/sub_category/Tender%20Coconut%20(2).png"
+                  src={category.imageUrl}
                   className=" w-full h-full object-cover"
                 />
               </div>

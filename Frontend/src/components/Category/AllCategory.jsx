@@ -5,7 +5,7 @@ import { MdNavigateNext } from "react-icons/md";
 // hard coded categories
 const AllCategory = () => {
   return (
-    <div className="mt-10 font-poppins">
+    <div className="mt-10 font-poppins px-5 md:px-0">
       <div className="flex justify-between items-center font-semibold text-2xl">
         <h1>Explore By Category </h1>
         <div className="flex justify-center items-center cursor-pointer text-pink-500">

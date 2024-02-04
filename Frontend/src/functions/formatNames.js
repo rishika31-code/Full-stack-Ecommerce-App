@@ -1,5 +1,5 @@
 const formatNames = (string) => {
-    if (string.length <= 35) {
+    if (string.length < 35) {
         return string
     }
     let newStr = ""

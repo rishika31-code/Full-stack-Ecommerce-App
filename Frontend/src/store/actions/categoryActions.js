@@ -1,7 +1,7 @@
 import axios from "axios"
 import { GET_CATEGORIES } from "../../api/agent"
 import { addCategory } from "../reducers/categorySlice"
-
+import toast from "react-hot-toast"
 
 export const getCategoriesAction = () => {
     return async (dispatch) => {
@@ -10,7 +10,7 @@ export const getCategoriesAction = () => {
             dispatch(addCategory(data))
 
         } catch (error) {
-            console.log(error)
+            toast.error(err.response.data.message)
         }
 
     }

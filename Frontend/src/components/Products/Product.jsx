@@ -16,11 +16,11 @@ const Product = ({ product }) => {
       <div className="w-full h-[50%] ">
         <img
           src={product.imageUrls[0]}
-          className=" w-full h-full object-cover rounded-md"
+          className=" w-full h-full object-contain rounded-md"
         />
       </div>
       <h1 className=" font-semibold">{formatNames(product.name)}</h1>
-      <h1>{product.productTypes[0].type}</h1>
+      <h1>{`${product.productTypes[0].type} | ${product.productTypes.length} options`}</h1>
       <div className="flex justify-between items-center">
         <h1 className=" font-medium text-xl">
           &#8377; {product.productTypes[0].price}
