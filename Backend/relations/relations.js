@@ -3,7 +3,10 @@ const MainCategories = require('../models/mainCategories')
 const Products = require('../models/products')
 const SubCategories = require('../models/subCategories')
 const ProductType = require('../models/productType')
+const Cart = require('../models/cart')
+const UserDetails = require('../models/userDetails')
 
+// all association
 module.exports = () => {
 
     MainCategories.hasMany(SubCategories);
@@ -17,6 +20,13 @@ module.exports = () => {
 
     Products.hasMany(ProductType);
     ProductType.belongsTo(Products);
+
+    UserDetails.hasMany(Cart)
+    Cart.belongsTo(UserDetails)
+
+    ProductType.hasMany(Cart)
+    Cart.belongsTo(ProductType)
+
 
 
 }

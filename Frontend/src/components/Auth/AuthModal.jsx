@@ -7,7 +7,7 @@ import AuthForm from "./AuthForm";
 import { useDispatch } from "react-redux";
 import { closeAuthModal } from "../../store/reducers/authSlice";
 
-const AuthModal = ({ showModal }) => {
+const AuthModal = () => {
   const dispatch = useDispatch();
   const theme = createTheme({
     breakpoints: {

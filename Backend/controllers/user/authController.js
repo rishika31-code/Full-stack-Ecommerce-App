@@ -40,7 +40,8 @@ const authController = {
                     res.send({
                         token: token,
                         name: findedUser.name,
-                        email
+                        email,
+                        cart: findedUser.carts
                     })
                 }
                 else { res.status(500).send({ message: "Wrong Password" }) }
@@ -64,8 +65,13 @@ const authController = {
 
                 if (findedUser) {
                     const checkPwd = await checkPassword(password, findedUser.password)
+
                     if (checkPwd) {
-                        res.send({ name: findedUser.name, email })
+                        res.send({
+                            name: findedUser.name,
+                            email,
+                            cart: findedUser.carts
+                        })
                     }
                     else { res.status(500).send({ message: "Please LogIn Again" }) }
                 }

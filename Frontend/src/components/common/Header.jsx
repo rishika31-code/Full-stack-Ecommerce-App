@@ -1,11 +1,10 @@
 import { CgSearch } from "react-icons/cg";
 import { IoCart } from "react-icons/io5";
 import { PiCurrencyInrDuotone } from "react-icons/pi";
-import AuthModal from "../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../store/reducers/authSlice";
 const Header = () => {
-  const { showAuthModal, isloggedIn } = useSelector((state) => state.authSlice);
+  const { isloggedIn } = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
 
   // opening signup/login modal
@@ -15,7 +14,6 @@ const Header = () => {
 
   return (
     <>
-      {showAuthModal && <AuthModal />}
       <header className=" sticky top-0 z-50">
         <div className=" flex justify-between items-center primary-bg-darker gap-4 px-10 py-4 font-poppins">
           <div className="">

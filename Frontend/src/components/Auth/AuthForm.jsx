@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { logInAction, signUpAction } from "../../store/actions/AuthActions";
 import { useDispatch } from "react-redux";
+import { LuLoader2 } from "react-icons/lu";
 const AuthForm = () => {
   const dispatch = useDispatch();
+  const [btnLoader, setBtnLoader] = useState(false);
   const [islogIn, setIsLogIn] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,13 +20,13 @@ const AuthForm = () => {
         email,
         password,
       };
-      dispatch(signUpAction(userDetails));
+      dispatch(signUpAction(userDetails, setBtnLoader));
     } else if (islogIn) {
       const userDetails = {
         email,
         password,
       };
-      dispatch(logInAction(userDetails));
+      dispatch(logInAction(userDetails, setBtnLoader));
     }
   };
 
@@ -83,9 +85,15 @@ const AuthForm = () => {
             className="w-full p-2 bg-white rounded-md"
           />
         </div>
-        <button className=" bg-pink-600 text-white mt-2 p-2 rounded-md">
-          Create Account
-        </button>
+        {btnLoader ? (
+          <button className=" bg-pink-600 text-white mt-2 p-2 rounded-md flex justify-center items-center">
+            <LuLoader2 className="animate-spin text-2xl" />
+          </button>
+        ) : (
+          <button className=" bg-pink-600 text-white mt-2 p-2 rounded-md">
+            {`${islogIn ? "Log In" : "Create Account"}`}
+          </button>
+        )}
         <div className=" text-white mt-5 text-base flex flex-col ">
           <h1>{islogIn ? "New User ?" : "Already have an account ?"}</h1>
           <h1

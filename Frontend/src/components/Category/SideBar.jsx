@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const SideBar = ({ categories, path, setShowCategoryName }) => {
+const SideBar = ({ categories, path }) => {
   return (
     <div
       className="w-[18rem] border overflow-y-scroll h-[calc(100vh-5.75rem)] 

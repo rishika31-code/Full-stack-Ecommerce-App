@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PORT } from "../api/agent";
 import Products from "../components/Category/Products";
+import Loader from "../components/Loader/Loader";
 const CategoryPage = () => {
   const [categories, setCatgeories] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -26,7 +27,7 @@ const CategoryPage = () => {
   return (
     <div>
       {loader ? (
-        <h1>loader</h1>
+        <Loader />
       ) : (
         <>
           <div className="flex">

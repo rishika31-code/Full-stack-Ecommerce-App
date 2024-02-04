@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import formatNames from "../../functions/formatNames";
+import CartBtn from "../buttons/CartBtn";
 
 const Product = ({ product }) => {
   const navigate = useNavigate();
-
   const getProductDetails = () => {
     navigate(`/product/${product.id}`);
   };
@@ -13,7 +13,7 @@ const Product = ({ product }) => {
       className="w-[13rem] h-[20rem] flex flex-col gap-3 shadow-md border px-4 py-2 rounded-md "
       onClick={getProductDetails}
     >
-      <div className="w-full h-[50%] ">
+      <div className="w-full h-[60%] ">
         <img
           src={product.imageUrls[0]}
           className=" w-full h-full object-contain rounded-md"
@@ -25,9 +25,10 @@ const Product = ({ product }) => {
         <h1 className=" font-medium text-xl">
           &#8377; {product.productTypes[0].price}
         </h1>
-        <button className="primary-linear-bg text-white px-4 py-1 rounded-md">
+        {/* <button className="primary-linear-bg text-white px-4 py-1 rounded-md">
           Add
-        </button>
+        </button> */}
+        <CartBtn id={product.productTypes[0].id} />
       </div>
     </div>
   );
