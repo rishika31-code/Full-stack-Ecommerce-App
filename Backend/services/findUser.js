@@ -6,7 +6,7 @@ const Userdetails = require('../models/userDetails')
 const findUser = (email) => {
     return Userdetails.findOne({
         where: { email: email },
-        include: [{ model: Cart }]
+        include: [{ model: Cart, attributes: ["id", "quantity", "productTypeId"] }]
     })
 }
 

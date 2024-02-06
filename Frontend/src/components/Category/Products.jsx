@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PORT } from "../../api/agent";
 import axios from "axios";
+import Loader from "../Loader/Loader";
 
 const Products = () => {
   const { subid, id } = useParams();
@@ -26,7 +27,6 @@ const Products = () => {
   }, [subid]);
 
   // navigating user to product details page
-
   const goToProductDetails = (prodId) => {
     navigate(`/category/${id}/${subid}/${prodId}`);
   };
@@ -34,7 +34,7 @@ const Products = () => {
   return (
     <>
       {loader ? (
-        <h1>Loader</h1>
+        <Loader />
       ) : (
         <>
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 m-2 mt-5 ">
