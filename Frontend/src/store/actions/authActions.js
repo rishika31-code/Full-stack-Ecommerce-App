@@ -53,6 +53,7 @@ export const logInAction = (userData, setBtnLoader) => {
             data.cart.forEach(element => {
                 cartItems[element.productTypeId] = { ...element }
             });
+
             dispatch(setCartItem(cartItems))
             dispatch(closeAuthModal())
             dispatch(setUserLoggedIn())
@@ -75,7 +76,6 @@ export const verifyUserAction = (token, setLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.post(VERIFY_USER, { token })
-            console.log(data)
             // getting the user details form data 
             const userDetails = {
                 name: data.name,
@@ -89,6 +89,8 @@ export const verifyUserAction = (token, setLoader) => {
             data.cart.forEach(element => {
                 cartItems[element.productTypeId] = { ...element }
             });
+
+            console.log(cartItems)
             dispatch(setCartItem(cartItems))
             dispatch(setUserLoggedIn())
             setLoader(false)

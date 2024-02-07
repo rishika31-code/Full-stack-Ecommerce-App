@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PORT } from "../../api/agent";
 import axios from "axios";
 import Loader from "../Loader/Loader";
+import CartBtn from "../buttons/CartBtn";
 
 const Products = () => {
   const { subid, id } = useParams();
@@ -63,9 +64,7 @@ const Products = () => {
                     <h1 className=" font-medium text-xl">
                       &#8377;{product.productTypes[0].price}
                     </h1>
-                    <button className="primary-linear-bg text-white px-4 py-1 rounded-md">
-                      Add
-                    </button>
+                    <CartBtn id={product.productTypes[0].id} />
                   </div>
                 </div>
               );

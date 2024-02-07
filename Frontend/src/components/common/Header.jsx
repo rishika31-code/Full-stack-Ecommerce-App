@@ -5,8 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../store/reducers/authSlice";
 const Header = () => {
   const { isloggedIn } = useSelector((state) => state.authSlice);
-  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cartSlice);
 
+  // calculating total item & price in the cart
+  let totalItems = 0;
+  let price = 0;
+
+  Object.values(cartItems).forEach((values) => {
+    price += values.productType.price * values.quantity;
+    totalItems += values.quantity;
+  });
+
+  const dispatch = useDispatch();
   // opening signup/login modal
   const openAuthModalHandeler = () => {
     dispatch(openAuthModal());
@@ -45,10 +55,10 @@ const Header = () => {
               <IoCart className="text-5xl" />
               <h1 className=" text-3xl">|</h1>
               <div className=" flex flex-col justify-center items-center">
-                <h1>3 Items</h1>
+                <h1>{totalItems} Items</h1>
                 <div className="flex justify-center items-center text-base">
                   <PiCurrencyInrDuotone />
-                  <h1>220</h1>
+                  <h1>{price}</h1>
                 </div>
               </div>
             </div>

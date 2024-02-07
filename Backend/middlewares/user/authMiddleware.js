@@ -14,14 +14,14 @@ const authMiddleware = async (req, res, next) => {
                     req.user = findedUser
                     next()
                 }
-                else { throw new Error('LogIn Again ') }
+                else { throw new Error({ message: "LogIn Again " }) }
             }
             else {
-                throw new Error('LogIn Again ')
+                throw new Error({ message: "LogIn Again " })
             }
         }
         else {
-            throw new Error('LogIn Again ')
+            throw new Error({ message: "LogIn Again " })
         }
 
     } catch (error) {

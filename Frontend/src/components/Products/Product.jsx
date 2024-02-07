@@ -4,7 +4,8 @@ import CartBtn from "../buttons/CartBtn";
 
 const Product = ({ product }) => {
   const navigate = useNavigate();
-  const getProductDetails = () => {
+  const getProductDetails = (e) => {
+    e.stopPropagation();
     navigate(`/product/${product.id}`);
   };
 
@@ -25,9 +26,6 @@ const Product = ({ product }) => {
         <h1 className=" font-medium text-xl">
           &#8377; {product.productTypes[0].price}
         </h1>
-        {/* <button className="primary-linear-bg text-white px-4 py-1 rounded-md">
-          Add
-        </button> */}
         <CartBtn id={product.productTypes[0].id} />
       </div>
     </div>

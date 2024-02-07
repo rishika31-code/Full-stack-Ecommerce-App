@@ -8,6 +8,9 @@ const apiEndPoints = {
     LOGIN_USER: `http://localhost:${PORT}/user/login`,
     VERIFY_USER: `http://localhost:${PORT}/user/verifyuser`,
     ADD_TO_CART: `http://localhost:${PORT}/user/addtocart`,
+    INCREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/increasequantity`,
+    DECREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/decreasequantity`,
+
 
 }
 
@@ -19,5 +22,7 @@ export const {
     SIGNUP_USER,
     LOGIN_USER,
     VERIFY_USER,
-    ADD_TO_CART
+    ADD_TO_CART,
+    INCREASE_CART_QUANTITIY,
+    DECREASE_CART_QUANTITIY
 } = apiEndPoints

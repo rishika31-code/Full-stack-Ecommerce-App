@@ -1,4 +1,5 @@
 import React from "react";
+import CartBtn from "../buttons/CartBtn";
 
 const ProductTypes = ({ productName, productType, categoryName }) => {
   return (
@@ -22,9 +23,7 @@ const ProductTypes = ({ productName, productType, categoryName }) => {
               <p className="text-xl">MRP &#8377;{Number(values.price)}</p>
               <p>(Inclusive of all taxes)</p>
             </div>
-            <button className="primary-bg-darker-pink px-5 py-1 rounded-md text-white">
-              Add
-            </button>
+            <CartBtn id={values.id} />
           </div>
         );
       })}
