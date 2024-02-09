@@ -11,7 +11,7 @@ const Product = ({ product }) => {
 
   return (
     <div
-      className="w-[13rem] h-[20rem] flex flex-col gap-3 shadow-md border px-4 py-2 rounded-md "
+      className="w-[13rem] h-[20rem] flex flex-col gap-3 shadow-md border px-4 py-2 rounded-md bg-white"
       onClick={getProductDetails}
     >
       <div className="w-full h-[60%] ">

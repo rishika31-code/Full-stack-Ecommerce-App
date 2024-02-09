@@ -10,7 +10,7 @@ const apiEndPoints = {
     ADD_TO_CART: `http://localhost:${PORT}/user/addtocart`,
     INCREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/increasequantity`,
     DECREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/decreasequantity`,
-
+    GET_CART: `http://localhost:${PORT}/user/getcart`
 
 }
 
@@ -24,5 +24,6 @@ export const {
     VERIFY_USER,
     ADD_TO_CART,
     INCREASE_CART_QUANTITIY,
-    DECREASE_CART_QUANTITIY
+    DECREASE_CART_QUANTITIY,
+    GET_CART
 } = apiEndPoints

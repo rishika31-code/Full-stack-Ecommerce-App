@@ -3,7 +3,10 @@ import { IoCart } from "react-icons/io5";
 import { PiCurrencyInrDuotone } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../store/reducers/authSlice";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isloggedIn } = useSelector((state) => state.authSlice);
   const { cartItems } = useSelector((state) => state.cartSlice);
 
@@ -16,10 +19,13 @@ const Header = () => {
     totalItems += values.quantity;
   });
 
-  const dispatch = useDispatch();
   // opening signup/login modal
   const openAuthModalHandeler = () => {
     dispatch(openAuthModal());
+  };
+
+  const goToCartPage = () => {
+    navigate("/cart");
   };
 
   return (
@@ -51,7 +57,10 @@ const Header = () => {
                 Log in
               </h1>
             )}
-            <div className=" bg-pink-600 px-6 py-1 rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer">
+            <div
+              className=" bg-pink-600 px-6 py-1 rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"
+              onClick={goToCartPage}
+            >
               <IoCart className="text-5xl" />
               <h1 className=" text-3xl">|</h1>
               <div className=" flex flex-col justify-center items-center">

@@ -2,7 +2,7 @@ const express = require("express")
 const { getCategories, getCategoryByid } = require('../controllers/user/userCategory')
 const { getProductDetails, getProductBySubCategory } = require('../controllers/user/product')
 const { onUserSignUp, onUserLogIn, onVerfiyUser } = require('../controllers/user/authController')
-const { addToCart, increaseQuantity, deceraseQuantity } = require("../controllers/user/cartController")
+const { addToCart, increaseQuantity, deceraseQuantity, getCart } = require("../controllers/user/cartController")
 const authMiddleware = require("../middlewares/user/authMiddleware")
 
 const router = express.Router()
@@ -20,6 +20,7 @@ router.post('/verifyuser', onVerfiyUser)
 
 // cart routes 
 router.post('/addtocart', authMiddleware, addToCart)
+router.get('/getcart', authMiddleware, getCart)
 router.post('/increasequantity', authMiddleware, increaseQuantity)
 router.post('/decreasequantity', authMiddleware, deceraseQuantity)
 

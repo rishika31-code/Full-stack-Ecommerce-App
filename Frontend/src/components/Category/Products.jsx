@@ -33,46 +33,38 @@ const Products = () => {
   };
 
   return (
-    <>
-      {loader ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 m-2 mt-5 ">
-            {products.map((product) => {
-              return (
-                <div
-                  className="w-full h-[20rem] flex flex-col gap-3 border px-4 py-2 rounded-md shadow-md"
-                  onClick={() => {
-                    goToProductDetails(product.id);
-                  }}
-                  key={product.id}
-                >
-                  <div className="w-full h-[50%] sm:h-[60%] p-1 rounded-md ">
-                    <img
-                      src={product.imageUrls[0]}
-                      className=" w-full h-full object-contain rounded-md"
-                    />
-                  </div>
-                  <p className=" font-semibold font-poppins w-fit">
-                    {formatNames(product.name)}
-                  </p>
-                  <h1>
-                    {`${product.productTypes[0].type} | ${product.productTypes.length} options`}
-                  </h1>
-                  <div className="flex justify-between items-center">
-                    <h1 className=" font-medium text-xl">
-                      &#8377;{product.productTypes[0].price}
-                    </h1>
-                    <CartBtn id={product.productTypes[0].id} />
-                  </div>
-                </div>
-              );
-            })}
+    <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 m-2 mt-5 pt-3 ">
+      {products.map((product) => {
+        return (
+          <div
+            className="w-full h-[20rem] flex flex-col gap-3 border px-4 py-2 rounded-md shadow-md bg-white "
+            onClick={() => {
+              goToProductDetails(product.id);
+            }}
+            key={product.id}
+          >
+            <div className="w-full h-[50%] sm:h-[60%] p-1 rounded-md ">
+              <img
+                src={product.imageUrls[0]}
+                className=" w-full h-full object-contain rounded-md"
+              />
+            </div>
+            <p className=" font-semibold font-poppins w-fit">
+              {formatNames(product.name)}
+            </p>
+            <h1>
+              {`${product.productTypes[0].type} | ${product.productTypes.length} options`}
+            </h1>
+            <div className="flex justify-between items-center">
+              <h1 className=" font-medium text-xl">
+                &#8377;{product.productTypes[0].price}
+              </h1>
+              <CartBtn id={product.productTypes[0].id} />
+            </div>
           </div>
-        </>
-      )}
-    </>
+        );
+      })}
+    </div>
   );
 };
 

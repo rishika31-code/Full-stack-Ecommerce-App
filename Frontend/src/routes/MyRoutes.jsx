@@ -3,6 +3,7 @@ import React from "react";
 import HomePage from "../pages/HomePage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CategoryPage from "../pages/CategoryPage";
+import CartPage from "../pages/CartPage";
 
 const MyRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const MyRoutes = () => {
         path="/category/:id/:subid/:productid"
         element={<ProductDetailsPage />}
       />
+      <Route path="/cart" element={<CartPage />} />
       <Route path="*" element={<HomePage />} />
     </Routes>
   );

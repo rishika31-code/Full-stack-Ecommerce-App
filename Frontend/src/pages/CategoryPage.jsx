@@ -25,17 +25,9 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <div>
-      {loader ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="flex">
-            <SideBar categories={categories} path={id} />
-            <Products />
-          </div>
-        </>
-      )}
+    <div className="flex">
+      <SideBar categories={categories} path={id} />
+      <Products />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 const Cart = require("../../models/cart")
 const ProductType = require("../../models/productType")
 const findCart = require("../../services/findCart")
-
+const Products = require('../../models/products')
 const cartController = {
     // add to cart
     addToCart: async (req, res) => {
@@ -21,7 +21,7 @@ const cartController = {
 
         } catch (error) {
             console.log(error)
-            res.status(200).send({ message: "Error Try Again !" })
+            res.status(400).send({ message: "Error Try Again !" })
         }
     },
 
@@ -41,7 +41,7 @@ const cartController = {
             res.send(cart)
 
         } catch (error) {
-            res.status(200).send({ message: "Error!" })
+            res.status(400).send({ message: "Error!" })
         }
     },
 
@@ -66,7 +66,25 @@ const cartController = {
             }
 
         } catch (error) {
-            res.status(200).send({ message: "Error!" })
+            res.status(400).send({ message: "Error!" })
+        }
+    },
+    getCart: async (req, res) => {
+        const { id } = req.user
+        try {
+            const dbRes = await Cart.findAll({
+                where: { userId: id },
+                include: [
+                    {
+                        model: ProductType,
+                        include: [{ model: Products }]
+                    }
+                ]
+            });
+            res.send(dbRes);
+        } catch (error) {
+            console.log(error)
+            res.status(400).send({ message: "Error!" })
         }
     }
 

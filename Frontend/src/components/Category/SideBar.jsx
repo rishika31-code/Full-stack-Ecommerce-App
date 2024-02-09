@@ -5,7 +5,7 @@ const SideBar = ({ categories, path }) => {
   return (
     <div
       className="w-[18rem] border overflow-y-scroll h-[calc(100vh-5.75rem)] 
-    catgeory-sidebar sticky z-30 top-[5.75rem] left-0 shadow-md flex flex-col hide-scrollbar"
+    catgeory-sidebar sticky z-30 top-[5.75rem] left-0 shadow-md flex flex-col hide-scrollbar bg-white"
     >
       {categories.map((category) => {
         return (

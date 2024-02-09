@@ -13,7 +13,7 @@ const AllCategory = () => {
           <MdNavigateNext className="text-xl " />
         </div>
       </div>
-      <div className="mt-7 flex flex-col justify-center gap-5">
+      <div className="mt-7 flex flex-col justify-center gap-5 ">
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="flex gap-8 items-center justify-between">
             {banners.categoryBanners[0].map((item, index) => (
