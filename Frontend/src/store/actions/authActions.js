@@ -90,7 +90,6 @@ export const verifyUserAction = (token, setLoader) => {
                 cartItems[element.productTypeId] = { ...element }
             });
 
-            console.log(cartItems)
             dispatch(setCartItem(cartItems))
             dispatch(setUserLoggedIn())
             setLoader(false)

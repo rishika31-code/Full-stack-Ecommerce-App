@@ -11,10 +11,11 @@ const Product = ({ product }) => {
 
   return (
     <div
-      className="w-[13rem] h-[20rem] flex flex-col gap-3 shadow-md border px-4 py-2 rounded-md bg-white"
+      className="w-[13rem] h-[20rem] grid  shadow-md border px-4 py-2 rounded-md bg-white"
       onClick={getProductDetails}
+      style={{ gridTemplateRows: "11rem 2fr 1fr 1fr" }}
     >
-      <div className="w-full h-[60%] ">
+      <div className="w-full h-full ">
         <img
           src={product.imageUrls[0]}
           className=" w-full h-full object-contain rounded-md"

@@ -26,6 +26,7 @@ export const addToCartAction = (cartData, setQuantity) => {
                 console.log(err)
                 toast.error(err.response.data.message)
             }
+
         }
         else {
             toast.error("LogIn Again ! ")
@@ -55,7 +56,7 @@ export const increaseQuantityAction = (cartData, setQuantity) => {
             }
         }
         else {
-            toast.error("error")
+            toast.error("LogIn Again ! ")
         }
 
 
@@ -69,26 +70,33 @@ export const decreaseQuantityAction = (cartData, setQuantity) => {
     const { productTypeId } = cartData
     return async (dispatch, getState) => {
         const token = localStorage.getItem('token')
-        try {
-            const { data } = await axios.post(DECREASE_CART_QUANTITIY, cartData, {
-                headers: { token: token }
-            })
-            const oldCartItems = getState().cartSlice.cartItems
-            if (data.quantity >= 1) {
-                const clone = structuredClone(oldCartItems)
-                clone[productTypeId].quantity = data.quantity
+        if (token) {
+            try {
+                const { data } = await axios.post(DECREASE_CART_QUANTITIY, cartData, {
+                    headers: { token: token }
+                })
+                const oldCartItems = getState().cartSlice.cartItems
+                if (data.quantity >= 1) {
+                    const clone = structuredClone(oldCartItems)
+                    clone[productTypeId].quantity = data.quantity
 
-                dispatch(setCartItem(clone))
-            }
-            else {
-                const clone = { ...oldCartItems };
-                delete clone[productTypeId];
-                dispatch(setCartItem(clone));
-            }
+                    dispatch(setCartItem(clone))
+                }
+                else {
+                    const clone = { ...oldCartItems };
+                    delete clone[productTypeId];
+                    dispatch(setCartItem(clone));
+                }
 
-        } catch (err) {
-            console.log(err)
-            toast.error("error")
+            } catch (err) {
+                console.log(err)
+                toast.error("error")
+            }
         }
+        else {
+            toast.error("LogIn Again ! ")
+        }
+
+
     }
 }

@@ -25,7 +25,11 @@ const Header = () => {
   };
 
   const goToCartPage = () => {
-    navigate("/cart");
+    if (isloggedIn) {
+      navigate("/cart");
+    } else {
+      dispatch(openAuthModal());
+    }
   };
 
   return (
@@ -33,7 +37,9 @@ const Header = () => {
       <header className=" sticky top-0 z-50">
         <div className=" flex justify-between items-center primary-bg-darker gap-4 px-10 py-4 font-poppins">
           <div className="">
-            <h1 className="text-3xl text-orange-500 font-bold">RedBubble</h1>
+            <h1 className="text-3xl primary-color-darker-pink font-bold">
+              RedBubble
+            </h1>
             <h1 className="text-md ml-7  text-white">Kolkata , 700001</h1>
           </div>
           <div className="flex justify-start items-center bg-gray-100 px-2 py-3 w-[50%] min-[600px]:w-[60%] rounded-md">
@@ -58,7 +64,7 @@ const Header = () => {
               </h1>
             )}
             <div
-              className=" bg-pink-600 px-6 py-1 rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"
+              className=" primary-bg-darker-pink px-6 py-1 rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"
               onClick={goToCartPage}
             >
               <IoCart className="text-5xl" />

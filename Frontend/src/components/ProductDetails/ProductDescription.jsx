@@ -4,7 +4,7 @@ const ProductDescription = ({ description }) => {
   return (
     <div className=" w-full md:w-[90%] flex flex-col gap-2 px-5">
       <h1 className=" text-xl font-medium">About The Product</h1>
-      <ul className="text-gray-400 flex flex-col gap-2 list-disc">
+      <ul className="text-gray-500 flex flex-col gap-2 list-disc">
         <li>Discription: {description}</li>
         <li>Country of Origin: India</li>
         <li>Shelf Life: 90 days</li>

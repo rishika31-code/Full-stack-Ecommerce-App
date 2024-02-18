@@ -67,7 +67,7 @@ const CartBtn = ({ id }) => {
     <div>
       {quantity == 0 ? (
         <button
-          className="primary-bg-darker-pink text-white px-4 py-1 rounded-md text-xl"
+          className="border border-red-500 px-4 py-1 primary-color-darker-pink rounded-md text-md"
           onClick={addToCartHandeler}
         >
           Add

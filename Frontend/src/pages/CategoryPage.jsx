@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../components/Category/SideBar";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { PORT } from "../api/agent";
 import Products from "../components/Category/Products";
-import Loader from "../components/Loader/Loader";
+
 const CategoryPage = () => {
   const [categories, setCatgeories] = useState([]);
   const [loader, setLoader] = useState(true);

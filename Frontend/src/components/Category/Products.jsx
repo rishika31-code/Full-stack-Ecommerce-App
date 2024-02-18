@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PORT } from "../../api/agent";
 import axios from "axios";
-import Loader from "../Loader/Loader";
 import CartBtn from "../buttons/CartBtn";
 
 const Products = () => {
   const { subid, id } = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -20,7 +18,6 @@ const Products = () => {
         );
         console.log(data);
         setProducts(data);
-        setLoader(false);
       } catch (error) {
         console.log(error);
       }
@@ -37,13 +34,14 @@ const Products = () => {
       {products.map((product) => {
         return (
           <div
-            className="w-full h-[20rem] flex flex-col gap-3 border px-4 py-2 rounded-md shadow-md bg-white "
+            className="w-full h-[20rem] grid border px-4 py-2 rounded-md shadow-md bg-white "
             onClick={() => {
               goToProductDetails(product.id);
             }}
             key={product.id}
+            style={{ gridTemplateRows: "11rem 2fr 1fr 1fr" }}
           >
-            <div className="w-full h-[50%] sm:h-[60%] p-1 rounded-md ">
+            <div className="w-full  p-1 rounded-md ">
               <img
                 src={product.imageUrls[0]}
                 className=" w-full h-full object-contain rounded-md"

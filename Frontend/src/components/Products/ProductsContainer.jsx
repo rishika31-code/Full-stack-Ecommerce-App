@@ -20,7 +20,7 @@ const ProductsContainer = () => {
             <div className="flex justify-between items-center font-semibold text-2xl">
               <h1>{category.name} </h1>
               <button
-                className="flex justify-center items-center cursor-pointer text-pink-500"
+                className="flex justify-center items-center cursor-pointer primary-color-darker-pink"
                 onClick={() => {
                   navgigateCatgeory(category.id);
                 }}
@@ -29,7 +29,6 @@ const ProductsContainer = () => {
                 <MdNavigateNext className="text-xl " />
               </button>
             </div>
-
             <Carousel>
               <div className=" flex items-center gap-4">
                 {category.products &&
