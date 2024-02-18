@@ -70,8 +70,3 @@ const AddAddressForm = () => {
 };
 
 export default AddAddressForm;
-
-// google api key
-// AIzaSyDtXKD36rRoVFhJmXyAA9gSl6gghM58HWk
-
-// google api key is there we can use that
