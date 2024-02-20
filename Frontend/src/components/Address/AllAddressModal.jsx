@@ -42,6 +42,7 @@ const AllAddressModal = ({ showModal }) => {
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",
+    zIndex: 20,
     overflowY: "auto",
     WebkitOverflowScrolling: "touch",
     scrollbarWidth: "thin",

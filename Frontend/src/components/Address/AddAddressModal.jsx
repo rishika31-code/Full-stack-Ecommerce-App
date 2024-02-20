@@ -39,6 +39,7 @@ const AddAddressModal = ({ showModal }) => {
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",
+    zIndex: 30,
     overflowY: "auto",
     WebkitOverflowScrolling: "touch",
     scrollbarWidth: "thin",
@@ -68,7 +69,7 @@ const AddAddressModal = ({ showModal }) => {
             Location Information
           </h1>
           <div>
-            <AddAddressForm />
+            <AddAddressForm showModal={showModal} />
           </div>
         </Box>
       </Modal>

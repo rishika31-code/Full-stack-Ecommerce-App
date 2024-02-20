@@ -3,6 +3,7 @@ const { getCategories, getCategoryByid } = require('../controllers/user/userCate
 const { getProductDetails, getProductBySubCategory } = require('../controllers/user/product')
 const { onUserSignUp, onUserLogIn, onVerfiyUser } = require('../controllers/user/authController')
 const { addToCart, increaseQuantity, deceraseQuantity, getCart } = require("../controllers/user/cartController")
+const { addAddress } = require('../controllers/user/addressController')
 const authMiddleware = require("../middlewares/user/authMiddleware")
 
 const router = express.Router()
@@ -24,6 +25,8 @@ router.get('/getcart', authMiddleware, getCart)
 router.post('/increasequantity', authMiddleware, increaseQuantity)
 router.post('/decreasequantity', authMiddleware, deceraseQuantity)
 
+// address Routres 
+router.post('/addaddress', authMiddleware, addAddress)
 
 // exports 
 module.exports = router

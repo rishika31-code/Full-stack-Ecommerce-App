@@ -23,6 +23,15 @@
   color: white;
 }
 
+/* GOOGLE AUTOCOMPLETE CONTAINER  */
+.pac-container {
+  z-index: 2000;
+}
+
+.gm-style .gm-style-cc {
+  display: none;
+}
+
 
 /* Custom Classes   */
 
