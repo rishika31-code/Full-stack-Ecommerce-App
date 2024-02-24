@@ -5,22 +5,37 @@ import CartProduct from "../components/Cart/CartProduct";
 import Coupons from "../components/Cart/Coupons";
 import TotalAmount from "../components/Cart/TotalAmount";
 import Address from "../components/Address/Address";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import EmptyCart from "../components/Cart/EmptyCart";
-
+import { getAddreesesAction } from "../store/actions/addressAction";
+import toast from "react-hot-toast";
 const CartPage = () => {
+  const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
   const { cartItems } = useSelector((state) => state.cartSlice);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      const token = localStorage.getItem("token");
-      const { data } = await axios.get(GET_CART, { headers: { token: token } });
-      setCart(data);
-      setLoader(false);
-    })();
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      (async () => {
+        try {
+          const [cartResponse] = await Promise.all([
+            axios.get(GET_CART, { headers: { token: token } }),
+            dispatch(getAddreesesAction()),
+          ]);
+          const { data } = cartResponse;
+          setCart(data);
+          setLoader(false);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    } else {
+      toast.error("LogIn Again !");
+    }
   }, [cartItems]);
 
   // calculating total item & price

@@ -3,8 +3,9 @@
 }
 
 .primary-bg-darker-pink {
-  background-color: rgba(255, 50, 105, 1);
+  background-color: rgba(255, 50, 105, 1) !important;
 }
+
 
 .primary-color-darker-pink {
   color: rgba(255, 50, 105, 1);

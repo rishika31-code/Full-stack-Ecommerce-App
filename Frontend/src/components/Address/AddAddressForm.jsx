@@ -10,12 +10,13 @@ const defaultCenter = {
   lng: -38.523,
 };
 
-const AddAddressForm = () => {
+const AddAddressForm = ({ showModal }) => {
   const [address, setAddress] = useState("Loading...");
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [houseNumber, setHouseNumber] = useState("");
   const [buildingNumber, setBuildingNumber] = useState("");
   const [landmark, setLandMark] = useState("");
+  const [phone, setPhone] = useState("");
   const [label, setLabel] = useState("Home");
   const dispatch = useDispatch();
 
@@ -23,15 +24,19 @@ const AddAddressForm = () => {
   const submitedAdressHandeler = (e) => {
     e.preventDefault();
     const SubmitedAddress = {
+      stringFormat: `${landmark} , ${houseNumber} , ${buildingNumber},${
+        address.split(",")[address.split(",").length - 2]
+      } ,
+       ${address.split(",")[address.split(",").length - 1]}, Phone: ${phone}`,
       coordinates: mapCenter,
-      pinnedAdess: address,
+      pinnedAddress: address,
       houseNumber,
       buildingNumber,
       landmark,
       label,
+      phone,
     };
-
-    dispatch(addAdressAction(SubmitedAddress));
+    dispatch(addAdressAction(SubmitedAddress, showModal));
   };
 
   return (
@@ -93,6 +98,19 @@ const AddAddressForm = () => {
             value={landmark}
             onChange={(e) => {
               setLandMark(e.target.value);
+            }}
+            required
+          />
+        </div>
+        <div className=" flex flex-col gap-1">
+          <label>Phone Number</label>
+          <input
+            type="number"
+            className="w-full bg-gray-100 p-2 rounded-md"
+            placeholder="Enter phone number"
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
             }}
             required
           />

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_ADDRESS } from "../../api/agent"
+import { ADD_ADDRESS, GET_ADDRESSES } from "../../api/agent"
 import { addAdress } from "../reducers/addressSlice"
 import toast from "react-hot-toast"
 // for add a new address
@@ -21,6 +21,19 @@ export const addAdressAction = (addedAdress, showModal) => {
 
         } else {
             toast.error("LogIn Again !")
+        }
+    }
+}
+
+
+export const getAddreesesAction = () => {
+    return async (dispatch, getState) => {
+        const token = localStorage.getItem("token")
+        try {
+            const { data } = await axios.get(GET_ADDRESSES, { headers: { token: token } })
+            dispatch(addAdress(data))
+        } catch (error) {
+            console.log(error)
         }
     }
 }

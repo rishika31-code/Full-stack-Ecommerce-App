@@ -5,6 +5,7 @@ require('dotenv').config()
 // Imnporting routes 
 const adminRoutes = require('./routes/adminRoutes')
 const userRoutes = require('./routes/userRoutes')
+
 // Importing middlewares
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -13,7 +14,6 @@ const bodyParser = require('body-parser')
 // importing db
 const db = require('./util/database')
 const app = express()
-
 
 // Applying middlewares
 app.use(cors())

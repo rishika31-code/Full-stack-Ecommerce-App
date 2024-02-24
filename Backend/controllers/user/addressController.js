@@ -3,7 +3,6 @@ const Address = require('../../models/address')
 const addressController = {
     addAddress: async (req, res) => {
         const { id } = req.user
-        console.log(id)
         const jsonAddress = JSON.stringify(req.body)
         try {
             const dbRes = await Address.create({ address: jsonAddress, userId: id })
@@ -11,7 +10,19 @@ const addressController = {
             return res.send(formattedRes)
 
         } catch (error) {
-            console.log(error)
+            res.status(400).send({ message: 'Something Went Wrong' })
+        }
+    },
+    getAddresses: async (req, res) => {
+        const { id } = req.user
+        try {
+            const dbRes = await Address.findAll({ where: { userId: id } })
+            dbRes.forEach((values) => {
+                values.address = JSON.parse(values.address)
+            })
+            return res.send(dbRes)
+        } catch (error) {
+            res.status(500).send({ message: 'Something Went Wrong' })
         }
     }
 }

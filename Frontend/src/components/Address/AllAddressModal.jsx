@@ -4,11 +4,20 @@ import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { FaLocationDot } from "react-icons/fa6";
 import { useState } from "react";
 import AddAddressModal from "./AddAddressModal";
+import { useSelector } from "react-redux";
 
-const AllAddressModal = ({ showModal }) => {
+const AllAddressModal = ({
+  showModal,
+  setAddressId,
+  setAddressLabel,
+  setAddress,
+}) => {
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
+  const { addresses } = useSelector((state) => state.addressSlice);
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -52,6 +61,14 @@ const AllAddressModal = ({ showModal }) => {
     },
   };
 
+  // if user want to change the address
+  const selectAddressHandeler = (id, address, label) => {
+    setAddressId(id);
+    setAddress(address);
+    setAddressLabel(label);
+    showModal(false);
+  };
+
   return (
     <>
       {showAddAddressModal && (
@@ -63,29 +80,55 @@ const AllAddressModal = ({ showModal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button
-            className="primary-bg-darker-pink px-2 py-2 cursor-pointer rounded-md absolute top-0 right-0"
-            onClick={() => {
-              showModal(false);
-            }}
-          >
-            <RxCross2 className="text-2xl text-white " />
-          </button>
-
-          <div className="px-6  flex flex-col gap-4 justify-center">
-            <h1 className="text-center p-2 font-popins text-xl font-medium">
-              Select an Address
-            </h1>
-            <button
-              className=" flex items-center justify-start gap-2 border-t border-b w-full py-4 primary-color-darker-pink"
-              onClick={() => {
-                setShowAddAddressModal(true);
-              }}
-            >
-              <IoMdAddCircleOutline className=" text-xl" />
-              <span>Add a new address</span>
-            </button>
-            <h1>SAVED ADDRESSES</h1>
+          <div className=" sticky bg-white  w-full top-0">
+            <div className=" relative flex justify-end items-end">
+              <button
+                className="primary-bg-darker-pink px-2 py-2 cursor-pointer rounded-md"
+                onClick={() => {
+                  showModal(false);
+                }}
+              >
+                <RxCross2 className="text-2xl text-white " />
+              </button>
+            </div>
+            <div className="px-6  flex flex-col gap-4 justify-center">
+              <h1 className="text-center font-popins text-xl font-medium">
+                Select an Address
+              </h1>
+              <button
+                className=" flex items-center justify-start gap-2 border-t border-b w-full py-4 primary-color-darker-pink"
+                onClick={() => {
+                  setShowAddAddressModal(true);
+                }}
+              >
+                <IoMdAddCircleOutline className=" text-xl" />
+                <span>Add a new address</span>
+              </button>
+              <h1 className="p-2">SAVED ADDRESSES</h1>
+            </div>
+          </div>
+          <div className="px-6  flex flex-col gap-4 justify-center mt-2">
+            <div className=" flex flex-col gap-2">
+              {addresses &&
+                addresses.map((value) => {
+                  return (
+                    <div
+                      key={value.id}
+                      className=" flex items-center gap-6 border-b py-2 cursor-pointer"
+                      onClick={() => {
+                        selectAddressHandeler(
+                          value.id,
+                          value.address.stringFormat,
+                          value.address.label
+                        );
+                      }}
+                    >
+                      <FaLocationDot className=" text-gray-400 text-2xl" />
+                      <h1>{value.address.stringFormat}</h1>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </Box>
       </Modal>
