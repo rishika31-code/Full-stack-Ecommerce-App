@@ -13,31 +13,39 @@ const GivenOffers = require('../models/givenOffers')
 // all association
 module.exports = () => {
 
+    // relation between main categories & subcategories
     MainCategories.hasMany(SubCategories);
     SubCategories.belongsTo(MainCategories);
 
+    // relation between product & main categories
     MainCategories.hasMany(Products);
     Products.belongsTo(MainCategories);
 
+    // relation between subcategories & product
     SubCategories.hasMany(Products);
     Products.belongsTo(SubCategories);
 
+    // relation between product & producttypes
     Products.hasMany(ProductType);
     ProductType.belongsTo(Products);
 
+    // relation between userdetails and cart
     UserDetails.hasMany(Cart)
     Cart.belongsTo(UserDetails)
 
+    // relation between cart & product types
     ProductType.hasMany(Cart)
     Cart.belongsTo(ProductType)
 
+    // relation between address & user
     UserDetails.hasMany(Address)
     Address.belongsTo(UserDetails)
 
-
+    // relation between created offer & given offer
     CreatedOffers.hasMany(GivenOffers)
     GivenOffers.belongsTo(CreatedOffers)
 
+    // relation between given offer & user
     UserDetails.hasMany(GivenOffers)
     GivenOffers.belongsTo(UserDetails)
 
