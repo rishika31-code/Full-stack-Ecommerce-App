@@ -1,6 +1,6 @@
 const MainCategories = require('../../models/mainCategories')
 const SubCategories = require('../../models/subCategories')
-const categoryControllers = {
+const categoryController = {
 
     // to add main category 
     addCategory: async (req, res) => {
@@ -67,4 +67,4 @@ const categoryControllers = {
 }
 
 
-module.exports = categoryControllers
+module.exports = categoryController

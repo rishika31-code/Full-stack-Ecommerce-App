@@ -1,18 +1,23 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { createOfferAction } from "../../store/actions/offerActions";
+import { useDispatch } from "react-redux";
 
 const CreateOfferForm = () => {
   const [offers, setOffers] = useState(null);
+  const dispatch = useDispatch();
 
   // when admin wants to create offer
   const createOfferHandler = (e) => {
     e.preventDefault();
 
+    // check is something missing
     if (!Object.values(offers).every((value) => value.trim())) {
       toast.error("some fields are blank");
       return;
     }
-    console.log(offers);
+    // dispacthing create offer action to create the offer
+    dispatch(createOfferAction(offers));
   };
 
   return (

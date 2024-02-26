@@ -1,5 +1,5 @@
 const sequelize = require("../util/database");
-const { INTEGER, STRING } = require('sequelize')
+const { INTEGER, STRING, NUMBER } = require('sequelize')
 
 const CreatedOffers = sequelize.define('createdoffers', {
     id: {
@@ -9,8 +9,8 @@ const CreatedOffers = sequelize.define('createdoffers', {
         autoIncrement: true
     },
     offerName: { type: STRING, allowNull: false },
-    minValue: { type: INTEGER, allowNull: false },
-    discount: { type: INTEGER, allowNull: false },
+    minValue: { type: NUMBER, allowNull: false },
+    discount: { type: NUMBER, allowNull: false },
 })
 
 

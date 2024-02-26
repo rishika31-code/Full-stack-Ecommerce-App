@@ -4,7 +4,6 @@ import { addcategory, makeLoaderTrue, makeLoaderFalse, addSubCategory } from "..
 import axios from "axios"
 
 // to add a main category 
-
 export const addCategoryAction = (categoryVal, showModal) => {
     return async (dispatch, getState) => {
         try {
