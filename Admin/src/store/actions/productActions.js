@@ -89,7 +89,6 @@ export const addProductTypeAction = (typeValues, showModal) => {
 export const getAllProductTypes = () => {
     return async (dispatch, getState) => {
         const { data } = await axios.get(GET_PRODUCT_TYPES)
-        console.log(data);
         const allTypes = data.map((values) => {
             const obj = {
                 id: values.id,

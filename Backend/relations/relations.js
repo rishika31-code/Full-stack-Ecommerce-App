@@ -6,6 +6,10 @@ const ProductType = require('../models/productType')
 const Cart = require('../models/cart')
 const UserDetails = require('../models/userDetails')
 const Address = require('../models/address')
+const CreatedOffers = require('../models/createdOffers')
+const GivenOffers = require('../models/givenOffers')
+
+
 // all association
 module.exports = () => {
 
@@ -31,7 +35,11 @@ module.exports = () => {
     Address.belongsTo(UserDetails)
 
 
+    CreatedOffers.hasMany(GivenOffers)
+    GivenOffers.belongsTo(CreatedOffers)
 
+    UserDetails.hasMany(GivenOffers)
+    GivenOffers.belongsTo(UserDetails)
 
 
 }

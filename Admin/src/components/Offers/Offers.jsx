@@ -1,0 +1,69 @@
+import React, { useState } from "react";
+import { BiSolidOffer } from "react-icons/bi";
+import { MdOutlineSendToMobile } from "react-icons/md";
+import CreateOfferModal from "./CreateOfferModal";
+import GivenOffersTable from "./GivenOffersTable";
+import CreatedOffersTable from "./CreatedOffersTable";
+
+const Offers = () => {
+  const [createOfferModal, setCreateOfferModal] = useState(false);
+  const [showGivenOfferTable, setShowGivenOfferTable] = useState(true);
+
+  return (
+    <>
+      {createOfferModal && <CreateOfferModal showModal={setCreateOfferModal} />}
+      <div className="w-full m-auto mt-5 px-6 py-5 rounded-md bg-white font-poppins flex justify-between gap-5">
+        <div className="flex gap-4 justify-center items-center">
+          <div
+            className="px-8 py-10 bg-gray-100 rounded-xl flex justify-center items-center gap-2 cursor-pointer"
+            onClick={() => {
+              setCreateOfferModal(true);
+            }}
+          >
+            <h1 className=" text-xl">Create Offer</h1>
+            <BiSolidOffer className="text-2xl text-green-400" />
+          </div>
+          <div className="px-8 py-10 bg-gray-100 rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+            <h1 className=" text-xl">Give Offer</h1>
+            <MdOutlineSendToMobile className="text-2xl text-blue-400" />
+          </div>
+        </div>
+        <div
+          className=" flex justify-center self-end items-center  px-4
+        "
+        >
+          <div
+            className={`px-3 py-2 border-y border-l cursor-pointer ${
+              showGivenOfferTable
+                ? "primary-linear-bg text-white"
+                : "bg-white text-black"
+            }`}
+            onClick={() => {
+              setShowGivenOfferTable((prev) => !prev);
+            }}
+          >
+            <h1>Given Offers</h1>
+          </div>
+          <div
+            className={`px-3 py-2 border cursor-pointer ${
+              !showGivenOfferTable
+                ? "primary-linear-bg text-white"
+                : "bg-white text-black"
+            }`}
+            onClick={() => {
+              setShowGivenOfferTable((prev) => !prev);
+            }}
+          >
+            <h1>Created Offers</h1>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full h-[calc(100vh-18rem)] m-auto mt-5 px-4 py-5 rounded-md bg-white font-poppins">
+        {showGivenOfferTable ? <GivenOffersTable /> : <CreatedOffersTable />}
+      </div>
+    </>
+  );
+};
+
+export default Offers;

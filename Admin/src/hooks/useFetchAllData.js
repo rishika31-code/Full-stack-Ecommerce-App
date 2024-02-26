@@ -2,7 +2,6 @@ import {
   getAllCategoriesAction,
   getAllSubcategoriesAction,
 } from "../store/actions/categoryActions";
-
 import { useDispatch } from "react-redux";
 import {
   getAllProductTypes,
@@ -16,7 +15,6 @@ const useFetchAllData = () => {
 
   // useffect for fetching all categories
   useEffect(() => {
-    
     dispatch(getAllCategoriesAction());
     dispatch(getAllSubcategoriesAction());
     dispatch(getAllProductsAction());

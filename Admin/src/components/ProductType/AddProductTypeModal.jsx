@@ -34,7 +34,7 @@ const AddProductTypeModal = ({ showModal }) => {
       (isMediumScreen && "70%") ||
       (isLargeScreen && "60%") ||
       (moreThanlg && "50%"),
-    height: "50%",
+    height: "fit",
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",

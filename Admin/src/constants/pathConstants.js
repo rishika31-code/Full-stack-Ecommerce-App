@@ -4,7 +4,7 @@ import { BsBoxSeam } from "react-icons/bs";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbLayersSubtract } from "react-icons/tb";
 import { BiCuboid } from "react-icons/bi";
-
+import { MdOutlineLocalOffer } from "react-icons/md";
 const sideBarPaths = [
     {
         icon: RxDashboard,
@@ -35,7 +35,12 @@ const sideBarPaths = [
         icon: TbLayersSubtract,
         text: "Sub Categories",
         path: "/subcategory"
-    }
+    },
+    {
+        icon: MdOutlineLocalOffer,
+        text: "Offers",
+        path: "/offers"
+    },
 ]
 
 

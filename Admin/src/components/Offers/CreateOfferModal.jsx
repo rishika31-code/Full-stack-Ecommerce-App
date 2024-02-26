@@ -3,6 +3,7 @@ import Modal from "@mui/material/Modal";
 import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
+import CreateOfferForm from "./CreateOfferForm";
 
 const CreateOfferModal = ({ showModal }) => {
   const theme = createTheme({
@@ -33,8 +34,8 @@ const CreateOfferModal = ({ showModal }) => {
       (isSmallScreen && "90%") ||
       (isMediumScreen && "70%") ||
       (isLargeScreen && "60%") ||
-      (moreThanlg && "45%"),
-    height: "70%",
+      (moreThanlg && "35%"),
+    height: "fit",
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",
@@ -55,18 +56,18 @@ const CreateOfferModal = ({ showModal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className=" flex justify-end items-center sticky bg-white rounded-xl top-0">
-            <button
-              className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md staicky top-0"
-              onClick={() => {
-                showModal(false);
-              }}
-            >
-              <RxCross2 className="text-2xl text-white " />
-            </button>
+          <button
+            className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md absolute right-0 top-0"
+            onClick={() => {
+              showModal(false);
+            }}
+          >
+            <RxCross2 className="text-xl text-white " />
+          </button>
+          <div className="p-4 font-poppins">
+            <h1 className="text-center text-2xl">Create New Offer</h1>
+            <CreateOfferForm />
           </div>
-
-          <div className="px-4 flex justify-center items-center"></div>
         </Box>
       </Modal>
     </>

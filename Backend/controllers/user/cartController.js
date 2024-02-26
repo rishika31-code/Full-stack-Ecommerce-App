@@ -3,6 +3,7 @@ const ProductType = require("../../models/productType")
 const findCart = require("../../services/findCart")
 const Products = require('../../models/products')
 const cartController = {
+
     // add to cart
     addToCart: async (req, res) => {
         const { id } = req.user
