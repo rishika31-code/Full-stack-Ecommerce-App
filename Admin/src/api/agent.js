@@ -11,7 +11,9 @@ const agent = {
     ADD_PRODUCT: `http://localhost:${PORT}/admin/addproduct`,
     ADD_PRODUCT_TYPE: `http://localhost:${PORT}/admin/addproducttype`,
     GET_PRODUCT_TYPES: `http://localhost:${PORT}/admin/getallproducttypes`,
-    CREATE_OFFER: `http://localhost:${PORT}/admin/createoffer`,
+    CREATE_OFFER: `http://localhost:${PORT}/admin/offer/createoffer`,
+    GET_CREATED_OFFERS: `http://localhost:${PORT}/admin/offer/getcreatedoffers`,
+    GET_ALL_USERS: `http://localhost:${PORT}/admin/user/getusers`,
 }
 
 //exports 
@@ -24,5 +26,6 @@ export const {
     GET_ALL_PRODUCTS,
     ADD_PRODUCT_TYPE,
     GET_PRODUCT_TYPES,
-    CREATE_OFFER
+    CREATE_OFFER,
+    GET_CREATED_OFFERS
 } = agent

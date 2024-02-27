@@ -10,6 +10,17 @@ const offerServices = {
         } catch (error) {
             throw error
         }
+    },
+
+    // get offer service for getting all the offers that are already created
+    getCreatedOffers: async () => {
+        try {
+            const dbres = await CreatedOffers.findAll()
+            return dbres
+
+        } catch (error) {
+            throw error
+        }
     }
 
 }

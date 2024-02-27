@@ -4,14 +4,16 @@ import { MdOutlineSendToMobile } from "react-icons/md";
 import CreateOfferModal from "./CreateOfferModal";
 import GivenOffersTable from "./GivenOffersTable";
 import CreatedOffersTable from "./CreatedOffersTable";
-
+import GiveOfferModal from "./giveOfferModal";
 const Offers = () => {
   const [createOfferModal, setCreateOfferModal] = useState(false);
+  const [giveOfferModal, setGiveOfferModal] = useState(false);
   const [showGivenOfferTable, setShowGivenOfferTable] = useState(true);
 
   return (
     <>
       {createOfferModal && <CreateOfferModal showModal={setCreateOfferModal} />}
+      {giveOfferModal && <GiveOfferModal showModal={setGiveOfferModal} />}
       <div className="w-full m-auto mt-5 px-6 py-5 rounded-md bg-white font-poppins flex justify-between gap-5">
         <div className="flex gap-4 justify-center items-center">
           <div
@@ -23,7 +25,12 @@ const Offers = () => {
             <h1 className=" text-xl">Create Offer</h1>
             <BiSolidOffer className="text-2xl text-green-400" />
           </div>
-          <div className="px-8 py-10 bg-gray-100 rounded-xl flex justify-center items-center gap-2 cursor-pointer">
+          <div
+            className="px-8 py-10 bg-gray-100 rounded-xl flex justify-center items-center gap-2 cursor-pointer"
+            onClick={() => {
+              setGiveOfferModal(true);
+            }}
+          >
             <h1 className=" text-xl">Give Offer</h1>
             <MdOutlineSendToMobile className="text-2xl text-blue-400" />
           </div>

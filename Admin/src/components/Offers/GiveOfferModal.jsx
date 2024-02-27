@@ -3,9 +3,9 @@ import Modal from "@mui/material/Modal";
 import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
-import CreateOfferForm from "./CreateOfferForm";
+import GiveOfferForm from "./GiveOfferForm";
 
-const CreateOfferModal = ({ showModal }) => {
+const GiveOfferModal = ({ showModal }) => {
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -34,7 +34,7 @@ const CreateOfferModal = ({ showModal }) => {
       (isSmallScreen && "90%") ||
       (isMediumScreen && "70%") ||
       (isLargeScreen && "60%") ||
-      (moreThanlg && "35%"),
+      (moreThanlg && "40%"),
     height: "fit",
     bgcolor: "background.paper",
     boxShadow: 24,
@@ -65,8 +65,8 @@ const CreateOfferModal = ({ showModal }) => {
             <RxCross2 className="text-xl text-white " />
           </button>
           <div className="p-4 font-poppins">
-            <h1 className="text-center text-2xl">Create New Offer</h1>
-            <CreateOfferForm showModal={showModal} />
+            <h1 className="text-center text-2xl">Give Offer</h1>
+            <GiveOfferForm />
           </div>
         </Box>
       </Modal>
@@ -74,4 +74,4 @@ const CreateOfferModal = ({ showModal }) => {
   );
 };
 
-export default CreateOfferModal;
+export default GiveOfferModal;

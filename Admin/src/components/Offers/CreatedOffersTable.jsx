@@ -9,8 +9,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { createdOffersConstants } from "../../constants/tableConstants";
 import reformName from "../../functions/reformName";
+import { useSelector } from "react-redux";
 
 const CreatedOffersTable = () => {
+  const { createdOffers } = useSelector((state) => state.offerSlice);
+
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -35,33 +38,40 @@ const CreatedOffersTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                1
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                60% Off on all orders
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                599
-              </span>
-            </TableCell>
-            <TableCell component="th" scope="row">
-              <span className=" flex justify-center items-center font-poppins py-2">
-                60%
-              </span>
-            </TableCell>
-            <TableCell align="right">
-              <span className=" flex justify-center items-center font-poppins font-bold py-2">
-                <HiOutlineDotsVertical className="text-base cursor-pointer" />
-              </span>
-            </TableCell>
-          </TableRow>
+          {createdOffers.map((offer) => {
+            return (
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                key={offer.id}
+              >
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {offer.id}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {reformName(offer.offerName)}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {offer.minValue}
+                  </span>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <span className=" flex justify-center items-center font-poppins py-2">
+                    {offer.discount}%
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <span className=" flex justify-center items-center font-poppins font-bold py-2">
+                    <HiOutlineDotsVertical className="text-base cursor-pointer" />
+                  </span>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
