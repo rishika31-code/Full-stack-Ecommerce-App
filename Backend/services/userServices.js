@@ -10,6 +10,15 @@ const userServices = {
         } catch (error) {
             throw error
         }
+    },
+    // find user email to find specific user by their email id
+    findUserByEmailService: async (email) => {
+        try {
+            const dbRes = await UserDetails.findOne({ where: { email: email } })
+            return dbRes
+        } catch (error) {
+            throw error
+        }
     }
 }
 

@@ -9,7 +9,7 @@ const userController = {
             const users = await getUsers()
             res.send(users)
         } catch (error) {
-            res.status(500).send({ message: "error while fetching user", error })
+            res.status(500).send({ message: "error while fetching users", error })
         }
     }
 

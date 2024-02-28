@@ -66,7 +66,7 @@ const GiveOfferModal = ({ showModal }) => {
           </button>
           <div className="p-4 font-poppins">
             <h1 className="text-center text-2xl">Give Offer</h1>
-            <GiveOfferForm />
+            <GiveOfferForm showModal={showModal} />
           </div>
         </Box>
       </Modal>
