@@ -10,7 +10,7 @@ const TotalAmount = ({ price }) => {
         <h1 className=" text-green-400"> &#8377; 5</h1>
       </div>
       <div className=" flex justify-between items-center text-sm">
-        <h1>Discount </h1>
+        <h1>Offer Discount </h1>
         <h1 className=" text-green-400"> &#8377; 0</h1>
       </div>
       <div className=" flex justify-between items-center text-sm ">

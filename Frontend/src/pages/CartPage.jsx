@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { GET_CART } from "../api/agent";
 import CartProduct from "../components/Cart/CartProduct";
@@ -10,6 +10,7 @@ import Loader from "../components/Loader/Loader";
 import EmptyCart from "../components/Cart/EmptyCart";
 import { getAddreesesAction } from "../store/actions/addressAction";
 import toast from "react-hot-toast";
+import { getOffersAction } from "../store/actions/offersActionS";
 const CartPage = () => {
   const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
@@ -25,6 +26,7 @@ const CartPage = () => {
           const [cartResponse] = await Promise.all([
             axios.get(GET_CART, { headers: { token: token } }),
             dispatch(getAddreesesAction()),
+            dispatch(getOffersAction()),
           ]);
           const { data } = cartResponse;
           setCart(data);

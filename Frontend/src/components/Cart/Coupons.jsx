@@ -1,15 +1,30 @@
+import { useState } from "react";
 import { BiSolidOffer } from "react-icons/bi";
 import { IoMdArrowDropright } from "react-icons/io";
+import AvailOfferModal from "./AvailOfferModal";
 
 const Coupons = () => {
+  const [offerModal, setOfferModal] = useState(false);
+
   return (
-    <div className=" w-full bg-white flex gap-2 justify-between items-center px-4 py-3 rounded-md shadow-md cursor-pointer border">
-      <div className=" flex  gap-2 items-center">
-        <BiSolidOffer className=" text-4xl text-green-500" />
-        <h1>Avail Offer / Coupons</h1>
+    <>
+      {offerModal && <AvailOfferModal showModal={setOfferModal} />}
+      <div
+        className=" w-full bg-white flex gap-2 justify-between items-center px-4 py-3 rounded-md shadow-md cursor-pointer border"
+        onClick={() => {
+          setOfferModal(true);
+        }}
+      >
+        <div className=" flex  gap-4 items-center justify-center">
+          <BiSolidOffer className=" text-5xl text-green-500" />
+          <div>
+            <h1>Avail Offer / Coupons</h1>
+            <p className=" text-sm">2 Offers Available</p>
+          </div>
+        </div>
+        <IoMdArrowDropright className=" text-3xl primary-color-darker-pink" />
       </div>
-      <IoMdArrowDropright className=" text-3xl primary-color-darker-pink" />
-    </div>
+    </>
   );
 };
 

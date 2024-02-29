@@ -63,6 +63,20 @@ const offerServices = {
         }
     },
 
+    // get user offers service tp fetch user offer by therir id
+    getUserOffersService: async (id) => {
+        try {
+            const dbRes = await GivenOffers.findAll({
+                where: { userId: id }, include: [
+                    { model: CreatedOffers }
+                ]
+            })
+            return dbRes
+        } catch (error) {
+            throw error
+        }
+    }
+
 }
 
 module.exports = offerServices

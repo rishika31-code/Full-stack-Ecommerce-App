@@ -2,6 +2,8 @@ import axios from "axios"
 import { ADD_ADDRESS, GET_ADDRESSES } from "../../api/agent"
 import { addAdress } from "../reducers/addressSlice"
 import toast from "react-hot-toast"
+
+
 // for add a new address
 export const addAdressAction = (addedAdress, showModal) => {
     const token = localStorage.getItem('token')
@@ -16,7 +18,8 @@ export const addAdressAction = (addedAdress, showModal) => {
 
             } catch (error) {
                 toast.error("Some error occurred ! ")
-                console.log(error)
+                throw error
+
             }
 
         } else {

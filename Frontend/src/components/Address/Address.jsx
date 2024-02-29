@@ -48,7 +48,7 @@ const Address = () => {
         ) : (
           <button
             disabled
-            className="bg-gray text-white py-2 rounded-md my-4 mx-2"
+            className="bg-gray-400 text-white py-2 rounded-md my-4 mx-2"
           >
             CONTINUE TO PAYEMNT
           </button>

@@ -4,6 +4,7 @@ const { getProductDetails, getProductBySubCategory } = require('../controllers/u
 const { onUserSignUp, onUserLogIn, onVerfiyUser } = require('../controllers/user/authController')
 const { addToCart, increaseQuantity, deceraseQuantity, getCart } = require("../controllers/user/cartController")
 const { addAddress, getAddresses } = require('../controllers/user/addressController')
+const { getOffers } = require('../controllers/user/userOfferController')
 const authMiddleware = require("../middlewares/user/authMiddleware")
 
 const router = express.Router()
@@ -28,5 +29,12 @@ router.post('/decreasequantity', authMiddleware, deceraseQuantity)
 // address Routres 
 router.post('/addaddress', authMiddleware, addAddress)
 router.get('/getAddresses', authMiddleware, getAddresses)
+
+//offer routes 
+router.get('/getoffers', authMiddleware, getOffers)
+
+
+
+
 // exports 
 module.exports = router
