@@ -11,43 +11,23 @@ import EmptyCart from "../components/Cart/EmptyCart";
 import { getAddreesesAction } from "../store/actions/addressAction";
 import toast from "react-hot-toast";
 import { getOffersAction } from "../store/actions/offersActionS";
+import useFetchCartDetails from "../hooks/useFetchCartDetails";
 const CartPage = () => {
-  const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
   const { cartItems } = useSelector((state) => state.cartSlice);
   const [loader, setLoader] = useState(true);
+  const [cartData, setCartData] = useState(null);
+  const [appliedOffer, setAppliedOffer] = useState(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      (async () => {
-        try {
-          const [cartResponse] = await Promise.all([
-            axios.get(GET_CART, { headers: { token: token } }),
-            dispatch(getAddreesesAction()),
-            dispatch(getOffersAction()),
-          ]);
-          const { data } = cartResponse;
-          setCart(data);
-          setLoader(false);
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-    } else {
-      toast.error("LogIn Again !");
-    }
-  }, [cartItems]);
-
-  // calculating total item & price
-  let price = 0;
-  let totalItem = 0;
-
-  cart.forEach((product) => {
-    price += product.productType.price * product.quantity;
-    totalItem += product.quantity;
-  });
+  console.log(cart);
+  // using custom hook to fecth cart details
+  useFetchCartDetails(
+    cartItems,
+    setLoader,
+    setCart,
+    setCartData,
+    setAppliedOffer
+  );
 
   return (
     <>
@@ -60,7 +40,9 @@ const CartPage = () => {
           ) : (
             <div className=" mt-10 font-poppins">
               <div className=" text-xl  hidden md:flex justify-between items-center">
-                <h1 className=" font-semibold"> Cart ({totalItem} Items) </h1>
+                <h1 className=" font-semibold">
+                  Cart ({cartData.totalItems} Items)
+                </h1>
                 <button className="  px-2 py-1 border border-red-500 rounded-md text-base">
                   Empty Cart
                 </button>
@@ -84,8 +66,15 @@ const CartPage = () => {
                   })}
                 </div>
                 <div className="w-[40%] h-[40rem] rounded-md flex flex-col gap-4">
-                  <Coupons />
-                  <TotalAmount price={price} />
+                  <Coupons
+                    appliedOffer={appliedOffer}
+                    setAppliedOffer={setAppliedOffer}
+                    price={cartData.totalPrice}
+                  />
+                  <TotalAmount
+                    price={cartData.totalPrice}
+                    appliedOffer={appliedOffer}
+                  />
                   <Address />
                 </div>
               </div>

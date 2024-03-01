@@ -7,7 +7,8 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import { BiSolidOffer } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { TbFaceIdError } from "react-icons/tb";
-const AvailOfferModal = ({ showModal }) => {
+import toast from "react-hot-toast";
+const AvailOfferModal = ({ showModal, price, setAppliedOffer }) => {
   const { offers } = useSelector((state) => state.offerSlice);
 
   const theme = createTheme({
@@ -51,6 +52,17 @@ const AvailOfferModal = ({ showModal }) => {
     "&::-webkit-scrollbar": {
       display: "none",
     },
+  };
+
+  // apply offer handeler to apply offer
+  const applyOfferHandeler = (offer) => {
+    console.log(price);
+    if (price >= offer.minValue) {
+      setAppliedOffer(offer);
+      showModal(false);
+    } else {
+      toast.error(`Minimum order value should be ${offer.minValue}`);
+    }
   };
 
   return (
@@ -97,6 +109,9 @@ const AvailOfferModal = ({ showModal }) => {
                       <div
                         key={offer.id}
                         className=" bg-gray-50 p-4 rounded-md flex  items-center gap-4 cursor-pointer "
+                        onClick={() => {
+                          applyOfferHandeler(offer);
+                        }}
                       >
                         <MdOutlineLocalOffer className=" text-3xl text-green-500" />
                         <div>
