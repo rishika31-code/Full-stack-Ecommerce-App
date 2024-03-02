@@ -5,6 +5,7 @@ const { onUserSignUp, onUserLogIn, onVerfiyUser } = require('../controllers/user
 const { addToCart, increaseQuantity, deceraseQuantity, getCart } = require("../controllers/user/cartController")
 const { addAddress, getAddresses } = require('../controllers/user/addressController')
 const { getOffers } = require('../controllers/user/userOfferController')
+const { createOrder } = require('../controllers/user/orderController')
 const authMiddleware = require("../middlewares/user/authMiddleware")
 
 const router = express.Router()
@@ -32,6 +33,10 @@ router.get('/getAddresses', authMiddleware, getAddresses)
 
 //offer routes 
 router.get('/getoffers', authMiddleware, getOffers)
+
+
+// order routes 
+router.post('/order/createorder', authMiddleware, createOrder)
 
 
 

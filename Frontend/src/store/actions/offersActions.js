@@ -13,11 +13,13 @@ export const getOffersAction = () => {
                 const formatedData = data.map((value) => {
                     return {
                         id: value.id,
+                        createdOfferId: value.createdoffer.id,
                         offerName: value.createdoffer.offerName,
                         minValue: value.createdoffer.minValue,
                         discount: value.createdoffer.discount,
                     }
                 })
+
                 dispatch(addOffers(formatedData))
             } catch (error) {
                 toast.error('error while fetching offers')

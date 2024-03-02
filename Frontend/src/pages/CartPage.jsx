@@ -1,17 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { GET_CART } from "../api/agent";
+import { useState } from "react";
 import CartProduct from "../components/Cart/CartProduct";
 import Coupons from "../components/Cart/Coupons";
 import TotalAmount from "../components/Cart/TotalAmount";
 import Address from "../components/Address/Address";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import EmptyCart from "../components/Cart/EmptyCart";
-import { getAddreesesAction } from "../store/actions/addressAction";
-import toast from "react-hot-toast";
-import { getOffersAction } from "../store/actions/offersActionS";
 import useFetchCartDetails from "../hooks/useFetchCartDetails";
+
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const { cartItems } = useSelector((state) => state.cartSlice);
@@ -19,7 +15,6 @@ const CartPage = () => {
   const [cartData, setCartData] = useState(null);
   const [appliedOffer, setAppliedOffer] = useState(null);
 
-  console.log(cart);
   // using custom hook to fecth cart details
   useFetchCartDetails(
     cartItems,
@@ -47,7 +42,6 @@ const CartPage = () => {
                   Empty Cart
                 </button>
               </div>
-
               <div className="mt-5 flex items-start gap-5">
                 <div className="  w-[60%] h-fit  max-h-[40rem] rounded-md px-4 py-4 flex flex-col justify-center gap-2 overflow-y-scroll shadow-md border  ">
                   {cart.map((values) => {

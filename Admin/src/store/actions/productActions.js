@@ -3,6 +3,14 @@ import { ADD_PRODUCT, ADD_PRODUCT_TYPE, GET_ALL_PRODUCTS, GET_PRODUCT_TYPES } fr
 import { addProduct, addProductType } from "../reducers/productSlice";
 import axios from "axios";
 
+
+/**
+ * 
+ * @param {* product value that user want to add } productValues 
+ * @param {* show modal function to close the modal } showModal 
+ * @returns 
+ */
+
 // action for adding a new product
 export const addProductAction = (productValues, showModal) => {
     return async (dispatch, getState) => {
@@ -85,7 +93,7 @@ export const addProductTypeAction = (typeValues, showModal) => {
 }
 
 
-
+// get all produt action to get all the product types
 export const getAllProductTypes = () => {
     return async (dispatch, getState) => {
         const { data } = await axios.get(GET_PRODUCT_TYPES)
@@ -103,3 +111,5 @@ export const getAllProductTypes = () => {
         dispatch(addProductType(allTypes))
     }
 }
+
+

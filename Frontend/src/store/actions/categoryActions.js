@@ -11,6 +11,7 @@ export const getCategoriesAction = () => {
 
         } catch (error) {
             toast.error(err.response.data.message)
+            // have to make a common function fot this
         }
 
     }

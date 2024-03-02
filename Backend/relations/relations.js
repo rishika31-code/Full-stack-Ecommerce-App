@@ -8,7 +8,9 @@ const UserDetails = require('../models/userDetails')
 const Address = require('../models/address')
 const CreatedOffers = require('../models/createdOffers')
 const GivenOffers = require('../models/givenOffers')
-
+const OrderItem = require('../models/orderItem')
+const Order = require('../models/order')
+const Transaction = require('../models/transaction')
 
 // all association
 module.exports = () => {
@@ -48,6 +50,18 @@ module.exports = () => {
     // relation between given offer & user
     UserDetails.hasMany(GivenOffers)
     GivenOffers.belongsTo(UserDetails)
+
+    // relation between order & user 
+    UserDetails.hasMany(Order)
+    Order.belongsTo(UserDetails)
+
+    // relation between order item & user
+    UserDetails.hasMany(OrderItem)
+    OrderItem.belongsTo(UserDetails)
+
+    // relation between order & order Item
+    Order.hasMany(OrderItem)
+    OrderItem.belongsTo(Order)
 
 
 }

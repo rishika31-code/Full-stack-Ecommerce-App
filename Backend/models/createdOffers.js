@@ -9,8 +9,9 @@ const CreatedOffers = sequelize.define('createdoffers', {
         autoIncrement: true
     },
     offerName: { type: STRING, allowNull: false },
-    minValue: { type: NUMBER, allowNull: false },
-    discount: { type: NUMBER, allowNull: false },
+    minValue: { type: INTEGER, allowNull: false },
+    discount: { type: INTEGER, allowNull: false },
+
 })
 
 
