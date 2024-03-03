@@ -7,29 +7,28 @@ import toast from "react-hot-toast"
 export const getOffersAction = () => {
     return async (dispatch, getState) => {
         const token = localStorage.getItem('token')
-        if (token) {
-            try {
-                const { data } = await axios.get(GET_OFFERS, { headers: { token: token } })
-                const formatedData = data.map((value) => {
-                    return {
-                        id: value.id,
-                        createdOfferId: value.createdoffer.id,
-                        offerName: value.createdoffer.offerName,
-                        minValue: value.createdoffer.minValue,
-                        discount: value.createdoffer.discount,
-                    }
-                })
-
-                dispatch(addOffers(formatedData))
-            } catch (error) {
-                toast.error('error while fetching offers')
-                throw error
-            }
-
+        if (!token) {
+            toast.error("user not found login again")
+            return
         }
-        else {
-            toast.error("token not found please logIn again")
+        try {
+            const { data } = await axios.get(GET_OFFERS, { headers: { token: token } })
+            const formatedData = data.map((value) => {
+                return {
+                    id: value.id,
+                    createdOfferId: value.createdoffer.id,
+                    offerName: value.createdoffer.offerName,
+                    minValue: value.createdoffer.minValue,
+                    discount: value.createdoffer.discount,
+                }
+            })
 
+            dispatch(addOffers(formatedData))
+        } catch (error) {
+            toast.error('error while fetching offers')
+            throw error
         }
+
+
     }
 }

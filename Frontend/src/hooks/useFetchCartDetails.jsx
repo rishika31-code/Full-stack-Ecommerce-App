@@ -7,10 +7,12 @@ import axios from "axios";
 
 const useFetchCartDetails = (
   cartItems,
-  setLoader,
+  setLoader1,
+  setLoader2,
   setCart,
   setCartData,
-  setAppliedOffer
+  setAppliedOffer,
+  setAddress
 ) => {
   const dispatch = useDispatch();
 
@@ -18,9 +20,11 @@ const useFetchCartDetails = (
     (async () => {
       try {
         await Promise.all([
-          dispatch(getAddreesesAction()),
+          dispatch(getAddreesesAction(setAddress)),
           dispatch(getOffersAction()),
         ]);
+
+        setLoader1(false);
       } catch (error) {
         console.log(error);
       }
@@ -33,24 +37,30 @@ const useFetchCartDetails = (
     const token = localStorage.getItem("token");
     if (token) {
       (async () => {
-        const { data } = await axios.get(GET_CART, {
-          headers: { token: token },
-        });
-        setCart(data);
-      })();
+        try {
+          const { data } = await axios.get(GET_CART, {
+            headers: { token: token },
+          });
 
-      setCartData(() => {
-        let totalItems = 0;
-        let price = 0;
+          setCart(data);
 
-        for (let i in cartItems) {
-          price += cartItems[i].productType.price * cartItems[i].quantity;
-          totalItems += cartItems[i].quantity;
+          setCartData(() => {
+            let totalItems = 0;
+            let price = 0;
+
+            for (let i in cartItems) {
+              price += cartItems[i].productType.price * cartItems[i].quantity;
+              totalItems += cartItems[i].quantity;
+            }
+            setAppliedOffer(null);
+
+            return { totalItems: totalItems, totalPrice: price };
+          });
+          setLoader2(false);
+        } catch (error) {
+          console.log(error);
         }
-        setAppliedOffer(null);
-        setLoader(false);
-        return { totalItems: totalItems, totalPrice: price };
-      });
+      })();
     } else {
       toast.error("LogIn Again !");
     }

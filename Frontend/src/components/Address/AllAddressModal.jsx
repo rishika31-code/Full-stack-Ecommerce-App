@@ -9,12 +9,7 @@ import { useState } from "react";
 import AddAddressModal from "./AddAddressModal";
 import { useSelector } from "react-redux";
 
-const AllAddressModal = ({
-  showModal,
-  setAddressId,
-  setAddressLabel,
-  setAddress,
-}) => {
+const AllAddressModal = ({ showModal, setAddress }) => {
   const [showAddAddressModal, setShowAddAddressModal] = useState(false);
   const { addresses } = useSelector((state) => state.addressSlice);
 
@@ -62,10 +57,8 @@ const AllAddressModal = ({
   };
 
   // if user want to change the address
-  const selectAddressHandeler = (id, address, label) => {
-    setAddressId(id);
+  const selectAddressHandeler = (address) => {
     setAddress(address);
-    setAddressLabel(label);
     showModal(false);
   };
 
@@ -116,11 +109,7 @@ const AllAddressModal = ({
                       key={value.id}
                       className=" flex items-center gap-6 border-b py-2 cursor-pointer"
                       onClick={() => {
-                        selectAddressHandeler(
-                          value.id,
-                          value.address.stringFormat,
-                          value.address.label
-                        );
+                        selectAddressHandeler(value);
                       }}
                     >
                       <FaLocationDot className=" text-gray-400 text-2xl" />

@@ -26,5 +26,7 @@ const checkPassword = (password, encodedValue) => {
     return bcrypt.compare(password, encodedValue)
 }
 
+
+
 // exporting 
 module.exports = { generateToken, decodeToken, checkPassword }

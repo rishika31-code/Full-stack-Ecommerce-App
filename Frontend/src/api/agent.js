@@ -13,7 +13,8 @@ const apiEndPoints = {
     GET_CART: `http://localhost:${PORT}/user/getcart`,
     ADD_ADDRESS: `http://localhost:${PORT}/user/addaddress`,
     GET_ADDRESSES: `http://localhost:${PORT}/user/getaddresses`,
-    GET_OFFERS: `http://localhost:${PORT}/user/getoffers`
+    GET_OFFERS: `http://localhost:${PORT}/user/getoffers`,
+    CREATE_ORDER: `http://localhost:${PORT}/user/order/createorder`
 
 }
 
@@ -31,5 +32,6 @@ export const {
     GET_CART,
     ADD_ADDRESS,
     GET_ADDRESSES,
-    GET_OFFERS
+    GET_OFFERS,
+    CREATE_ORDER
 } = apiEndPoints

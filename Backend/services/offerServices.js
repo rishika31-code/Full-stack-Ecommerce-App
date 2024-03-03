@@ -75,6 +75,17 @@ const offerServices = {
         } catch (error) {
             throw error
         }
+    },
+
+    // find offer by id service to find the offer using id
+    findOfferbyId: async (id) => {
+        try {
+            const dbRes = await CreatedOffers.findOne({ where: { id: id } })
+            return dbRes
+
+        } catch (error) {
+            throw error
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../store/actions/categoryActions";
 import { verifyUserAction } from "../store/actions/AuthActions";
 import "./App.css";
+import PageLoader from "../components/common/PageLoader";
 
 const App = () => {
   const { showAuthModal, isloggedIn } = useSelector((state) => state.authSlice);
@@ -30,7 +31,7 @@ const App = () => {
   return (
     <>
       {loader ? (
-        <Loader />
+        <PageLoader />
       ) : (
         <>
           {showAuthModal && <AuthModal />}

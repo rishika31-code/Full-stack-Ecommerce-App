@@ -7,27 +7,35 @@ import { useSelector } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import EmptyCart from "../components/Cart/EmptyCart";
 import useFetchCartDetails from "../hooks/useFetchCartDetails";
+import PaymentButton from "../components/Cart/PaymentButton";
+import PageLoader from "../components/common/PageLoader";
 
 const CartPage = () => {
-  const [cart, setCart] = useState([]);
   const { cartItems } = useSelector((state) => state.cartSlice);
-  const [loader, setLoader] = useState(true);
+  const { addresses } = useSelector((state) => state.addressSlice);
+  const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [loader1, setLoader1] = useState(true);
+  const [loader2, setLoader2] = useState(true);
   const [cartData, setCartData] = useState(null);
   const [appliedOffer, setAppliedOffer] = useState(null);
+  const [address, setAddress] = useState(null);
 
   // using custom hook to fecth cart details
   useFetchCartDetails(
     cartItems,
-    setLoader,
+    setLoader1,
+    setLoader2,
     setCart,
     setCartData,
-    setAppliedOffer
+    setAppliedOffer,
+    setAddress
   );
 
   return (
     <>
-      {loader ? (
-        <Loader />
+      {loader1 && loader2 ? (
+        <PageLoader />
       ) : (
         <>
           {cart.length == 0 ? (
@@ -69,7 +77,13 @@ const CartPage = () => {
                     price={cartData.totalPrice}
                     appliedOffer={appliedOffer}
                   />
-                  <Address />
+                  <div className="w-full bg-white flex flex-col gap-1 py-4 px-2 rounded-md shadow-md border">
+                    <Address address={address} setAddress={setAddress} />
+                    <PaymentButton
+                      address={address}
+                      appliedOffer={appliedOffer}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

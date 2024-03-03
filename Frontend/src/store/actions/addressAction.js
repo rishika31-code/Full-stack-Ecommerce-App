@@ -29,11 +29,14 @@ export const addAdressAction = (addedAdress, showModal) => {
 }
 
 
-export const getAddreesesAction = () => {
+export const getAddreesesAction = (setAddress) => {
     return async (dispatch, getState) => {
         const token = localStorage.getItem("token")
         try {
             const { data } = await axios.get(GET_ADDRESSES, { headers: { token: token } })
+            if (data && setAddress) {
+                setAddress(data[0])
+            }
             dispatch(addAdress(data))
         } catch (error) {
             console.log(error)
