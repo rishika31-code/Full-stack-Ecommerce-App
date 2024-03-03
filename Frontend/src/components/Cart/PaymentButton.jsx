@@ -8,7 +8,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
           type="submit"
           className="primary-bg-darker-pink text-white py-2 rounded-md my-4 mx-2"
           onClick={() => {
-            useCreateOrder(appliedOffer);
+            useCreateOrder(appliedOffer, address);
           }}
         >
           CONTINUE TO PAYEMNT

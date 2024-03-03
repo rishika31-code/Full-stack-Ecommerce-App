@@ -1,7 +1,8 @@
 const Razorpay = require('razorpay')
-const { getCartProducts } = require('../../services/cartServices')
-const { findOfferbyId } = require('../../services/offerServices')
-const { createOrderService } = require('../../services/orderServices')
+const { getCartProducts, deleteCartService } = require('../../services/cartServices')
+const { findOfferbyId, deleteGivenOfferService } = require('../../services/offerServices')
+const { addTransactionService, createOrderService, createOrderItemService, updateTransactionService } = require('../../services/orderServices')
+const sequelize = require('../../util/database')
 
 const orderController = {
 
@@ -35,7 +36,7 @@ const orderController = {
                     if (err) {
                         throw new Error(JSON.stringify(err))
                     }
-                    await createOrderService(order.id, totalPrice, email)
+                    await addTransactionService(order.id, totalPrice, email)
                     res.send({ order, key_id: process.env.RZP_KEY_ID })
 
                 } catch (error) {
@@ -46,6 +47,70 @@ const orderController = {
 
         } catch (error) {
             console.log(error)
+        }
+    },
+    updateOrderCompleted: async (req, res) => {
+        console.log("hi")
+        const { id, email } = req.user
+        const { orderId, paymentId, address, offerId } = req.body
+        let tran;
+        try {
+            // creating transaction object
+            tran = await sequelize.transaction()
+
+            // taking all cart products
+            const cartProducts = await getCartProducts(id)
+
+            // calculating total price 
+            let totalAmount = cartProducts.reduce((prev, curr) => {
+                const productTotal = curr.quantity * curr.price;
+                return prev + productTotal + 5;
+            }, 0)
+
+            // if user applied some offer
+            let discountPercentage = 0
+            let finalAmount = totalAmount
+            if (offerId) {
+                const appliedOffer = await findOfferbyId(offerId)
+
+                if (appliedOffer) {
+                    finalAmount = Math.round(finalAmount - (finalAmount * (appliedOffer.discount / 100)))
+                    discountPercentage = appliedOffer.discount
+                }
+            }
+            // creating the order in order table
+            const createdOrder = await createOrderService(totalAmount, discountPercentage, finalAmount, address, id, tran)
+
+            // creating the order item table in bulk
+            const orderItems = cartProducts.map((value) => {
+                return {
+                    orderDetails: JSON.stringify({ ...value }),
+                    userId: id,
+                    orderId: createdOrder.id
+                }
+            })
+            await createOrderItemService(orderItems, tran)
+
+            // deleting the cart items 
+            await deleteCartService(id, tran)
+
+            // updating the transaction table
+            await updateTransactionService(orderId, "Completed", paymentId, tran)
+
+            // deleting the offers if user applied 
+            if (offerId) {
+                await deleteGivenOfferService(offerId, tran)
+            }
+
+
+            // if all promises fulfiled
+            tran.commit()
+
+            res.send({ message: "Order completed" })
+        } catch (error) {
+            console.log(error)
+            tran.rollback()
+            res.status(400).send({ message: "error while creating order" })
         }
     }
 }

@@ -1,12 +1,18 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { CREATE_ORDER } from "../api/agent";
-const useCreateOrder = async (appliedOffer) => {
+import { CREATE_ORDER, ORDER_COMPLETED } from "../api/agent";
+const useCreateOrder = async (appliedOffer, address) => {
   const token = localStorage.getItem("token");
 
   // if token is not found
   if (!token) {
     toast.error("User Not Found Login Again !");
+    return;
+  }
+
+  // if address is not found
+  if (!address) {
+    toast.error("Address can't be blank !");
     return;
   }
 
@@ -24,16 +30,21 @@ const useCreateOrder = async (appliedOffer) => {
       order_id: data.order.id,
       handler: async (response) => {
         try {
-          await axios.post(
-            "",
+          const data = await axios.post(
+            ORDER_COMPLETED,
             {
-              order_id: options.order_id,
-              payment_id: response.razorpay_payment_id,
+              orderId: options.order_id,
+              paymentId: response.razorpay_payment_id,
+              offerId: appliedOffer && appliedOffer.createdOfferId,
+              address,
             },
             { headers: { token: token } }
           );
+          console.log(data);
+          alert("order completed");
         } catch (error) {
-          console.log(error);
+          console.error("Error completing order");
+          toast.error("Order completion failed. Please try again.");
         }
       },
     };

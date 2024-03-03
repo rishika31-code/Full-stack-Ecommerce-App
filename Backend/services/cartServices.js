@@ -41,6 +41,19 @@ const cartServices = {
             throw error
         }
     },
+    deleteCartService: async (userId, transaction) => {
+        try {
+            const options = { where: { userId } };
+            if (transaction) {
+                options.transaction = transaction;
+            }
+
+            const dbRes = await Cart.destroy(options);
+            return dbRes;
+        } catch (error) {
+            throw error;
+        }
+    }
 
 
 

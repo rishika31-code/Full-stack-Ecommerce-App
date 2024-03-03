@@ -86,6 +86,23 @@ const offerServices = {
         } catch (error) {
             throw error
         }
+    },
+
+    // delete offer by id service to delete the offer using id
+    deleteGivenOfferService: async (createdofferId, transaction) => {
+
+        const options = { where: { createdofferId } };
+        if (transaction) {
+            options.transaction = transaction;
+        }
+
+        try {
+            const dbRes = await GivenOffers.destroy(options)
+            return dbRes
+
+        } catch (error) {
+            throw error
+        }
     }
 
 }
