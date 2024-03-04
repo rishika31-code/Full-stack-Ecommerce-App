@@ -6,10 +6,13 @@ const offerSlice = createSlice({
     reducers: {
         addOffers(state, action) {
             state.offers = action.payload
+        },
+        setOffersEmpty(state) {
+            state.offers = []
         }
     }
 })
 
 
-export const { addOffers } = offerSlice.actions
+export const { addOffers, setOffersEmpty } = offerSlice.actions
 export default offerSlice.reducer

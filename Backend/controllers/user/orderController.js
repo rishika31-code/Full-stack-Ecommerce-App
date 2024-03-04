@@ -50,8 +50,7 @@ const orderController = {
         }
     },
     updateOrderCompleted: async (req, res) => {
-        console.log("hi")
-        const { id, email } = req.user
+        const { id } = req.user
         const { orderId, paymentId, address, offerId } = req.body
         let tran;
         try {
@@ -111,6 +110,20 @@ const orderController = {
             console.log(error)
             tran.rollback()
             res.status(400).send({ message: "error while creating order" })
+        }
+    },
+
+    // for updating the order status failed 
+    updateOrderFailed: async (req, res) => {
+        const { orderId } = req.body
+        try {
+            if (!orderId) {
+                res.status(500).send({ message: "Order Id is not found " })
+            }
+            updateTransactionService(orderId, "Failed")
+            res.send({ message: "Order failed " })
+        } catch (error) {
+            res.status(500).send({ message: "Error while updating order status failed" })
         }
     }
 }

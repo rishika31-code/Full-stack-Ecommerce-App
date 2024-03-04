@@ -6,10 +6,13 @@ const cartSlice = createSlice({
     reducers: {
         setCartItem(state, action) {
             state.cartItems = action.payload
+        },
+        setCartEmpty(state) {
+            state.cartItems = {}
         }
     }
 })
 
 //exports 
-export const { setCartItem } = cartSlice.actions
+export const { setCartItem, setCartEmpty } = cartSlice.actions
 export default cartSlice.reducer
