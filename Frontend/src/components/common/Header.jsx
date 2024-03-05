@@ -4,6 +4,7 @@ import { PiCurrencyInrDuotone } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../store/reducers/authSlice";
 import { useNavigate } from "react-router-dom";
+import { MdAccountCircle } from "react-icons/md";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,13 +37,11 @@ const Header = () => {
     <>
       <header className=" sticky top-0 z-50">
         <div className=" flex justify-between items-center primary-bg-darker gap-4 px-10 py-4 font-poppins">
-          <div className="">
-            <h1 className="text-3xl primary-color-darker-pink font-bold">
-              RedBubble
-            </h1>
-            <h1 className="text-md ml-7  text-white">Kolkata , 700001</h1>
-          </div>
-          <div className="flex justify-start items-center bg-gray-100 px-2 py-3 w-[50%] min-[600px]:w-[60%] rounded-md">
+          <h1 className="text-3xl primary-color-darker-pink font-bold">
+            RedBubble
+          </h1>
+
+          <div className="flex justify-start items-center bg-gray-100 px-2 py-3 w-full min-[600px]:w-[60%] rounded-md">
             <CgSearch className="text-2xl" />
             <input
               type="text"
@@ -52,9 +51,12 @@ const Header = () => {
           </div>
           <div className="flex gap-4 justify-center items-center">
             {isloggedIn ? (
-              <h1 className=" text-white font-medium text-xl cursor-pointer font-cabin hover:text-pink-500">
-                Account
-              </h1>
+              <MdAccountCircle
+                className=" text-white font-medium text-6xl cursor-pointer font-cabin hover:text-pink-500"
+                onClick={() => {
+                  navigate("/account");
+                }}
+              />
             ) : (
               <h1
                 className=" text-white font-medium text-xl cursor-pointer font-cabin hover:text-pink-500"
@@ -64,7 +66,7 @@ const Header = () => {
               </h1>
             )}
             <div
-              className=" primary-bg-darker-pink px-6 py-1 rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"
+              className=" primary-bg-darker-pink px-6 py-1 w-full rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"
               onClick={goToCartPage}
             >
               <IoCart className="text-5xl" />

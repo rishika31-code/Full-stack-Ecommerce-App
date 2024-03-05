@@ -4,8 +4,12 @@ import HomePage from "../pages/HomePage";
 import ProductDetailsPage from "../pages/ProductDetailsPage";
 import CategoryPage from "../pages/CategoryPage";
 import CartPage from "../pages/CartPage";
-
+import OrderPage from "../pages/OrderPage";
+import Account from "../components/Account/Account";
+import { useSelector } from "react-redux";
 const MyRoutes = () => {
+  const { isloggedIn } = useSelector((state) => state.authSlice);
+
   return (
     <Routes>
       <Route path="/home" element={<HomePage />} />
@@ -16,7 +20,9 @@ const MyRoutes = () => {
         element={<ProductDetailsPage />}
       />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/orders" element={<OrderPage />} />
       <Route path="*" element={<HomePage />} />
+      {isloggedIn && <Route path="/account/*" element={<Account />} />}
     </Routes>
   );
 };

@@ -2,6 +2,10 @@
   background-color: rgb(60, 0, 107, 1);
 }
 
+.blue_linear_background {
+  background: linear-gradient(110.26deg, #3c006b 7.58%, #8c1d75 98.88%)
+}
+
 .primary-bg-darker-pink {
   background-color: rgba(255, 50, 105, 1) !important;
 }

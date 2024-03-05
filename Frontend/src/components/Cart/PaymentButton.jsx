@@ -51,7 +51,6 @@ const PaymentButton = ({ address, appliedOffer }) => {
               { headers: { token: token } }
             );
             toast.success("Order Completed");
-
             // if user apply some offer we have to clear
             if (appliedOffer) {
               dispatch(setOffersEmpty());
@@ -59,9 +58,8 @@ const PaymentButton = ({ address, appliedOffer }) => {
 
             // clearing the cart
             dispatch(setCartEmpty());
-
             // navigating to orders page
-            navigate("/orders");
+            navigate("/account/orders");
           } catch (error) {
             console.error("Error completing order");
             toast.error("Order completion failed. Please try again.");

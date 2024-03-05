@@ -1,7 +1,7 @@
 const TotalAmount = ({ price, appliedOffer }) => {
   // calculate discount function to calculate discount
   const calcDiscount = (price, percentage) => {
-    return price * (percentage / 100);
+    return Math.round(price * (percentage / 100));
   };
   return (
     <div className=" w-full bg-white flex flex-col gap-2 px-5 py-4 rounded-md shadow-md border ">

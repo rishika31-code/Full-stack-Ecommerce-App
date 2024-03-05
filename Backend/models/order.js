@@ -1,5 +1,5 @@
 const sequelize = require("../util/database");
-const { INTEGER, STRING, DOUBLE, JSON } = require('sequelize')
+const { INTEGER, STRING, DOUBLE, JSON, UUID } = require('sequelize')
 
 const Order = sequelize.define('order', {
     id: {
@@ -9,7 +9,8 @@ const Order = sequelize.define('order', {
         autoIncrement: true,
 
     },
-    orderStatus: { type: STRING, defaultValue: 'pending' },
+    orderStatus: { type: STRING, defaultValue: 'Complete' },
+    orderId: { type: UUID },
     totalAmount: { type: DOUBLE, allowNull: false },
     discountPercentage: { type: DOUBLE, defaultValue: 0 },
     finalAmount: { type: DOUBLE, allowNull: false },

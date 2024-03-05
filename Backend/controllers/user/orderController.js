@@ -1,7 +1,7 @@
 const Razorpay = require('razorpay')
 const { getCartProducts, deleteCartService } = require('../../services/cartServices')
 const { findOfferbyId, deleteGivenOfferService } = require('../../services/offerServices')
-const { addTransactionService, createOrderService, createOrderItemService, updateTransactionService } = require('../../services/orderServices')
+const { addTransactionService, createOrderService, createOrderItemService, updateTransactionService, getUserOrdersService } = require('../../services/orderServices')
 const sequelize = require('../../util/database')
 
 const orderController = {
@@ -78,7 +78,8 @@ const orderController = {
                 }
             }
             // creating the order in order table
-            const createdOrder = await createOrderService(totalAmount, discountPercentage, finalAmount, address, id, tran)
+            const createdOrder = await createOrderService
+                (totalAmount, discountPercentage, finalAmount, address, id, tran, orderId)
 
             // creating the order item table in bulk
             const orderItems = cartProducts.map((value) => {
@@ -124,6 +125,20 @@ const orderController = {
             res.send({ message: "Order failed " })
         } catch (error) {
             res.status(500).send({ message: "Error while updating order status failed" })
+        }
+    },
+    getOrders: async (req, res) => {
+        const { id, email } = req.user
+        console.log(id, email)
+        // if id && email is undefined 
+        if (!id || !email) {
+            res.status(500).send({ message: "user not found" })
+        }
+        try {
+            const orders = await getUserOrdersService(id, email)
+            res.send(orders)
+        } catch (error) {
+            res.status(500).send({ message: "Error while getting orders" })
         }
     }
 }
