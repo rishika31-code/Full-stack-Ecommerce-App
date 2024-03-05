@@ -1,7 +1,7 @@
 const Razorpay = require('razorpay')
 const { getCartProducts, deleteCartService } = require('../../services/cartServices')
 const { findOfferbyId, deleteGivenOfferService } = require('../../services/offerServices')
-const { addTransactionService, createOrderService, createOrderItemService, updateTransactionService, getUserOrdersService } = require('../../services/orderServices')
+const { addTransactionService, createOrderService, createOrderItemService, updateTransactionService, getUserOrdersService, getOrderDetailsService } = require('../../services/orderServices')
 const sequelize = require('../../util/database')
 
 const orderController = {
@@ -129,7 +129,6 @@ const orderController = {
     },
     getOrders: async (req, res) => {
         const { id, email } = req.user
-        console.log(id, email)
         // if id && email is undefined 
         if (!id || !email) {
             res.status(500).send({ message: "user not found" })
@@ -139,6 +138,20 @@ const orderController = {
             res.send(orders)
         } catch (error) {
             res.status(500).send({ message: "Error while getting orders" })
+        }
+    },
+
+    getOrderDetailsByOrderId: async (req, res) => {
+        const { orderid } = req.query
+        if (!orderid) {
+            res.status(500).send({ message: "order not found" })
+        }
+        try {
+            const orderDetails = await getOrderDetailsService(orderid)
+            res.send(orderDetails)
+        } catch (error) {
+            console.log(error)
+            res.status(500).send({ message: "Error while getting order details" })
         }
     }
 }

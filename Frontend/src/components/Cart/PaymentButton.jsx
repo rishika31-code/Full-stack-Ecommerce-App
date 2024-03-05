@@ -59,7 +59,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
             // clearing the cart
             dispatch(setCartEmpty());
             // navigating to orders page
-            navigate("/account/orders");
+            navigate(`/account/orders/${options.order_id}`);
           } catch (error) {
             console.error("Error completing order");
             toast.error("Order completion failed. Please try again.");

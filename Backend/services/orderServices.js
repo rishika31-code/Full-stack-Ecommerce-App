@@ -64,6 +64,27 @@ const orderServices = {
         } catch (error) {
             throw error
         }
+    },
+
+    getOrderDetailsService: async (orderId) => {
+        try {
+            const dbRes = await Order.findOne({
+                where: { orderId }, include: [
+                    {
+                        model: OrderItem,
+                        attributes: ['id', 'orderDetails']
+                    }
+                ]
+
+            })
+            dbRes.orderitems.forEach((item) => {
+                item.orderDetails = JSON.parse(item.orderDetails)
+            })
+            return dbRes
+
+        } catch (error) {
+            throw error
+        }
     }
 
 

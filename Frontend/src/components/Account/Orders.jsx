@@ -58,7 +58,7 @@ const Orders = () => {
                           order.orderitems.map((item) => {
                             return (
                               <span key={item.id}>
-                                {item.orderDetails.name},
+                                {item.orderDetails.name},{" "}
                               </span>
                             );
                           })}
