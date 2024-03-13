@@ -3,7 +3,7 @@ const OrderItem = require('../models/orderItem')
 const Transaction = require('../models/transaction')
 
 const orderServices = {
-
+    // for adding the transaction table if the payment is start
     addTransactionService: async (orderId, amount, userEmail) => {
         try {
             const dbRes = await Transaction.create({ orderId, amount, userEmail })
@@ -13,7 +13,7 @@ const orderServices = {
         }
     },
 
-
+    // for updating transaction table if the payment is success or failed 
     updateTransactionService: async (orderId, status, paymentId, transaction) => {
         try {
             const findTransaction = await Transaction.findOne({ where: { orderId } })
@@ -22,7 +22,7 @@ const orderServices = {
             throw error
         }
     },
-
+    // creating the order table if the transaction is success 
     createOrderService: async (totalAmount, discountPercentage, finalAmount, address, userId, transaction, orderId) => {
         try {
             const dbRes = Order.create({
@@ -39,7 +39,7 @@ const orderServices = {
             throw error
         }
     },
-
+    // creating the order item table after transaction is success
     createOrderItemService: async (orderItems, transaction) => {
         try {
             const dbRes = await OrderItem.bulkCreate(orderItems, { transaction })
@@ -49,6 +49,7 @@ const orderServices = {
         }
     },
 
+    // getting the user orders 
     getUserOrdersService: async (userId, userEmail) => {
         try {
             const dbRes = await Order.findAll({
@@ -65,7 +66,7 @@ const orderServices = {
             throw error
         }
     },
-
+    // for getting specific order details 
     getOrderDetailsService: async (orderId) => {
         try {
             const dbRes = await Order.findOne({

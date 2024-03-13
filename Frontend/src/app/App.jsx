@@ -3,7 +3,6 @@ import CartFooter from "../components/common/CartFooter";
 import Wrapper from "../components/Wrapper/Wrapper";
 import MyRoutes from "../routes/MyRoutes";
 import AuthModal from "../components/Auth/AuthModal";
-import Loader from "../components/Loader/Loader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../store/actions/categoryActions";
@@ -12,7 +11,7 @@ import "./App.css";
 import PageLoader from "../components/common/PageLoader";
 
 const App = () => {
-  const { showAuthModal, isloggedIn } = useSelector((state) => state.authSlice);
+  const { showAuthModal } = useSelector((state) => state.authSlice);
   const [loader, setLoader] = useState(true);
   const dispatch = useDispatch();
 

@@ -76,6 +76,7 @@ export const verifyUserAction = (token, setLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.post(VERIFY_USER, { token })
+
             // getting the user details form data 
             const userDetails = {
                 name: data.name,

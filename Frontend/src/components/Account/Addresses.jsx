@@ -1,7 +1,7 @@
 import React from "react";
 
 const Addresses = () => {
-  return <div>Addresses</div>;
+  return <div></div>;
 };
 
 export default Addresses;
