@@ -19,6 +19,7 @@ const apiEndPoints = {
     ORDER_FAILED: `http://localhost:${PORT}/user/order/orderfailed`,
     GET_ORDERS: `http://localhost:${PORT}/user/order/getorders`,
     GET_ORDER_DETAILS: `http://localhost:${PORT}/user/order/getorderdetails?orderid=`,
+    GET_SEARCH_PRODUCTS: `http://localhost:${PORT}/user/search/getproducts?s=`,
 }
 
 
@@ -40,5 +41,6 @@ export const {
     ORDER_COMPLETED,
     ORDER_FAILED,
     GET_ORDERS,
-    GET_ORDER_DETAILS
+    GET_ORDER_DETAILS,
+    GET_SEARCH_PRODUCTS
 } = apiEndPoints

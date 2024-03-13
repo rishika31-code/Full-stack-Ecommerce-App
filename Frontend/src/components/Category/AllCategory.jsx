@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const AllCategory = () => {
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.categorySlice);
-  console.log(categories);
 
   const navgigateCatgeory = (id) => {
     navigate(`/category/${id}/all`);

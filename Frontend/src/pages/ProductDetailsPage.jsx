@@ -35,8 +35,8 @@ const ProductDetailsPage = () => {
       {loader ? (
         <Loader />
       ) : (
-        <>
-          <div className=" flex flex-col md:flex-row gap-4 mt-5 mb-5">
+        <div className=" px-2 mb-24 md:mb-0">
+          <div className=" flex flex-col md:flex-row gap-4 mt-5 mb-5 ">
             <ProductCarousel images={product.imageUrls} />
             <ProductTypes
               productName={product.name}
@@ -48,7 +48,7 @@ const ProductDetailsPage = () => {
             <ProductDescription description={product.description} />
             <Working />
           </div>
-        </>
+        </div>
       )}
     </>
   );

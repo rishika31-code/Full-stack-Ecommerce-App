@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { openAuthModal } from "../../store/reducers/authSlice";
 import { useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
+import { RiLoginCircleLine } from "react-icons/ri";
+import { setSearchString } from "../../store/reducers/searchSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,6 +49,12 @@ const Header = () => {
               type="text"
               placeholder="Search Any Product by name"
               className=" px-2 bg-gray-100 w-full outline-none"
+              onClick={() => {
+                navigate("/search");
+              }}
+              onChange={(e) => {
+                dispatch(setSearchString(e.target.value));
+              }}
             />
           </div>
           <div className="flex gap-4 justify-center items-center">
@@ -58,12 +66,10 @@ const Header = () => {
                 }}
               />
             ) : (
-              <h1
-                className=" text-white font-medium text-xl cursor-pointer font-cabin hover:text-pink-500"
+              <RiLoginCircleLine
+                className=" text-white font-medium text-5xl cursor-pointer  hover:text-pink-500"
                 onClick={openAuthModalHandeler}
-              >
-                Log in
-              </h1>
+              />
             )}
             <div
               className=" primary-bg-darker-pink px-6 py-1 w-full rounded-md text-white hidden min-[600px]:flex justify-center items-center gap-2 cursor-pointer"

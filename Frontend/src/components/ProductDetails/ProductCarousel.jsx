@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 
 const ProductCarousel = ({ images }) => {
+  console.log(images);
   return (
     <>
       <div className="w-full m-auto md:w-[50%] h-fit border shadow-sm rounded-md flex justify-center items-center p-10 bg-white">

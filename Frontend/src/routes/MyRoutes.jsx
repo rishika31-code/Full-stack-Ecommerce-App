@@ -7,6 +7,7 @@ import CartPage from "../pages/CartPage";
 import OrderPage from "../pages/OrderPage";
 import Account from "../components/Account/Account";
 import { useSelector } from "react-redux";
+import Search from "../components/Search/Search";
 const MyRoutes = () => {
   const { isloggedIn } = useSelector((state) => state.authSlice);
 
@@ -21,6 +22,7 @@ const MyRoutes = () => {
       />
       <Route path="/cart" element={<CartPage />} />
       <Route path="/orders" element={<OrderPage />} />
+      <Route path="/search" element={<Search />} />
       <Route path="*" element={<HomePage />} />
       {isloggedIn && <Route path="/account/*" element={<Account />} />}
     </Routes>

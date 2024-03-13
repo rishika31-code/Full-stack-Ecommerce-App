@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductDescription = ({ description }) => {
   return (
-    <div className=" w-full md:w-[90%] flex flex-col gap-2 px-5">
+    <div className=" w-full md:w-[90%] flex flex-col gap-2 px-10 md:px-5">
       <h1 className=" text-xl font-medium">About The Product</h1>
       <ul className="text-gray-500 flex flex-col gap-2 list-disc">
         <li>Discription: {description}</li>

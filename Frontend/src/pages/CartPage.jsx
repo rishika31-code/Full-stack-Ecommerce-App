@@ -4,7 +4,6 @@ import Coupons from "../components/Cart/Coupons";
 import TotalAmount from "../components/Cart/TotalAmount";
 import Address from "../components/Address/Address";
 import { useSelector } from "react-redux";
-import Loader from "../components/Loader/Loader";
 import EmptyCart from "../components/Cart/EmptyCart";
 import useFetchCartDetails from "../hooks/useFetchCartDetails";
 import PaymentButton from "../components/Cart/PaymentButton";

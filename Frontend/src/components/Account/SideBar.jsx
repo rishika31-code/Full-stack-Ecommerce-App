@@ -1,13 +1,22 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoBagOutline } from "react-icons/io5";
 import { IoChatbubblesOutline } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
 import { VscAccount } from "react-icons/vsc";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logOutAction } from "../../store/actions/authActions";
 
 const SideBar = () => {
   const { userDetails } = useSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // for logout
+  const onLogOutUser = () => {
+    dispatch(logOutAction());
+    navigate("/");
+  };
 
   return (
     <div
@@ -45,7 +54,10 @@ catgeory-sidebar sticky z-30 top-[5.75rem] left-0 shadow-md  flex-col font-poppi
           </div>
         </NavLink>
       </div>
-      <div className=" flex justify-center items-center py-6 ">
+      <div
+        className=" flex justify-center items-center py-6 "
+        onClick={onLogOutUser}
+      >
         <button>Log out</button>
       </div>
     </div>

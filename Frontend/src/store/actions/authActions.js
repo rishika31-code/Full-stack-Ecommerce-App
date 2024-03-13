@@ -1,8 +1,8 @@
 import axios from "axios"
 import { LOGIN_USER, SIGNUP_USER, VERIFY_USER } from "../../api/agent"
 import toast from "react-hot-toast"
-import { setUserDetails, closeAuthModal, setUserLoggedIn } from "../reducers/authSlice"
-import { setCartItem } from "../reducers/cartSlice"
+import { setUserDetails, closeAuthModal, setUserLoggedIn, logOutUser } from "../reducers/authSlice"
+import { setCartEmpty, setCartItem } from "../reducers/cartSlice"
 
 export const signUpAction = (userData, setBtnLoader) => {
     return async (dispatch, getState) => {
@@ -102,3 +102,12 @@ export const verifyUserAction = (token, setLoader) => {
     }
 }
 
+// for logout 
+
+export const logOutAction = () => {
+    return (dispatch) => {
+        dispatch(logOutUser())
+        dispatch(setCartEmpty())
+        localStorage.removeItem('token')
+    }
+}

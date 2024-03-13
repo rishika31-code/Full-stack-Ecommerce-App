@@ -5,8 +5,8 @@ import authSlice from "./reducers/authSlice";
 import cartSlice from "./reducers/cartSlice";
 import addressSlice from "./reducers/addressSlice";
 import offerSlice from "./reducers/offerSlice";
-import orderSlice from './reducers/orderSlice'
-
+import orderSlice from "./reducers/orderSlice";
+import searchSlice from "./reducers/searchSlice";
 const store = configureStore({
     reducer: {
         productSlice,
@@ -15,7 +15,8 @@ const store = configureStore({
         cartSlice,
         addressSlice,
         offerSlice,
-        orderSlice
+        orderSlice,
+        searchSlice
     }
 })
 

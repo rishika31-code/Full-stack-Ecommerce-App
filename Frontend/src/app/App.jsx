@@ -3,12 +3,12 @@ import CartFooter from "../components/common/CartFooter";
 import Wrapper from "../components/Wrapper/Wrapper";
 import MyRoutes from "../routes/MyRoutes";
 import AuthModal from "../components/Auth/AuthModal";
+import PageLoader from "../components/common/PageLoader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesAction } from "../store/actions/categoryActions";
-import { verifyUserAction } from "../store/actions/AuthActions";
+import { verifyUserAction } from "../store/actions/authActions";
 import "./App.css";
-import PageLoader from "../components/common/PageLoader";
 
 const App = () => {
   const { showAuthModal } = useSelector((state) => state.authSlice);

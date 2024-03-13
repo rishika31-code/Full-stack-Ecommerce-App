@@ -5,6 +5,7 @@ import { MdOutlineCategory } from "react-icons/md";
 import { TbLayersSubtract } from "react-icons/tb";
 import { BiCuboid } from "react-icons/bi";
 import { MdOutlineLocalOffer } from "react-icons/md";
+
 const sideBarPaths = [
     {
         icon: RxDashboard,
@@ -42,6 +43,5 @@ const sideBarPaths = [
         path: "/offers"
     },
 ]
-
 
 export { sideBarPaths }
