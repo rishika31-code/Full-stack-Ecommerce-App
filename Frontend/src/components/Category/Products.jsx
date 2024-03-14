@@ -34,12 +34,12 @@ const Products = () => {
       {products.map((product) => {
         return (
           <div
-            className="w-full h-[20rem] grid border px-4 py-2 rounded-md shadow-md bg-white "
+            className="w-full h-[20rem] grid border p-4 rounded-md shadow-md bg-white cursor-pointer "
             onClick={() => {
               goToProductDetails(product.id);
             }}
             key={product.id}
-            style={{ gridTemplateRows: "11rem 2fr 1fr 1fr" }}
+            style={{ gridTemplateRows: "10rem 2fr 1fr 1fr" }}
           >
             <div className="w-full  p-1 rounded-md ">
               <img
@@ -47,7 +47,7 @@ const Products = () => {
                 className=" w-full h-full object-contain rounded-md"
               />
             </div>
-            <p className=" font-semibold font-poppins w-fit">
+            <p className=" font-semibold font-poppins w-fit text-sm">
               {formatNames(product.name)}
             </p>
             <h1>

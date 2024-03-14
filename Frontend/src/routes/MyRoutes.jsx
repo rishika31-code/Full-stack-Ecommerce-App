@@ -8,12 +8,14 @@ import OrderPage from "../pages/OrderPage";
 import Account from "../components/Account/Account";
 import { useSelector } from "react-redux";
 import Search from "../components/Search/Search";
+import AllCategories from "../components/AllCategories/AllCategories";
 const MyRoutes = () => {
   const { isloggedIn } = useSelector((state) => state.authSlice);
 
   return (
     <Routes>
       <Route path="/home" element={<HomePage />} />
+      <Route path="/categories" element={<AllCategories />} />
       <Route path="/product/:productid" element={<ProductDetailsPage />} />
       <Route path="/category/:id/:subid" element={<CategoryPage />} />
       <Route

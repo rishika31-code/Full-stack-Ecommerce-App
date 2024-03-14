@@ -7,11 +7,33 @@ import { useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { setSearchString } from "../../store/reducers/searchSlice";
+import { useState, useEffect } from "react";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isloggedIn } = useSelector((state) => state.authSlice);
   const { cartItems } = useSelector((state) => state.cartSlice);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  // placeholders
+  const placeholders = [
+    "ganja",
+    "daaru",
+    "wine",
+    "fruits",
+    "milk",
+    "vegetables",
+  ];
+
+  // useffect for changing the placeholder index
+  useEffect(() => {
+    // Function to update the placeholder index every 5 seconds
+    const intervalId = setInterval(() => {
+      setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+    }, 3000);
+
+    // Clear the interval when the component unmounts or when placeholder array changes
+    return () => clearInterval(intervalId);
+  }, []);
 
   // calculating total item & price in the cart
   let totalItems = 0;
@@ -47,8 +69,8 @@ const Header = () => {
             <CgSearch className="text-2xl" />
             <input
               type="text"
-              placeholder="Search Any Product by name"
-              className=" px-2 bg-gray-100 w-full outline-none"
+              placeholder={`You can search "${placeholders[placeholderIndex]}"`}
+              className=" px-2 bg-transparent w-full outline-none "
               onClick={() => {
                 navigate("/search");
               }}
