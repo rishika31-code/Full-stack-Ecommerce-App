@@ -26,7 +26,7 @@ app.use('/user', userRoutes)
 
 // when a random route is inputed
 app.use("*", (req, res) => {
-    res.status(500).end({ message: 'Route is not present' });
+    res.status(500).send({ message: 'Route is not present' });
 });
 
 // associtaions
