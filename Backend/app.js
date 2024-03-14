@@ -20,9 +20,14 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// appyning routes 
+// applying routes 
 app.use('/admin', adminRoutes)
 app.use('/user', userRoutes)
+
+// when a random route is inputed
+app.use("*", (req, res) => {
+    res.status(500).end({ message: 'Route is not present' });
+});
 
 // associtaions
 require('./relations/relations')()

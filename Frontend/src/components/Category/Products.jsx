@@ -41,7 +41,7 @@ const Products = () => {
             key={product.id}
             style={{ gridTemplateRows: "10rem 2fr 1fr 1fr" }}
           >
-            <div className="w-full  p-1 rounded-md ">
+            <div className="w-full p-1 rounded-md ">
               <img
                 src={product.imageUrls[0]}
                 className=" w-full h-full object-contain rounded-md"
