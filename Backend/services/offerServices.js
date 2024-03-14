@@ -90,7 +90,6 @@ const offerServices = {
 
     // delete offer by id service to delete the offer using id
     deleteGivenOfferService: async (createdofferId, transaction) => {
-
         const options = { where: { createdofferId } };
         if (transaction) {
             options.transaction = transaction;
