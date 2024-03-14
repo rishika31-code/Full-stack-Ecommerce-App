@@ -64,7 +64,6 @@ const Header = () => {
           <h1 className="text-3xl primary-color-darker-pink font-bold">
             RedBubble
           </h1>
-
           <div className="flex justify-start items-center bg-gray-100 px-2 py-3 w-full min-[600px]:w-[60%] rounded-md">
             <CgSearch className="text-2xl" />
             <input
