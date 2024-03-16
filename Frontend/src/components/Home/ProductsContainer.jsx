@@ -1,5 +1,5 @@
 import { MdNavigateNext } from "react-icons/md";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "./Carousel";
 import { useSelector } from "react-redux";
 import Product from "./Product";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const ProductsContainer = () => {
   };
 
   return (
-    <>
+    <div className="mb-28 md:mb-0">
       {categories.map((category) => {
         return (
           <div className="mt-10 px-5 md:px-0" key={category.id}>
@@ -30,7 +30,7 @@ const ProductsContainer = () => {
               </button>
             </div>
             <Carousel>
-              <div className=" flex items-center gap-4 mb-24 md:mb-5">
+              <div className=" flex items-center gap-4">
                 {category.products &&
                   category.products.map((product) => {
                     return <Product product={product} key={product.id} />;
@@ -40,7 +40,7 @@ const ProductsContainer = () => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

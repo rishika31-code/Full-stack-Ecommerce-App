@@ -5,7 +5,6 @@ import AuthModal from "../components/Auth/AuthModal";
 import PageLoader from "../components/common/PageLoader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategoriesAction } from "../store/actions/categoryActions";
 import { verifyUserAction } from "../store/actions/authActions";
 import "./App.css";
 
@@ -16,9 +15,7 @@ const App = () => {
 
   // dispatching the action to get all the main categories & verify user
   useEffect(() => {
-    dispatch(getCategoriesAction());
     const token = localStorage.getItem("token");
-
     if (token) {
       dispatch(verifyUserAction(token, setLoader));
     } else {

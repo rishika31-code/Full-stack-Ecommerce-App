@@ -1,6 +1,6 @@
 import React from "react";
 import { MdNavigateNext } from "react-icons/md";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "./Carousel";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const AllCategory = () => {
             return (
               <div
                 key={category.id}
-                className=" grid w-[13rem] h-[14rem] shadow-md border rounded-md cursor-pointer"
+                className=" grid w-[12rem] h-[14rem] shadow-md border rounded-md cursor-pointer"
                 style={{ gridTemplateRows: "10rem 1fr" }}
                 onClick={() => {
                   navigateCategory(category.id);

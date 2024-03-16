@@ -1,6 +1,7 @@
 
 const banners = {
-    topBanner: "https://cdn.zeptonow.com/web-static-assets-prod/artifacts/7.0.1/tr:w-1280,ar-1438-235,pr-true,f-auto,q-80//images/paan-corner/paan-corner-banner-desktop.png",
+    topSmBanner: "https://cdn.zeptonow.com/web-static-assets-prod/artifacts/10.1.3/tr:w-640,ar-328-120,pr-true,f-auto,q-80//images/paan-corner/paan-corner-banner-mweb.png",
+    topMdBanner: "https://cdn.zeptonow.com/web-static-assets-prod/artifacts/7.0.1/tr:w-1280,ar-1438-235,pr-true,f-auto,q-80//images/paan-corner/paan-corner-banner-desktop.png",
     carouselBanners: [
         { link: "https://cdn.zeptonow.com/production///tr:w-969,ar-969-558,pr-true,f-auto,q-80/inventory/banner/45a13d54-42e5-4fa6-bcab-6ee0525d8c59.png" },
         { link: "https://cdn.zeptonow.com/production///tr:w-640,ar-969-558,pr-true,f-auto,q-80/inventory/banner/2c36ad1a-51f9-447f-87d1-82f25811e36d.png" },

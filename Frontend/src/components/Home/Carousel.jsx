@@ -41,7 +41,7 @@ const Carousel = (props) => {
   return (
     <div className=" relative px-5 md:px-0">
       <div
-        className=" mt-5 flex gap-5 items-center w-full overflow-y-hidden overflow-x-scroll hide-scrollbar "
+        className="py-3 flex gap-5 items-center w-full overflow-y-hidden overflow-x-scroll hide-scrollbar "
         ref={carouselContainer}
       >
         <button

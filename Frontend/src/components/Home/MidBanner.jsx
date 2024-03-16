@@ -1,6 +1,6 @@
 import React from "react";
 import banners from "../../assets/constants/images";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "./Carousel";
 
 const MidBanner = () => {
   return (

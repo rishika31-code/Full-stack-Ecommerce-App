@@ -21,7 +21,7 @@ const MyRoutes = () => {
         path="/category/:id/:subid/:productid"
         element={<ProductDetails />}
       />
-      <Route path="/cart" element={<Cart />} />
+      {isloggedIn && <Route path="/cart" element={<Cart />} />}
       <Route path="/search" element={<Search />} />
       <Route path="*" element={<Home />} />
       {isloggedIn && <Route path="/account/*" element={<Account />} />}
