@@ -4,9 +4,10 @@ import { BiSupport } from "react-icons/bi";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useGetOrderDetails from "../../hooks/useGetOrderDetails";
-import Error from "./Error";
+import Error from "../common/Error";
+
 const OrderDetails = () => {
   const { orderid } = useParams();
   const { orders } = useSelector((state) => state.orderSlice);

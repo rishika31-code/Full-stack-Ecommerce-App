@@ -12,7 +12,8 @@ const useFetchCartDetails = (
   setCart,
   setCartData,
   setAppliedOffer,
-  setAddress
+  setAddress,
+  setError
 ) => {
   const dispatch = useDispatch();
 
@@ -26,13 +27,13 @@ const useFetchCartDetails = (
 
         setLoader1(false);
       } catch (error) {
+        setError(true);
         console.log(error);
       }
     })();
   }, []);
 
   // another useffect for update total item & price & fetch cart
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -41,9 +42,7 @@ const useFetchCartDetails = (
           const { data } = await axios.get(GET_CART, {
             headers: { token: token },
           });
-
           setCart(data);
-
           setCartData(() => {
             let totalItems = 0;
             let price = 0;
@@ -58,7 +57,7 @@ const useFetchCartDetails = (
           });
           setLoader2(false);
         } catch (error) {
-          console.log(error);
+          setError(true);
         }
       })();
     } else {

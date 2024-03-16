@@ -30,7 +30,7 @@ const ProductsContainer = () => {
               </button>
             </div>
             <Carousel>
-              <div className=" flex items-center gap-4">
+              <div className=" flex items-center gap-4 mb-24 md:mb-5">
                 {category.products &&
                   category.products.map((product) => {
                     return <Product product={product} key={product.id} />;

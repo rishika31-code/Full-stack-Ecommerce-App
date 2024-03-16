@@ -1,6 +1,5 @@
 import Header from "../components/common/Header";
-import CartFooter from "../components/common/CartFooter";
-import Wrapper from "../components/Wrapper/Wrapper";
+import Wrapper from "../components/common/Wrapper";
 import MyRoutes from "../routes/MyRoutes";
 import AuthModal from "../components/Auth/AuthModal";
 import PageLoader from "../components/common/PageLoader";
@@ -38,7 +37,6 @@ const App = () => {
           <Wrapper>
             <MyRoutes />
           </Wrapper>
-          <CartFooter />
         </>
       )}
     </>

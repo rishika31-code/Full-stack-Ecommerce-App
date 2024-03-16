@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import SideBar from "../components/Category/SideBar";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PORT } from "../../api/agent";
 import axios from "axios";
-import { PORT } from "../api/agent";
-import Products from "../components/Category/Products";
+import SideBar from "./SideBar";
+import Products from "./Products";
+import CartFooter from "../Cart/CartFooter";
 
-const CategoryPage = () => {
+const Category = () => {
   const [categories, setCatgeories] = useState([]);
   const [loader, setLoader] = useState(true);
   const { id } = useParams();
@@ -24,11 +25,14 @@ const CategoryPage = () => {
   }, []);
 
   return (
-    <div className="flex">
-      <SideBar categories={categories} path={id} />
-      <Products />
-    </div>
+    <>
+      <div className="flex">
+        <SideBar categories={categories} path={id} />
+        <Products />
+      </div>
+      <CartFooter />
+    </>
   );
 };
 
-export default CategoryPage;
+export default Category;

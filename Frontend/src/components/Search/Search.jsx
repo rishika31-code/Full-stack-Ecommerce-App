@@ -5,6 +5,7 @@ import { GET_SEARCH_PRODUCTS } from "../../api/agent";
 import CartBtn from "../buttons/CartBtn";
 import formatNames from "../../functions/formatNames";
 import { useNavigate } from "react-router-dom";
+import CartFooter from "../Cart/CartFooter";
 const Search = () => {
   const { searchString } = useSelector((state) => state.searchSlice);
   const [products, setProducts] = useState([]);
@@ -86,6 +87,8 @@ const Search = () => {
           })}
         </div>
       )}
+
+      <CartFooter />
     </>
   );
 };

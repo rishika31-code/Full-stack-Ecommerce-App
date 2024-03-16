@@ -1,31 +1,29 @@
 import { Route, Routes } from "react-router-dom";
-import React from "react";
-import HomePage from "../pages/HomePage";
-import ProductDetailsPage from "../pages/ProductDetailsPage";
-import CategoryPage from "../pages/CategoryPage";
-import CartPage from "../pages/CartPage";
-import OrderPage from "../pages/OrderPage";
-import Account from "../components/Account/Account";
 import { useSelector } from "react-redux";
+import ProductDetails from "../components/ProductDetails/ProductDetails";
+import Category from "../components/Category/Category";
+import Account from "../components/Account/Account";
 import Search from "../components/Search/Search";
 import AllCategories from "../components/AllCategories/AllCategories";
+import Cart from "../components/Cart/Cart";
+import Home from "../components/Home/Home";
+
 const MyRoutes = () => {
   const { isloggedIn } = useSelector((state) => state.authSlice);
 
   return (
     <Routes>
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/categories" element={<AllCategories />} />
-      <Route path="/product/:productid" element={<ProductDetailsPage />} />
-      <Route path="/category/:id/:subid" element={<CategoryPage />} />
+      <Route path="/product/:productid" element={<ProductDetails />} />
+      <Route path="/category/:id/:subid" element={<Category />} />
       <Route
         path="/category/:id/:subid/:productid"
-        element={<ProductDetailsPage />}
+        element={<ProductDetails />}
       />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/orders" element={<OrderPage />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/search" element={<Search />} />
-      <Route path="*" element={<HomePage />} />
+      <Route path="*" element={<Home />} />
       {isloggedIn && <Route path="/account/*" element={<Account />} />}
     </Routes>
   );

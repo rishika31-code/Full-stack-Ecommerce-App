@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersAction } from "../../store/actions/orderActions";
 import OrdersSkeleton from "./OrdersSkeleton";
 import { IoIosArrowBack } from "react-icons/io";
-import Error from "./Error";
+import Error from "../common/Error";
 import { useNavigate } from "react-router-dom";
 const Orders = () => {
   const dispatch = useDispatch();

@@ -4,7 +4,6 @@ import Carousel from "../Carousel/Carousel";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-// hard coded categories
 const AllCategory = () => {
   const navigate = useNavigate();
   const { categories } = useSelector((state) => state.categorySlice);
