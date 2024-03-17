@@ -1,6 +1,5 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { GET_ORDER_DETAILS } from "../api/agent";
+import { useEffect } from "react";
+import { getOrderDetails } from "../api/agent";
 
 const useGetOrderDetails = (orderId, setLoader, setError, setFindedOrder) => {
   useEffect(() => {
@@ -10,9 +9,7 @@ const useGetOrderDetails = (orderId, setLoader, setError, setFindedOrder) => {
         if (!token) {
           throw new Error("user not found");
         }
-        const { data } = await axios.get(`${GET_ORDER_DETAILS}${orderId}`, {
-          headers: { token },
-        });
+        const { data } = await getOrderDetails(orderId, token);
         setFindedOrder(data);
         setLoader(false);
       } catch (error) {

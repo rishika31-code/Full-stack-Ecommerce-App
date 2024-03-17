@@ -1,11 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { GET_SEARCH_PRODUCTS } from "../../api/agent";
+import { useNavigate } from "react-router-dom";
+import { searchProducts } from "../../api/agent";
+import toast from "react-hot-toast";
 import CartBtn from "../buttons/CartBtn";
 import formatNames from "../../functions/formatNames";
-import { useNavigate } from "react-router-dom";
 import CartFooter from "../Cart/CartFooter";
+
 const Search = () => {
   const { searchString } = useSelector((state) => state.searchSlice);
   const [products, setProducts] = useState([]);
@@ -19,13 +20,10 @@ const Search = () => {
         return;
       }
       try {
-        const { data } = await axios.get(
-          `${GET_SEARCH_PRODUCTS}${searchString}`
-        );
-        console.log(data);
+        const { data } = await searchProducts(searchString);
         setProducts(data);
       } catch (error) {
-        console.log(error);
+        toast.error("error while seraching products");
       }
     }, 500);
 

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { getProductDetails } from "../../api/agent";
 import ProductCarousel from "./ProductCarousel";
 import ProductTypes from "./ProductTypes";
 import ProductDescription from "./ProductDescription";
-import Working from "./Working";
-import { PORT } from "../../api/agent";
-import Loader from "./Loader";
 import CartFooter from "../Cart/CartFooter";
+import Working from "./Working";
+import Loader from "./Loader";
+import Error from "../common/Error";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
@@ -16,25 +16,27 @@ const ProductDetails = () => {
   const { productid } = useParams();
 
   // useffect for fetch the product details
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:${PORT}/user/getproductdetails?id=${productid}`
-        );
-        setProduct(data);
-        setLoader(false);
-      } catch (error) {
-        console.log(error);
-        setError(true);
-      }
-    })();
-  }, []);
+  if (productid) {
+    useEffect(() => {
+      (async () => {
+        try {
+          const { data } = await getProductDetails(productid);
+          setProduct(data);
+          setLoader(false);
+        } catch (error) {
+          console.log(error);
+          setError(true);
+        }
+      })();
+    }, []);
+  } else {
+    setError(true);
+  }
 
   return (
     <>
       {error ? (
-        <p>Error</p>
+        <Error component={"order details .."} />
       ) : (
         <>
           {loader ? (

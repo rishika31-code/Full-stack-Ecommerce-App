@@ -1,18 +1,17 @@
-import axios from "axios"
-import { GET_OFFERS } from "../../api/agent"
+import { getOffers } from "../../api/agent"
 import { addOffers } from "../reducers/offerSlice"
 import toast from "react-hot-toast"
 
 //get offers action to fetch the offers 
 export const getOffersAction = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         const token = localStorage.getItem('token')
         if (!token) {
             toast.error("user not found login again")
             return
         }
         try {
-            const { data } = await axios.get(GET_OFFERS, { headers: { token: token } })
+            const { data } = await getOffers(token)
             const formatedData = data.map((value) => {
                 return {
                     id: value.id,

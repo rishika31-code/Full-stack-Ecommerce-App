@@ -9,7 +9,7 @@ const Transaction = sequelize.define('transaction', {
         autoIncrement: true,
     },
     orderId: {
-        type: UUID
+        type: STRING
     },
     paymentId: {
         type: STRING,

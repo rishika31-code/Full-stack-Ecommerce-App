@@ -127,7 +127,7 @@ const GoogleMapView = ({ setAddress, mapCenter, setMapCenter }) => {
           </div>
 
           {!adressSearching && (
-            <div className=" w-full h-[35rem] px-2">
+            <div className=" w-full h-[15rem] md:h-[35rem] px-2">
               <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={mapCenter}

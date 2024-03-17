@@ -1,46 +1,84 @@
-export const PORT = 4000
+import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_BASE_URL;
 
-// all api
-const apiEndPoints = {
-    GET_CATEGORIES: `http://localhost:${PORT}/user/getcategories`,
-    SIGNUP_USER: `http://localhost:${PORT}/user/signup`,
-    LOGIN_USER: `http://localhost:${PORT}/user/login`,
-    VERIFY_USER: `http://localhost:${PORT}/user/verifyuser`,
-    ADD_TO_CART: `http://localhost:${PORT}/user/addtocart`,
-    INCREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/increasequantity`,
-    DECREASE_CART_QUANTITIY: `http://localhost:${PORT}/user/decreasequantity`,
-    GET_CART: `http://localhost:${PORT}/user/getcart`,
-    ADD_ADDRESS: `http://localhost:${PORT}/user/addaddress`,
-    GET_ADDRESSES: `http://localhost:${PORT}/user/getaddresses`,
-    GET_OFFERS: `http://localhost:${PORT}/user/getoffers`,
-    CREATE_ORDER: `http://localhost:${PORT}/user/order/createorder`,
-    ORDER_COMPLETED: `http://localhost:${PORT}/user/order/ordercompleted`,
-    ORDER_FAILED: `http://localhost:${PORT}/user/order/orderfailed`,
-    GET_ORDERS: `http://localhost:${PORT}/user/order/getorders`,
-    GET_ORDER_DETAILS: `http://localhost:${PORT}/user/order/getorderdetails?orderid=`,
-    GET_SEARCH_PRODUCTS: `http://localhost:${PORT}/user/search/getproducts?s=`,
+// creating base URL
+const api = axios.create({
+    baseURL,
+});
+
+// authentication apis
+export const signupUser = (userData) => api.post('/signup', userData);
+export const loginUser = (userData) => api.post('/login', userData);
+export const verifyUser = (token) => api.post('/verifyuser', { token });
+
+// category
+export const getCategories = () => api.get('/getcategories');
+export const getCategoryById = (categoryId) => {
+    return api.get(`/getcategorybyid?id=${categoryId}`)
+}
+export const getProductsBySubId = (subid, id) => {
+    return api.get(`/getproductbysubid?subid=${subid}&id=${id}`)
+}
+
+// product
+export const getProductDetails = (productId) => {
+    return api.get(`/getproductdetails?id=${productId}`)
 }
 
 
+// cart
+export const addToCart = (cartData, token) => {
+    return api.post('/addtocart', cartData, { headers: { token } })
+}
+export const increaseCartQuantity = (cartData, token) => {
+    return api.post('/increasequantity', cartData, { headers: { token } })
+}
+export const decreaseCartQuantity = (cartData, token) => {
+    return api.post('/decreasequantity', cartData, { headers: { token } })
+}
+export const getCart = (token) => {
+    return api.get('/getcart', { headers: { token } })
+}
 
-//exports
-export const {
-    GET_CATEGORIES,
-    SIGNUP_USER,
-    LOGIN_USER,
-    VERIFY_USER,
-    ADD_TO_CART,
-    INCREASE_CART_QUANTITIY,
-    DECREASE_CART_QUANTITIY,
-    GET_CART,
-    ADD_ADDRESS,
-    GET_ADDRESSES,
-    GET_OFFERS,
-    CREATE_ORDER,
-    ORDER_COMPLETED,
-    ORDER_FAILED,
-    GET_ORDERS,
-    GET_ORDER_DETAILS,
-    GET_SEARCH_PRODUCTS
-} = apiEndPoints
+// address
+export const addAddress = (addressData, token) => {
+    return api.post('/addaddress', addressData, { headers: { token } })
+}
+export const getAddresses = (token) => {
+    return api.get('/getaddresses', { headers: { token } })
+}
+
+// offers
+export const getOffers = (token) => api.get('/getoffers', { headers: { token: token } });
+
+// order 
+export const createOrder = (appliedOffer, token) => {
+    return api.post('/order/createorder',
+        { offerId: appliedOffer && appliedOffer.createdOfferId },
+        { headers: { token } })
+}
+
+export const orderCompleted = (orderData, token) => {
+    return api.post('/order/ordercompleted', orderData, { headers: { token } })
+}
+
+export const orderFailed = (orderId, token) => {
+    return api.post('/order/orderfailed', { orderId }, { headers: { token } })
+}
+export const getOrders = (token) => {
+    return api.get('/order/getorders', { headers: { token } })
+}
+export const getOrderDetails = (orderId, token) => {
+    return api.get(`/order/getorderdetails?orderid=${orderId}`, { headers: { token } })
+}
+
+// search
+export const searchProducts = (searchTerm) => api.get(`/search/getproducts?s=${searchTerm}`);
+
+// export
+export default api;
+
+
+
+

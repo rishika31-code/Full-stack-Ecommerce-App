@@ -69,7 +69,7 @@ const OrderDetails = () => {
                     <h1>{findedOrder.orderStatus}</h1>
                     <div
                       className={`${
-                        findedOrder.orderStatus == "Complete" ||
+                        findedOrder.orderStatus == "Completed" ||
                         findedOrder.orderStatus == "Delivered"
                           ? "bg-green-600"
                           : "bg-red-500"

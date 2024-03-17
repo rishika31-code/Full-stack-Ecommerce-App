@@ -40,8 +40,8 @@ const AddAddressForm = ({ showModal }) => {
   };
 
   return (
-    <div className=" flex justify-center items-start gap-4 px-2 font-poppins mt-2 z-40">
-      <div className="w-1/2">
+    <div className="flex flex-col md:flex-row  justify-center items-start gap-4 px-2 font-poppins mt-2 z-40">
+      <div className="md:w-1/2 w-full">
         <div className=" w-full h-full p-2">
           <GoogleMapView
             setAddress={setAddress}
@@ -51,7 +51,7 @@ const AddAddressForm = ({ showModal }) => {
         </div>
       </div>
       <form
-        className="flex flex-col gap-3 h-full w-1/2"
+        className="flex flex-col gap-3 h-full w-full p-2 md:w-1/2"
         onSubmit={submitedAdressHandeler}
       >
         <div className=" flex flex-col gap-2">

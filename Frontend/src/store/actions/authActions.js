@@ -1,14 +1,13 @@
-import axios from "axios"
-import { LOGIN_USER, SIGNUP_USER, VERIFY_USER } from "../../api/agent"
+import { loginUser, signupUser, verifyUser } from "../../api/agent"
 import toast from "react-hot-toast"
 import { setUserDetails, closeAuthModal, setUserLoggedIn, logOutUser } from "../reducers/authSlice"
 import { setCartEmpty, setCartItem } from "../reducers/cartSlice"
 
 export const signUpAction = (userData, setBtnLoader) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             setBtnLoader(true)
-            const { data } = await axios.post(SIGNUP_USER, userData)
+            const { data } = await signupUser(userData)
 
             // getting the user details form data 
             const userDetails = {
@@ -25,6 +24,7 @@ export const signUpAction = (userData, setBtnLoader) => {
             toast.success("Account Created !")
 
         } catch (err) {
+            console.log(err);
             toast.error(err.response.data.message)
         }
         setBtnLoader(false)
@@ -35,11 +35,10 @@ export const signUpAction = (userData, setBtnLoader) => {
 
 // login action
 export const logInAction = (userData, setBtnLoader) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             setBtnLoader(true)
-            const { data } = await axios.post(LOGIN_USER, userData)
-
+            const { data } = await loginUser(userData)
             // getting the user details form data 
             const userDetails = {
                 name: data.name,
@@ -73,9 +72,9 @@ export const logInAction = (userData, setBtnLoader) => {
 
 // verify user on page refreh 
 export const verifyUserAction = (token, setLoader) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
-            const { data } = await axios.post(VERIFY_USER, { token })
+            const { data } = await verifyUser(token)
 
             // getting the user details form data 
             const userDetails = {
@@ -103,7 +102,6 @@ export const verifyUserAction = (token, setLoader) => {
 }
 
 // for logout 
-
 export const logOutAction = () => {
     return (dispatch) => {
         dispatch(logOutUser())

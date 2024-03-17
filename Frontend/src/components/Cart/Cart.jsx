@@ -55,7 +55,7 @@ const Cart = () => {
                     </button>
                   </div>
                   <div className="mt-5 flex flex-col md:flex-row items-start gap-5">
-                    <div className="  w-full md:w-[60%] h-fit  max-h-[40rem] rounded-md px-4 py-4 flex flex-col justify-center gap-2 overflow-y-scroll shadow-md border  ">
+                    <div className="  w-full md:w-[60%] h-fit  md:max-h-[40rem] rounded-md px-4 py-4 flex flex-col justify-center gap-2 md:overflow-y-scroll shadow-md border  ">
                       {cart.map((values) => {
                         return (
                           <CartProduct

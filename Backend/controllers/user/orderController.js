@@ -41,6 +41,7 @@ const orderController = {
 
                 } catch (error) {
                     res.status(400).send({ message: "error while creating order", error: error })
+                    console.log(error)
                 }
 
             })

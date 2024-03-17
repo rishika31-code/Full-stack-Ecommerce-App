@@ -1,6 +1,5 @@
-import axios from "axios";
 import toast from "react-hot-toast";
-import { CREATE_ORDER, ORDER_COMPLETED, ORDER_FAILED } from "../../api/agent";
+import { createOrder, orderCompleted, orderFailed } from "../../api/agent";
 import { useNavigate } from "react-router-dom";
 import { setOffersEmpty } from "../../store/reducers/offerSlice";
 import { setCartEmpty } from "../../store/reducers/cartSlice";
@@ -27,12 +26,8 @@ const PaymentButton = ({ address, appliedOffer }) => {
     }
 
     try {
-      // crateing the order
-      const { data } = await axios.post(
-        CREATE_ORDER,
-        { offerId: appliedOffer && appliedOffer.createdOfferId },
-        { headers: { token: token } }
-      );
+      // creating the order
+      const { data } = await createOrder(appliedOffer, token);
 
       // options
       const options = {
@@ -40,15 +35,14 @@ const PaymentButton = ({ address, appliedOffer }) => {
         order_id: data.order.id,
         handler: async (response) => {
           try {
-            const data = await axios.post(
-              ORDER_COMPLETED,
+            const data = await orderCompleted(
               {
                 orderId: options.order_id,
                 paymentId: response.razorpay_payment_id,
                 offerId: appliedOffer && appliedOffer.createdOfferId,
                 address,
               },
-              { headers: { token: token } }
+              token
             );
             toast.success("Order Completed");
             // if user apply some offer we have to clear
@@ -73,17 +67,14 @@ const PaymentButton = ({ address, appliedOffer }) => {
       // if the payment is failed
       rzp1.on("payment.failed", async (res) => {
         try {
-          await axios.post(
-            ORDER_FAILED,
-            { orderId: options.order_id },
-            { headers: { token: token } }
-          );
+          await orderFailed(options.order_id, token);
         } catch (error) {
           console.log(error);
         }
       });
     } catch (error) {
       console.log(error);
+      toast.error("Payment Failed !");
     }
   };
 

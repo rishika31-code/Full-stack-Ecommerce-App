@@ -1,12 +1,11 @@
-import axios from "axios"
-import { GET_CATEGORIES } from "../../api/agent"
+import { getCategories } from "../../api/agent"
 import { addCategory } from "../reducers/categorySlice"
 import toast from "react-hot-toast"
 
 export const getCategoriesAction = (setLoader) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_CATEGORIES)
+            const { data } = await getCategories()
             dispatch(addCategory(data))
             setLoader(false)
         } catch (error) {

@@ -1,7 +1,8 @@
 import toast from "react-hot-toast"
-import { GET_ORDERS } from "../../api/agent"
-import axios from "axios"
+import { getOrders } from "../../api/agent"
 import { addOrder } from "../reducers/OrderSlice"
+
+
 export const getAllOrdersAction = (setLoader, setError) => {
     const token = localStorage.getItem("token")
     if (!token) {
@@ -10,7 +11,7 @@ export const getAllOrdersAction = (setLoader, setError) => {
     }
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_ORDERS, { headers: { token } })
+            const { data } = await getOrders(token)
             dispatch(addOrder(data))
             setLoader(false)
 

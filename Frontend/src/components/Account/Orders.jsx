@@ -5,6 +5,7 @@ import OrdersSkeleton from "./OrdersSkeleton";
 import { IoIosArrowBack } from "react-icons/io";
 import Error from "../common/Error";
 import { useNavigate } from "react-router-dom";
+import EmptyOrder from "./EmptyOrder";
 const Orders = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
@@ -54,58 +55,62 @@ const Orders = () => {
                   <h1>Orders</h1>
                 </div>
               </div>
-              <div className=" mt-5 md:mt-0 md:p-4 flex flex-col gap-4  font-poppins">
-                {orders.map((order) => {
-                  return (
-                    <div
-                      onClick={() => {
-                        navigateToOrderDetails(order.orderId);
-                      }}
-                      className=" w-full p-4 cursor-pointer rounded-md shadow-md border"
-                      key={order.id}
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "2fr 1fr",
-                      }}
-                    >
-                      <div className=" flex flex-col gap-3">
-                        <div className=" font-semibold">
-                          {order &&
-                            order.orderitems.map((item) => {
-                              return (
-                                <span key={item.id}>
-                                  {item.orderDetails.name},{" "}
-                                </span>
-                              );
-                            })}
-                        </div>
+              {orders.length <= 0 ? (
+                <EmptyOrder />
+              ) : (
+                <div className=" mt-5 md:mt-0 md:p-4 flex flex-col gap-4 w-full font-poppins">
+                  {orders.map((order) => {
+                    return (
+                      <div
+                        onClick={() => {
+                          navigateToOrderDetails(order.orderId);
+                        }}
+                        className=" w-full p-4 cursor-pointer rounded-md shadow-md border"
+                        key={order.id}
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "2fr 1fr",
+                        }}
+                      >
+                        <div className=" flex flex-col gap-3">
+                          <div className=" font-semibold">
+                            {order &&
+                              order.orderitems.map((item) => {
+                                return (
+                                  <span key={item.id}>
+                                    {item.orderDetails.name},{" "}
+                                  </span>
+                                );
+                              })}
+                          </div>
 
-                        <div>
-                          <h1># {order.orderId}</h1>
-                          <h1>{`${getActualDate(
-                            order.createdAt
-                          )} at ${getActualTime(order.createdAt)}`}</h1>
+                          <div>
+                            <h1># {order.orderId}</h1>
+                            <h1>{`${getActualDate(
+                              order.createdAt
+                            )} at ${getActualTime(order.createdAt)}`}</h1>
+                          </div>
+                        </div>
+                        <div className=" flex flex-col justify-between items-end gap-4">
+                          <h1 className=" font-bold text-xl">
+                            &#8377; {order.finalAmount}
+                          </h1>
+                          <div className=" bg-gray-200 px-2 py-1 rounded-md self-end flex justify-center items-center gap-3">
+                            <h1>{order.orderStatus}</h1>
+                            <div
+                              className={` h-3 w-3 rounded-full ${
+                                order.orderStatus == "Completed"
+                                  ? "bg-green-400"
+                                  : "bg-red-500"
+                              }`}
+                            ></div>
+                          </div>
                         </div>
                       </div>
-                      <div className=" flex flex-col justify-between items-end gap-4">
-                        <h1 className=" font-bold text-xl">
-                          &#8377; {order.finalAmount}
-                        </h1>
-                        <div className=" bg-gray-200 px-2 py-1 rounded-md self-end flex justify-center items-center gap-3">
-                          <h1>{order.orderStatus}</h1>
-                          <div
-                            className={` h-3 w-3 rounded-full ${
-                              order.orderStatus == "Complete"
-                                ? "bg-green-400"
-                                : "bg-red-500"
-                            }`}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </>
           )}
         </>
