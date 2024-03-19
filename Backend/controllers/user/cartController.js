@@ -1,28 +1,31 @@
-const Cart = require("../../models/cart")
-const ProductType = require("../../models/productType")
-const findCart = require("../../services/findCart")
-const Products = require('../../models/products')
+const { findCartService, createCartService, getCartProducts } = require("../../services/cartServices")
+const { getProductPriceService } = require("../../services/productServices")
 const cartController = {
 
     // add to cart
     addToCart: async (req, res) => {
         const { id } = req.user
         const { quantity, productTypeId } = req.body
-        try {
 
-            const dbRes = await Cart.create({ quantity, productTypeId, userId: id })
-            const { price } = await ProductType.findOne({ where: { id: productTypeId }, attributes: ["price"] })
+        // if some fields are null 
+        if (!id || !quantity || !productTypeId) {
+            return res.status(500).send({ messsage: "error while adding to cart" })
+        }
+        try {
+            const dbRes = await createCartService(quantity, productTypeId, id)
+            const { price } = await getProductPriceService(productTypeId)
+            if (!price) { return res.status(500).send({ message: "Error while adding to cart !" }) }
             const cart = {
                 id: dbRes.id,
                 productTypeId,
                 productType: { price: price },
                 quantity: quantity
             }
-            res.send(cart)
+
+            return res.send(cart)
 
         } catch (error) {
-            console.log(error)
-            res.status(400).send({ message: "Error Try Again !" })
+            res.status(500).send({ message: "Error while adding to cart !" })
         }
     },
 
@@ -30,19 +33,22 @@ const cartController = {
     increaseQuantity: async (req, res) => {
         const { quantity, productTypeId } = req.body
         const { id } = req.user
-        try {
 
-            const dbRes = await findCart(id, productTypeId)
+        if (!quantity || !productTypeId || !id) {
+            return res.status(400).send({ message: "Error while adding quantity!" })
+        }
+        try {
+            const dbRes = await findCartService(id, productTypeId)
             await dbRes.update({ quantity: quantity })
             const cart = {
                 id: dbRes.id,
                 productTypeId,
                 quantity: quantity
             }
-            res.send(cart)
+            return res.send(cart)
 
         } catch (error) {
-            res.status(400).send({ message: "Error!" })
+            return res.status(400).send({ message: "Error while adding quantity!" })
         }
     },
 
@@ -50,8 +56,12 @@ const cartController = {
     deceraseQuantity: async (req, res) => {
         const { quantity, productTypeId } = req.body
         const { id } = req.user
+        if (!quantity || !productTypeId || !id) {
+            return res.status(400).send({ message: "Error while decreasing quantity!" })
+        }
+
         try {
-            const dbRes = await findCart(id, productTypeId)
+            const dbRes = await findCartService(id, productTypeId)
             if (quantity >= 1) {
                 await dbRes.update({ quantity: quantity })
                 const cart = {
@@ -70,22 +80,18 @@ const cartController = {
             res.status(400).send({ message: "Error!" })
         }
     },
+
+    // getting all cart products from db
     getCart: async (req, res) => {
         const { id } = req.user
+        if (!id) {
+            return res.status.send({ message: "error while getting the cart" })
+        }
         try {
-            const dbRes = await Cart.findAll({
-                where: { userId: id },
-                include: [
-                    {
-                        model: ProductType,
-                        include: [{ model: Products }]
-                    }
-                ]
-            });
+            const dbRes = await getCartProducts(id)
             res.send(dbRes);
         } catch (error) {
-            console.log(error)
-            res.status(400).send({ message: "Error!" })
+            res.status(400).send({ message: "error while getting the cart" })
         }
     }
 

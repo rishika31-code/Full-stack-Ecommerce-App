@@ -1,28 +1,25 @@
 const { decodeToken, checkPassword } = require("../../functions/helperFunction")
-const findUser = require("../../services/findUser")
+const { findUserService } = require("../../services/userServices")
+
 
 const authMiddleware = async (req, res, next) => {
     const { token } = req.headers
     try {
         const decodeValues = decodeToken(token)
-        if (decodeValues) {
-            const { email, password } = decodeValues
-            const findedUser = await findUser(email)
-            if (findedUser) {
-                const checkPwd = await checkPassword(password, findedUser.password)
-                if (checkPwd) {
-                    req.user = findedUser
-                    next()
-                }
-                else { throw new Error({ message: "LogIn Again " }) }
-            }
-            else {
-                throw new Error({ message: "LogIn Again " })
-            }
-        }
-        else {
+        if (!decodeValues) {
             throw new Error({ message: "LogIn Again " })
         }
+        const { email, password } = decodeValues
+        const findedUser = await findUserService(email)
+        if (!findedUser) {
+            throw new Error({ message: "LogIn Again " })
+        }
+        const checkPwd = await checkPassword(password, findedUser.password)
+        if (!checkPwd) {
+            throw new Error({ message: "LogIn Again " })
+        }
+        req.user = findedUser
+        next()
 
     } catch (error) {
         res.status(400).send({ message: error })

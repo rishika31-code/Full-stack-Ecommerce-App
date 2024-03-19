@@ -1,24 +1,10 @@
-const Products = require('../../models/products')
-const MainCategories = require('../../models/mainCategories')
-const ProductType = require('../../models/productType')
-const SubCategories = require('../../models/subCategories')
+const { getCategoryWithProductsService, getSubCategoriesService } = require('../../services/userCategoryServices')
 
 const userCategory = {
     getCategories: async (req, res) => {
         try {
-            const dbRes = await MainCategories.findAll({
-                include: [{ model: Products, include: [{ model: ProductType }] }]
-            })
-
-            // parsing the images in product array  
-            const categories = dbRes.map((category) => {
-                category.products.forEach(product => {
-                    product.imageUrls = JSON.parse(product.imageUrls);
-                });
-                return category;
-            });
-
-            res.send(categories)
+            const categories = await getCategoryWithProductsService()
+            return res.send(categories)
 
         } catch (error) {
             res.status(500).send({ message: 'Some error occured' })
@@ -27,15 +13,15 @@ const userCategory = {
 
     getCategoryByid: async (req, res) => {
         const { id } = req.query
+        if (!id) {
+            return res.status(500).send({ message: "error while finding subcategories" })
+        }
         try {
-            const dbRes = await SubCategories.findAll({
-                where: { mainCategoryId: id }
-            })
-            res.send(dbRes)
+            const subcategories = await getSubCategoriesService(id)
+            return res.send(subcategories)
 
         } catch (error) {
-            console.log(error)
-            res.status(500).send({ message: 'Some error occured' })
+            return res.status(500).send({ message: "error while finding subcategories" })
         }
     }
 

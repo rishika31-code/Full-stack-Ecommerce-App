@@ -3,6 +3,15 @@ const ProductType = require("../models/productType");
 const Products = require("../models/products");
 
 const cartServices = {
+    createCartService: async (quantity, productTypeId, userId) => {
+        try {
+            const dbRes = await Cart.create({ quantity, productTypeId, userId })
+            return dbRes
+        } catch (error) {
+            throw error
+        }
+    },
+
     getCartProducts: async (userId) => {
         try {
             if (!userId) { throw new Error("user not found") }
@@ -53,7 +62,16 @@ const cartServices = {
         } catch (error) {
             throw error;
         }
+    },
+    findCartService: async (userId, productTypeId) => {
+        try {
+            const dbRes = Cart.findOne({ where: { userId, productTypeId } })
+            return dbRes
+        } catch (error) {
+            throw error
+        }
     }
+
 
 
 

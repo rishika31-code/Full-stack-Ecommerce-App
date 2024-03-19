@@ -1,58 +1,31 @@
-const Products = require('../../models/products')
-const ProductType = require('../../models/productType')
-const MainCategories = require('../../models/mainCategories')
-const SubCategories = require('../../models/subCategories')
+const { getProductDetailsService, findCategoryProductsService } = require('../../services/productServices')
 
 const product = {
     getProductDetails: async (req, res) => {
         const { id } = req.query
+        if (!id) {
+            return res.status(500).send({ message: 'error while finding product' })
+        }
         try {
-            const dbRes = await Products.findOne({
-                where: { id: id },
-                include: [
-                    { model: ProductType },
-                    { model: MainCategories }
-                ]
-            })
-            dbRes.imageUrls = JSON.parse(dbRes.imageUrls)
-            res.send(dbRes)
+            const dbRes = await getProductDetailsService(id)
+            return res.send(dbRes)
 
         } catch (error) {
-            res.status(500).send({ message: 'Some error occured' })
+            res.status(500).send({ message: 'error while finding product' })
         }
     },
 
     getProductBySubCategory: async (req, res) => {
         let { subid, id } = req.query
+        if (!subid || !id) {
+            return res.status(500).send({ message: "error while finding products" })
+        }
         try {
-            if (subid == 'all') {
-                const dbRes = await Products.findAll({
-                    where: { mainCategoryId: id },
-                    include: [{ model: ProductType }]
+            const findedProduct = await findCategoryProductsService(id, subid)
+            return res.send(findedProduct)
 
-                })
-
-                // parsing the product urls 
-                dbRes.forEach((product) => {
-                    product.imageUrls = JSON.parse(product.imageUrls)
-                })
-                res.send(dbRes)
-            }
-            else {
-                const dbRes = await Products.findAll({
-                    where: { subCategoryId: subid },
-                    include: [{ model: ProductType }]
-
-                })
-
-                // parsing the product urls 
-                dbRes.forEach((product) => {
-                    product.imageUrls = JSON.parse(product.imageUrls)
-                })
-                res.send(dbRes)
-            }
         } catch (error) {
-            res.status(500).send({ message: 'Some error occured' })
+            res.status(500).send({ message: "error while finding products" })
         }
     }
 }

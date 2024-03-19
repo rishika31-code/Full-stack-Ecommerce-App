@@ -1,27 +1,29 @@
-const Product = require('../../models/products')
-const MainCategories = require('../../models/mainCategories')
-const SubCategories = require('../../models/subCategories')
-const ProductType = require('../../models/productType')
+const { createProductService,
+    getAllProductsService,
+    createProductTypeService,
+    findProductService,
+    getAllProductTypeService } = require('../../services/productServices')
 
 // for add a new product 
 const productController = {
     addProduct: async (req, res) => {
         const { name, imageUrls, mainCategoryId, subCategoryId, description } = req.body
+        if (!name || !imageUrls || !mainCategoryId || !subCategoryId || !description) {
+            return res.status(500).send({ message: "Error ! while creating product" })
+        }
         try {
             const jsonImages = JSON.stringify(imageUrls)
-            const dbRes = await Product.create({
+            const dbRes = await createProductService(
                 name,
-                imageUrls: jsonImages,
-                description,
+                jsonImages,
                 mainCategoryId,
-                subCategoryId
-            })
+                subCategoryId,
+                description)
 
-            res.send({ id: dbRes.id, message: "Success" })
+            return res.send({ id: dbRes.id, message: "Success" })
 
         } catch (error) {
-
-            res.status(500).send({ message: 'Some error occured' })
+            res.status(500).send({ message: "Error ! while creating product" })
         }
 
     },
@@ -30,14 +32,9 @@ const productController = {
     // for fetching all the products 
     getAllProduct: async (req, res) => {
         try {
-            const dbRes = await Product.findAll({
-                include: [
-                    { model: MainCategories },
-                    { model: SubCategories }
-                ]
-            })
+            const dbRes = await getAllProductsService()
+            return res.send(dbRes)
 
-            res.send(dbRes)
         } catch (error) {
             res.status(500).send({ message: 'Some error occured' })
         }
@@ -47,9 +44,12 @@ const productController = {
     // for adding a product type
     addProductType: async (req, res) => {
         const { type, price, productId } = req.body
+        if (!type || !price || !productId) {
+            res.status(500).send({ message: "error creating product type(some fields are blank) " })
+        }
         try {
-            const dbRes = await ProductType.create({ type, price, productId })
-            const findProduct = await Product.findOne({ where: { id: productId } })
+            const dbRes = await createProductTypeService(type, price, productId)
+            const findProduct = await findProductService(productId)
 
             const sendRes = {
                 id: dbRes.id,
@@ -59,10 +59,10 @@ const productController = {
                 price: price
             }
 
-            res.status(200).send(sendRes)
+            return res.send(sendRes)
 
         } catch (error) {
-            res.status(500).send({ message: 'Some error occured' })
+            res.status(500).send({ message: 'error while creating product type' })
         }
 
     },
@@ -70,13 +70,8 @@ const productController = {
     // for getting all the product types
     getAllProductTypes: async (req, res) => {
         try {
-            const dbRes = await ProductType.findAll({
-                include: [
-                    { model: Product }
-                ]
-            })
-
-            res.send(dbRes)
+            const dbRes = await getAllProductTypeService()
+            return res.send(dbRes)
         } catch (error) {
             console.log(error)
         }

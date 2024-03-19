@@ -1,19 +1,21 @@
-const MainCategories = require('../../models/mainCategories')
-const SubCategories = require('../../models/subCategories')
+const { createCategoryService, getAllCategoriesService, createSubCategoryService } = require('../../services/categoryServices')
+
 const categoryController = {
 
     // to add main category 
     addCategory: async (req, res) => {
 
         const { name, imageUrl } = req.body
+        if (!name || !imageUrl) {
+            return res.status(400).send({ message: "error while creating category" })
+        }
         try {
-            const dbRes = await MainCategories.create({ name, imageUrl })
+            const dbRes = await createCategoryService(name, imageUrl)
             const data = { message: "Category added", name, imageUrl, id: dbRes.id }
-
-            res.status(200).send(data)
+            return res.send(data)
 
         } catch (error) {
-            res.status(400).send({ message: 'Something went wrong' })
+            res.status(400).send({ message: 'Error! while creating category' })
         }
 
 
@@ -22,8 +24,8 @@ const categoryController = {
     // get all categories
     getAllCategories: async (req, res) => {
         try {
-            const dbRes = await MainCategories.findAll()
-            res.send(dbRes)
+            const dbRes = await getAllCategoriesService()
+            return res.send(dbRes)
 
         } catch (error) {
             res.status(400).send({ message: 'Something went wrong' })
@@ -35,18 +37,22 @@ const categoryController = {
     // for adding a subcategory
     addSubCategory: async (req, res) => {
         const { name, imageUrl, categoryId } = req.body
+
+        if (!name || !imageUrl || !categoryId) {
+            return res.status(500).send({ message: "error ! while creating subcategory" })
+        }
         try {
-            const dbRes = await SubCategories.create({ name, imageUrl, mainCategoryId: categoryId })
+            const dbRes = await createSubCategoryService(name, imageUrl, categoryId)
             const addedSubCategory = {
                 name,
                 imageUrl,
                 id: dbRes.id,
                 mainCategoryId: categoryId
             }
-            res.send(addedSubCategory)
+            return res.send(addedSubCategory)
 
         } catch (error) {
-            res.status(400).send({ message: "Something went wrong !" })
+            res.status(400).send({ message: "error ! while creating subcategory" })
         }
 
     },
@@ -54,8 +60,8 @@ const categoryController = {
     // for getting all the subcategories 
     getAllSubCategories: async (req, res) => {
         try {
-            const dbRes = await SubCategories.findAll()
-            res.send(dbRes)
+            const dbRes = await getAllCategoriesService()
+            return res.send(dbRes)
         } catch (error) {
             res.status(400).send({ message: "Something went wrong !" })
         }

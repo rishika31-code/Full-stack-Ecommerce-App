@@ -1,4 +1,4 @@
-const { getUsers } = require('../../services/userServices')
+const { getUsersService } = require('../../services/userServices')
 
 
 const userController = {
@@ -6,7 +6,7 @@ const userController = {
     // getAllUsers function to get all the user from db
     getAllUsers: async (req, res) => {
         try {
-            const users = await getUsers()
+            const users = await getUsersService()
             res.send(users)
         } catch (error) {
             res.status(500).send({ message: "error while fetching users", error })

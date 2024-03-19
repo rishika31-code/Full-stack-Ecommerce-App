@@ -1,55 +1,71 @@
-const Userdetails = require('../../models/userDetails')
 const { generateToken, decodeToken, checkPassword } = require('../../functions/helperFunction')
-const findUser = require('../../services/findUser')
 const bcrypt = require('bcrypt')
+const { findUserService, createUserService } = require('../../services/userServices')
 
 const authController = {
 
     // for user signup
     onUserSignUp: async (req, res) => {
         const { name, email, password } = req.body
-
+        if (!name || !email || !password) {
+            return res.status(400).send({ message: "error while creating user (some fields are blank" })
+        }
         try {
-            const findedUser = await findUser(email)
+            const findedUser = await findUserService(email)
             if (findedUser) {
-                res.status(400).send({ message: "User Exist" });
+                return res.status(400).send({ message: "User Exist" });
             }
 
-            else {
-                const hashPwd = await bcrypt.hash(password, 10) // 10 is salt round 
-                const createdUser = await Userdetails.create({ name, email, password: hashPwd })
-                if (createdUser) {
-                    const token = generateToken(email, password)
-                    res.send({ token: token, name, email })
-                }
+            const hashPwd = await bcrypt.hash(password, 10) // 10 is salt round 
+            // checking hashpwd if comming null
+            if (!hashPwd) {
+                return res.status(400).send({ message: "error while creating user" })
             }
+
+            // creating the user
+            const createdUser = await createUserService(name, email, hashPwd)
+
+            //double check if created user is null 
+            if (!createdUser) {
+                return res.status(400).send({ message: "error while creating user" })
+            }
+            // generating the token 
+            const token = generateToken(email, password)
+            return res.send({ token: token, name, email })
+
         } catch (error) {
-            res.status(400).send({ message: error })
+            res.status(400).send({ message: "error while creating user" })
         }
     },
 
     // for user login
     onUserLogIn: async (req, res) => {
         const { email, password } = req.body
+        // if email & password is null 
+        if (!email || !password) {
+            return res.status(500).send({ message: "error while login (some fields are blank)" })
+        }
         try {
-            const findedUser = await findUser(email)
-            if (findedUser) {
-                const checkPwd = await checkPassword(password, findedUser.password)
-                if (checkPwd) {
-                    const token = generateToken(email, password)
-                    res.send({
-                        token: token,
-                        name: findedUser.name,
-                        email,
-                        cart: findedUser.carts
-                    })
-                }
-                else { res.status(500).send({ message: "Wrong Password" }) }
+            const findedUser = await findUserService(email)
+            // if user is not found 
+            if (!findedUser) {
+                return res.status(500).send({ message: "User doesn't exist" })
             }
-            else { res.status(500).send({ message: "User doesn't exist" }) }
+            const checkPwd = await checkPassword(password, findedUser.password)
 
+            // if password is not matched 
+            if (!checkPwd) {
+                return res.status(500).send({ message: "Wrong Password" })
+            }
+            const token = generateToken(email, password)
+            res.send({
+                token: token,
+                name: findedUser.name,
+                email,
+                cart: findedUser.carts
+            })
         } catch (error) {
-            res.status(400).send({ message: error })
+            res.status(400).send({ message: "error while login " })
         }
 
     },
@@ -57,35 +73,31 @@ const authController = {
     // verify user 
     onVerfiyUser: async (req, res) => {
         const { token } = req.body
+        if (!token) { return res.status(500).send({ message: "Please LogIn Again !" }) }
         try {
             const decodeValues = decodeToken(token)
-            if (decodeValues) {
-                const { email, password } = decodeValues
-                const findedUser = await findUser(email)
-
-                if (findedUser) {
-                    const checkPwd = await checkPassword(password, findedUser.password)
-
-                    if (checkPwd) {
-                        res.send({
-                            name: findedUser.name,
-                            email,
-                            cart: findedUser.carts
-                        })
-                    }
-                    else { res.status(500).send({ message: "Please LogIn Again" }) }
-                }
-                else {
-                    { res.status(500).send({ message: "Please LogIn Again !" }) }
-                }
+            if (!decodeValues) {
+                return res.status(500).send({ message: "Please LogIn Again !" })
             }
-            else {
-                { res.status(500).send({ message: "Please LogIn Again !" }) }
-            }
+            const { email, password } = decodeValues
+            const findedUser = await findUserService(email)
 
-        } catch (error) {
-            console.log(error)
-            res.status(400).send({ message: error })
+            if (!findedUser) {
+                return res.status(500).send({ message: "Please LogIn Again !" })
+            }
+            const checkPwd = await checkPassword(password, findedUser.password)
+
+            if (!checkPwd) {
+                return res.status(500).send({ message: "Please LogIn Again" })
+            }
+            return res.send({
+                name: findedUser.name,
+                email,
+                cart: findedUser.carts
+            })
+        }
+        catch (error) {
+            res.status(400).send({ message: "Please LogIn Again" })
         }
     }
 }

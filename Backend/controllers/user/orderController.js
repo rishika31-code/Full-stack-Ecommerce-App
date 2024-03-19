@@ -10,6 +10,9 @@ const orderController = {
         const { email, id } = req.user
         const { offerId } = req.body
         try {
+            if (!email || !id) {
+                throw new Error("error while creating order user not found")
+            }
             // taking all cart products
             const cartProducts = await getCartProducts(id)
 
@@ -53,6 +56,11 @@ const orderController = {
     updateOrderCompleted: async (req, res) => {
         const { id } = req.user
         const { orderId, paymentId, address, offerId } = req.body
+
+        if (!id || !orderId || !paymentId || !address) {
+            throw new Error("error while creating order")
+        }
+        // transaction variable
         let tran;
         try {
             // creating transaction object

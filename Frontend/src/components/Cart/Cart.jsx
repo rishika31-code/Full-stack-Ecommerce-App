@@ -60,13 +60,11 @@ const Cart = () => {
                         return (
                           <CartProduct
                             key={values.id}
-                            name={values.productType.product.name}
-                            imageUrl={JSON.parse(
-                              values.productType.product.imageUrls
-                            )}
+                            name={values.name}
+                            imageUrl={JSON.parse(values.imageUrls)}
                             productTypeId={values.productTypeId}
-                            type={values.productType.type}
-                            price={values.productType.price}
+                            type={values.type}
+                            price={values.price}
                           />
                         );
                       })}

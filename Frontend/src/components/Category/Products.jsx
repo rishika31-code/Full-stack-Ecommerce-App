@@ -15,7 +15,6 @@ const Products = () => {
     (async () => {
       try {
         const { data } = await getProductsBySubId(subid, id);
-        console.log(data);
         setProducts(data);
       } catch (error) {
         setError(true);

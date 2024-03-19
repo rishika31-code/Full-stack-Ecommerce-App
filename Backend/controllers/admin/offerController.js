@@ -5,13 +5,14 @@ const offerController = {
     createOffer: async (req, res) => {
         const { offerName, minimumValue, discount } = req.body
         try {
-            if (offerName && minimumValue && discount) {
-                const dbRes = await createOfferService(offerName, minimumValue, discount)
-                return res.send(dbRes)
+            if (!offerName || !minimumValue || !discount) {
+                return res.status(500).send({ message: "error while creating offer" })
             }
-            else {
-                res.status(500).send({ message: "some fields are blank" })
-            }
+
+            const dbRes = await createOfferService(offerName, minimumValue, discount)
+            return res.send(dbRes)
+
+
         } catch (error) {
             res.status(500).send({ message: "error while creating offer", error })
         }
@@ -20,7 +21,7 @@ const offerController = {
     getCreatedOffers: async (req, res) => {
         try {
             const createdOffers = await getCreatedOffersService()
-            res.send(createdOffers)
+            return res.send(createdOffers)
 
         } catch (error) {
             res.status(500).send({ message: "error while fetching offers", error })
@@ -30,7 +31,7 @@ const offerController = {
     getGivenOffers: async (req, res) => {
         try {
             const givenOffers = await getGivenOffersService()
-            res.send(givenOffers)
+            return res.send(givenOffers)
 
         } catch (error) {
             res.status(500).send({ message: "error while fetching offers", error })
@@ -39,31 +40,33 @@ const offerController = {
 
     giveOffer: async (req, res) => {
         const { offerId, userEmail } = req.body
-        if (offerId && userEmail) {
-            try {
-                const findedUser = await findUserByEmailService(userEmail)
-                const giveOffer = await giveOfferService(offerId, findedUser.id)
 
-                const givenOfferDetails = {
-                    id: giveOffer.givenOfferRes.id,
-                    user: { email: userEmail },
-                    createdoffer: {
-                        offerName: giveOffer.getCreatedOffer.offerName,
-                        discount: giveOffer.getCreatedOffer.discount,
-                        minValue: giveOffer.getCreatedOffer.minValue,
-                    }
+        if (!offerId || !userEmail) {
+            return res.status(500).send({ message: "error while giving offer(some fields are mising) " })
+        }
+
+        try {
+            const findedUser = await findUserByEmailService(userEmail)
+            const giveOffer = await giveOfferService(offerId, findedUser.id)
+
+            const givenOfferDetails = {
+                id: giveOffer.givenOfferRes.id,
+                user: { email: userEmail },
+                createdoffer: {
+                    offerName: giveOffer.getCreatedOffer.offerName,
+                    discount: giveOffer.getCreatedOffer.discount,
+                    minValue: giveOffer.getCreatedOffer.minValue,
                 }
-                res.send(givenOfferDetails)
-
-            } catch (error) {
-                // Extract error message from the caught error object
-                const errorMessage = error.message || 'error while giving offer';
-                res.status(500).send({ message: errorMessage })
             }
+            return res.send(givenOfferDetails)
+
+        } catch (error) {
+            // Extract error message from the caught error object
+            const errorMessage = error.message || 'error while giving offer';
+            res.status(500).send({ message: errorMessage })
         }
-        else {
-            res.status(500).send({ message: "error while giving offer(some fields are mising) " })
-        }
+
+
 
     }
 

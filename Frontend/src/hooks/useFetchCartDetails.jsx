@@ -41,6 +41,7 @@ const useFetchCartDetails = (
       toast.error("error while getting the cart");
       return;
     }
+    
     (async () => {
       try {
         const { data } = await getCart(token);
