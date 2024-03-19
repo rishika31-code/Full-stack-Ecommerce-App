@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 
 const SubCategoryTable = () => {
   const { subCategories } = useSelector((state) => state.categorySlice);
-
   return (
     <TableContainer component={Paper} sx={{ height: "100%" }}>
       <Table aria-label="simple table" size="small">
@@ -42,11 +41,6 @@ const SubCategoryTable = () => {
                 key={values.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  <span className=" flex justify-center items-center font-poppins py-2">
-                    {values.mainCategoryId}
-                  </span>
-                </TableCell>
                 <TableCell component="th" scope="row">
                   <span className=" flex justify-center items-center font-poppins py-2">
                     {values.id}

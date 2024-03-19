@@ -39,6 +39,14 @@ const categorySerrvices = {
         } catch (error) {
             throw error
         }
+    },
+    findSubCategoriesService: async (mainCategoryId) => {
+        try {
+            const dbRes = await SubCategories.findAll({ where: { mainCategoryId } })
+            return dbRes
+        } catch (error) {
+            throw error
+        }
     }
 }
 

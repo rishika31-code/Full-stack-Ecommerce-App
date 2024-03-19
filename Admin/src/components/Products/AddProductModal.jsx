@@ -4,7 +4,18 @@ import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
 import AddProductForm from "./AddProductForm";
+import { useState } from "react";
+import useFetchCategories from "../../hooks/useFetchCategories";
+import Error from "../Error/Error";
+import Loader from "../Loaders/Loader";
+
 const AddProductModal = ({ showModal }) => {
+  const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(false);
+
+  // invoking usefetch categories hook to get all the categories
+  useFetchCategories(setError, setLoader);
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -65,10 +76,19 @@ const AddProductModal = ({ showModal }) => {
               <RxCross2 className="text-2xl text-white " />
             </button>
           </div>
-
-          <div className="px-4 flex justify-center items-center">
-            <AddProductForm showModal={showModal} />
-          </div>
+          {error ? (
+            <Error message={"Error while Fetching Categories"} />
+          ) : (
+            <>
+              {loader ? (
+                <Loader />
+              ) : (
+                <div className="px-4 flex justify-center items-center">
+                  <AddProductForm showModal={showModal} />
+                </div>
+              )}
+            </>
+          )}
         </Box>
       </Modal>
     </>

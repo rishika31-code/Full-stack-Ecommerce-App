@@ -3,19 +3,23 @@ import Header from "../components/common/Header";
 import PageWrapper from "../components/Wrapper/PageWrapper";
 import MyRoutes from "../Routes/MyRoutes";
 import "./App.css";
-import useFetchAllData from "../hooks/useFetchAllData";
-const App = () => {
-  
-  // invoking the custom hook to fecth all data
-  useFetchAllData();
+import Auth from "../components/Auth/Auth";
 
+const App = () => {
+  const isLoggedIn = false;
   return (
     <>
-      <Header />
-      <SideBar />
-      <PageWrapper>
-        <MyRoutes />
-      </PageWrapper>
+      {isLoggedIn ? (
+        <>
+          <Header />
+          <SideBar />
+          <PageWrapper>
+            <MyRoutes />
+          </PageWrapper>
+        </>
+      ) : (
+        <Auth />
+      )}
     </>
   );
 };

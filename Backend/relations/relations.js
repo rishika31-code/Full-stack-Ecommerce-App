@@ -10,7 +10,7 @@ const CreatedOffers = require('../models/createdOffers')
 const GivenOffers = require('../models/givenOffers')
 const OrderItem = require('../models/orderItem')
 const Order = require('../models/order')
-const Transaction = require('../models/transaction')
+
 
 // all association
 module.exports = () => {

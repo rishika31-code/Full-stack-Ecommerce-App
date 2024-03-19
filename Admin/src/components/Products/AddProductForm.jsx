@@ -1,24 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addProductAction } from "../../store/actions/productActions";
+import { RiLoader3Fill } from "react-icons/ri";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { GET_SUBCATEGORY_BY_CATEGORY } from "../../api/agent";
 
 const AddProductForm = ({ showModal }) => {
   const dispatch = useDispatch();
   // taking maincategories and subcategories from the store
-  const { categories, subCategories } = useSelector(
-    (state) => state.categorySlice
-  );
+  const { categories } = useSelector((state) => state.categorySlice);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrls, setImageURLs] = useState([""]);
   const [loader, setLoader] = useState(false);
-  const [mainCategoryId, setMainCategoryId] = useState(
-    categories.length > 0 ? categories[0].id : ""
+  const [subCategories, setSubCategories] = useState([]);
+  const [mainCategoryData, setMainCategoryData] = useState(
+    categories.length > 0 ? categories[0] : ""
   );
-  const [subCategoryId, setSubCategoryId] = useState(
-    subCategories.length > 0 ? subCategories[0].id : ""
-  );
+  const [subCategoryData, setSubCategoryData] = useState(null);
+
+  // useffect for fecth subcategories by main category id
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          `${GET_SUBCATEGORY_BY_CATEGORY}${mainCategoryData.id}`
+        );
+        setSubCategories(data);
+        setSubCategoryData(data[0]);
+      } catch (error) {
+        toast.error("Subcategoris not found !");
+      }
+    })();
+  }, [mainCategoryData.id]);
 
   const handleImageChange = (index, value) => {
     const updatedImageURLs = [...imageUrls];
@@ -36,24 +51,40 @@ const AddProductForm = ({ showModal }) => {
     setImageURLs(updatedImageURLs);
   };
 
+  // when user want to change main category
+  const mainCategoryChangeHandeler = (id) => {
+    const category = categories.find((category) => category.id == id);
+    setMainCategoryData(category);
+  };
+  // when user want to change sub category
+  const subCategoryChangeHandele = (id) => {
+    const subCategory = subCategories.find((category) => category.id == id);
+    setSubCategoryData(subCategory);
+  };
+
   // for adding a new Product
   const handleAddProduct = (e) => {
     e.preventDefault();
+    if (
+      !mainCategoryData ||
+      !subCategoryData ||
+      !name.trim() ||
+      !description.trim()
+    ) {
+      return toast.error("some fields are blank");
+    }
+    setLoader(true);
+    // added product
     const addedProduct = {
       name,
       imageUrls,
-      mainCategoryId,
-      subCategoryId,
+      mainCategoryId: mainCategoryData.id,
+      subCategoryId: subCategoryData.id,
+      mainCategoryName: subCategoryData.name,
+      subCategoryName: subCategoryData.name,
       description,
     };
-
-    if (mainCategoryId && subCategoryId) {
-      setLoader(true);
-      dispatch(addProductAction(addedProduct, showModal));
-      setLoader(false);
-    } else {
-      toast.error("CATEGORY AND SUBCATEGORY CAN'T BE BLANK ");
-    }
+    dispatch(addProductAction(addedProduct, showModal, setLoader));
   };
 
   return (
@@ -115,8 +146,8 @@ const AddProductForm = ({ showModal }) => {
         </label>
         <select
           className="w-full p-2 bg-gray-100 rounded-md"
-          onChange={(e) => setMainCategoryId(e.target.value)}
-          value={mainCategoryId}
+          onChange={(e) => mainCategoryChangeHandeler(e.target.value)}
+          value={mainCategoryData.id}
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -132,8 +163,8 @@ const AddProductForm = ({ showModal }) => {
         </label>
         <select
           className="w-full p-2 bg-gray-100 rounded-md"
-          onChange={(e) => setSubCategoryId(e.target.value)}
-          value={subCategoryId}
+          onChange={(e) => subCategoryChangeHandele(e.target.value)}
+          value={subCategoryData ? subCategoryData.id : ""}
         >
           {subCategories.map((subCategory) => (
             <option key={subCategory.id} value={subCategory.id}>

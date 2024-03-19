@@ -20,6 +20,9 @@ const AddSubCategory = ({ showModal }) => {
   // for adding a new subcategory
   const onSubCategorySubmit = (e) => {
     e.preventDefault();
+    if (!name.trim() || !imageUrl.trim() || !categoryId) {
+      return toast.error("Some fields are blank");
+    }
     const subCategoryVal = {
       name,
       imageUrl,
@@ -29,8 +32,7 @@ const AddSubCategory = ({ showModal }) => {
     // checking category id is present or not
     if (categoryId) {
       setLoader(true);
-      dispatch(addSubCategoryAction(subCategoryVal,showModal));
-      setLoader(false);
+      dispatch(addSubCategoryAction(subCategoryVal, showModal, setLoader));
       setName("");
       setImageUrl("");
     } else {

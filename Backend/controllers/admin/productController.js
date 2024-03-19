@@ -24,6 +24,7 @@ const productController = {
 
         } catch (error) {
             res.status(500).send({ message: "Error ! while creating product" })
+
         }
 
     },
@@ -36,7 +37,7 @@ const productController = {
             return res.send(dbRes)
 
         } catch (error) {
-            res.status(500).send({ message: 'Some error occured' })
+            res.status(500).send({ message: 'Some error occured while fetching products' })
         }
     },
 

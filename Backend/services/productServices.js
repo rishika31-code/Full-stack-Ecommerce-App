@@ -6,7 +6,7 @@ const SubCategories = require("../models/subCategories")
 const productServices = {
 
     // create product service 
-    createProductService: async (name, imageUrls, description, mainCategoryId, subCategoryId) => {
+    createProductService: async (name, imageUrls, mainCategoryId, subCategoryId, description) => {
         try {
             const dbRes = await Product.create({
                 name,

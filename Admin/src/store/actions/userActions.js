@@ -15,7 +15,6 @@ export const getAllUserAction = () => {
                 toast.error("error while getting all the users")
             }
         } catch (error) {
-            console.log(error)
             throw error
         }
     }

@@ -4,7 +4,7 @@ import { addcategory, makeLoaderTrue, makeLoaderFalse, addSubCategory } from "..
 import axios from "axios"
 
 // to add a main category 
-export const addCategoryAction = (categoryVal, showModal) => {
+export const addCategoryAction = (categoryVal, showModal, setLoader) => {
     return async (dispatch, getState) => {
         try {
 
@@ -21,26 +21,29 @@ export const addCategoryAction = (categoryVal, showModal) => {
             toast.success("Added !")
             showModal(false)
         } catch (err) {
-            console.log(err)
+            toast.error(err.response.data.message)
         }
+        setLoader(false)
     }
 }
 
 // for getting all the main categories 
-export const getAllCategoriesAction = () => {
+export const getAllCategoriesAction = (setError, setLoader) => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get(GET_ALL_CATEGORIES)
             dispatch(addcategory(data))
+            setLoader(false)
         } catch (err) {
-            console.log(err)
+            setError(true)
+            toast.error(err.response.data.message)
         }
     }
 }
 
 
 // for add a subcategory under the maincatgeory 
-export const addSubCategoryAction = (subCategoryVal) => {
+export const addSubCategoryAction = (subCategoryVal, setLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.post(ADD_SUBCATEGORY, subCategoryVal)
@@ -59,21 +62,23 @@ export const addSubCategoryAction = (subCategoryVal) => {
             showModal(false)
 
         } catch (error) {
-            console.log(error)
+            toast.error(err.response.data.message)
         }
+        setLoader(false)
     }
 }
 
 
 // for getting all the subcategories 
 
-export const getAllSubcategoriesAction = () => {
+export const getAllSubcategoriesAction = (setError, setLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.get(GET_ALL_SUBCATEGORIES)
             dispatch(addSubCategory(data))
+            setLoader(false)
         } catch (error) {
-            console.log(error)
+            setError(true)
         }
     }
 }

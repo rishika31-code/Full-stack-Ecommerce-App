@@ -52,15 +52,19 @@ const Products = () => {
                 <p className=" font-semibold font-poppins w-fit text-sm">
                   {formatNames(product.name)}
                 </p>
-                <h1>
-                  {`${product.productTypes[0].type} | ${product.productTypes.length} options`}
-                </h1>
-                <div className="flex justify-between items-center">
-                  <h1 className=" font-medium text-xl">
-                    &#8377;{product.productTypes[0].price}
-                  </h1>
-                  <CartBtn id={product.productTypes[0].id} />
-                </div>
+                {product.productTypes[0] && (
+                  <>
+                    <h1>
+                      {`${product.productTypes[0].type} | ${product.productTypes.length} options`}
+                    </h1>
+                    <div className="flex justify-between items-center">
+                      <h1 className=" font-medium text-xl">
+                        &#8377;{product.productTypes[0].price}
+                      </h1>
+                      <CartBtn id={product.productTypes[0].id} />
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}

@@ -13,11 +13,6 @@ const sideBarPaths = [
         path: "/dashboard"
     },
     {
-        icon: AiFillShopping,
-        text: "Orders",
-        path: "/orders"
-    },
-    {
         icon: BsBoxSeam,
         text: "Products",
         path: "/products"

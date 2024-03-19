@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BiSolidOffer } from "react-icons/bi";
 import { MdOutlineSendToMobile } from "react-icons/md";
 import CreateOfferModal from "./CreateOfferModal";
 import GivenOffersTable from "./GivenOffersTable";
 import CreatedOffersTable from "./CreatedOffersTable";
 import GiveOfferModal from "./giveOfferModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllUserAction } from "../../store/actions/userActions";
 import {
   getAllCreatedOffersAction,
@@ -19,8 +19,9 @@ const Offers = () => {
   const [loader, setLoader] = useState(true);
   const [createOfferModal, setCreateOfferModal] = useState(false);
   const [giveOfferModal, setGiveOfferModal] = useState(false);
-  const [showGivenOfferTable, setShowGivenOfferTable] = useState(true);
+  const [showGivenOfferTable, setShowGivenOfferTable] = useState(false);
   const [error, setError] = useState(null);
+  const { createdOffers } = useSelector((state) => state.offerSlice);
   const dispatch = useDispatch();
 
   // useffect for fetching all the users & given offers & created offers
@@ -32,26 +33,32 @@ const Offers = () => {
           dispatch(getAllCreatedOffersAction()),
           dispatch(getAllGivenOffersAction()),
         ]);
+        setLoader(false);
       } catch (error) {
         toast.error("error while fetching offers ");
         setError(error);
       }
-      setTimeout(() => {
-        setLoader(false);
-      }, 3000);
     })();
   }, []);
 
+  const giveOfferHandeler = () => {
+    if (createdOffers.length > 0) {
+      setGiveOfferModal(true);
+    } else {
+      toast.error("No offers present");
+    }
+  };
+
   return (
     <>
-      {loader ? (
+      {error ? (
         <>
-          <PageLoader />
+          <Error message={"Error While Fetching Offers !"} />
         </>
       ) : (
         <>
-          {error ? (
-            <Error message={"Error While Fetching Offers !"} />
+          {loader ? (
+            <PageLoader />
           ) : (
             <>
               {createOfferModal && (
@@ -73,9 +80,7 @@ const Offers = () => {
                   </div>
                   <div
                     className="px-8 py-10 bg-gray-100 rounded-xl flex justify-center items-center gap-2 cursor-pointer"
-                    onClick={() => {
-                      setGiveOfferModal(true);
-                    }}
+                    onClick={giveOfferHandeler}
                   >
                     <h1 className=" text-xl">Give Offer</h1>
                     <MdOutlineSendToMobile className="text-2xl text-blue-400" />

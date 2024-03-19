@@ -12,19 +12,10 @@ import axios from "axios";
  */
 
 // action for adding a new product
-export const addProductAction = (productValues, showModal) => {
+export const addProductAction = (productValues, showModal, setLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.post(ADD_PRODUCT, productValues)
-
-            // finding maincategory & subcategory for this product 
-            const { categories, subCategories } = getState().categorySlice
-            const findedCategory = categories.find((category) => {
-                return Number(category.id) === Number(productValues.mainCategoryId)
-            })
-            const findedSubCategory = subCategories.find((subCategory) => {
-                return Number(subCategory.id) === Number(productValues.subCategoryId)
-            })
 
             // product that added in the db
             const addedProduct = {
@@ -32,9 +23,9 @@ export const addProductAction = (productValues, showModal) => {
                 id: data.id,
                 imageUrls: productValues.imageUrls,
                 mainCategoryId: productValues.mainCategoryId,
-                mainCategoryName: findedCategory.name,
+                mainCategoryName: productValues.mainCategoryName,
                 subCategoryId: productValues.subCategoryId,
-                subCategoryName: findedSubCategory.name,
+                subCategoryName: productValues.subCategoryName,
             }
 
             const { products } = getState().productSlice
@@ -45,14 +36,15 @@ export const addProductAction = (productValues, showModal) => {
             showModal(false)
             toast.success("Product Added ! \n Now add diffrent types for this product ")
 
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            toast.error(err.response.data.message)
         }
+        setLoader(false)
     }
 }
 
 // for getting all the products 
-export const getAllProductsAction = () => {
+export const getAllProductsAction = (setError, setLoader) => {
     return async (dispatch) => {
         try {
             const { data } = await axios.get(GET_ALL_PRODUCTS)
@@ -69,10 +61,12 @@ export const getAllProductsAction = () => {
                     return newObj
                 })
                 dispatch(addProduct(allProducts))
+                setLoader(false)
             }
 
         } catch (error) {
-            console.log(error);
+            setError(true)
+            toast.error(error.response.data.message)
         }
     }
 }

@@ -4,8 +4,18 @@ import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
 import AddSubCategory from "./AddSubCategory";
+import { useState } from "react";
+import useFetchCategories from "../../hooks/useFetchCategories";
+import Error from "../Error/Error";
+import Loader from "../Loaders/Loader";
 
 const SubCategoryModal = ({ showModal }) => {
+  const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(false);
+
+  // hooks for fetching categories
+  useFetchCategories(setError, setLoader);
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -35,7 +45,7 @@ const SubCategoryModal = ({ showModal }) => {
       (isMediumScreen && "70%") ||
       (isLargeScreen && "60%") ||
       (moreThanlg && "50%"),
-    height: "50%",
+    height: "fit",
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: "10px",
@@ -56,20 +66,27 @@ const SubCategoryModal = ({ showModal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className=" flex justify-end items-center sticky bg-white rounded-xl top-0">
-            <div className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md staicky top-0">
-              <RxCross2
-                className="text-2xl text-white "
-                onClick={() => {
-                  showModal(false);
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="px-4 flex justify-center items-center">
-            <AddSubCategory showModal={showModal} />
-          </div>
+          <button
+            className=" primary-linear-bg px-2 py-2 cursor-pointer rounded-md absolute right-0 top-0"
+            onClick={() => {
+              showModal(false);
+            }}
+          >
+            <RxCross2 className="text-xl text-white " />
+          </button>
+          {error ? (
+            <Error message={"Error getting categories "} height={"full"} />
+          ) : (
+            <>
+              {loader ? (
+                <Loader />
+              ) : (
+                <div className="px-4 py-5 flex justify-center items-center">
+                  <AddSubCategory showModal={showModal} />
+                </div>
+              )}
+            </>
+          )}
         </Box>
       </Modal>
     </>
