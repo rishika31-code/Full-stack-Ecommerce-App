@@ -7,10 +7,20 @@ import { BiCuboid } from "react-icons/bi";
 import { MdOutlineLocalOffer } from "react-icons/md";
 
 const sideBarPaths = [
+    // {
+    //     icon: RxDashboard,
+    //     text: "Dashboard",
+    //     path: "/dashboard"
+    // },
     {
-        icon: RxDashboard,
-        text: "Dashboard",
-        path: "/dashboard"
+        icon: MdOutlineCategory,
+        text: "Categories",
+        path: "/categories"
+    },
+    {
+        icon: TbLayersSubtract,
+        text: "Sub Categories",
+        path: "/subcategory"
     },
     {
         icon: BsBoxSeam,
@@ -21,16 +31,6 @@ const sideBarPaths = [
         icon: BiCuboid,
         text: "Product Types",
         path: "/producttypes"
-    },
-    {
-        icon: MdOutlineCategory,
-        text: "Categories",
-        path: "/categories"
-    },
-    {
-        icon: TbLayersSubtract,
-        text: "Sub Categories",
-        path: "/subcategory"
     },
     {
         icon: MdOutlineLocalOffer,

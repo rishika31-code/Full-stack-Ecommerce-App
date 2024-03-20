@@ -26,7 +26,17 @@ const checkPassword = (password, encodedValue) => {
     return bcrypt.compare(password, encodedValue)
 }
 
+// helper function to verify admin login & password 
+const checkAdminPassword = (email, password) => {
+    if (email === process.env.ADMIN_EMAIL
+        && password === process.env.ADMIN_PASSWORD) {
+        return true
+    }
+    else {
+        return false
+    }
+}
 
 
 // exporting 
-module.exports = { generateToken, decodeToken, checkPassword }
+module.exports = { generateToken, decodeToken, checkPassword, checkAdminPassword }

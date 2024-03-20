@@ -3,8 +3,18 @@ import Modal from "@mui/material/Modal";
 import { RxCross2 } from "react-icons/rx";
 import { useMediaQuery } from "@mui/material";
 import { createTheme } from "@mui/material";
+import { useState } from "react";
 import AddProductType from "./AddProductType";
+import useFetchProducts from "../../hooks/useFetchProducts";
+import Loader from "../Loaders/Loader";
+import Error from "../Error/Error";
 const AddProductTypeModal = ({ showModal }) => {
+  const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(false);
+
+  // invoking usefetch products hook to fecth all the products
+  useFetchProducts(setError, setLoader);
+
   const theme = createTheme({
     breakpoints: {
       values: {
@@ -65,10 +75,22 @@ const AddProductTypeModal = ({ showModal }) => {
               <RxCross2 className="text-2xl text-white " />
             </button>
           </div>
-
-          <div className="px-4 flex justify-center items-center">
-            <AddProductType showModal={showModal} />
-          </div>
+          {error ? (
+            <Error
+              message={"Error Occurred ! While Fetching The Products"}
+              height={"full"}
+            />
+          ) : (
+            <>
+              {loader ? (
+                <Loader />
+              ) : (
+                <div className="px-4 flex justify-center items-center">
+                  <AddProductType showModal={showModal} />
+                </div>
+              )}
+            </>
+          )}
         </Box>
       </Modal>
     </>

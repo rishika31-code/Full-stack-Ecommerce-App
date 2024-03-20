@@ -26,8 +26,7 @@ const AddProductType = ({ showModal }) => {
 
       // dispacthing action to add the type
       setBtnLoader(true);
-      dispatch(addProductTypeAction(submitedType, showModal));
-      setBtnLoader(false);
+      dispatch(addProductTypeAction(submitedType, showModal, setBtnLoader));
     } else {
       toast.error("Some fields are blank !");
     }

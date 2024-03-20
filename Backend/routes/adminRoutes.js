@@ -2,10 +2,12 @@ const { addSubCategory, addCategory, getAllCategories, getAllSubCategories, getS
 const { addProduct, getAllProduct, addProductType, getAllProductTypes } = require('../controllers/admin/productController')
 const { createOffer, getCreatedOffers, getGivenOffers, giveOffer } = require('../controllers/admin/offerController')
 const { getAllUsers } = require('../controllers/admin/userController')
+const { adminLogIn, verifyAdmin } = require('../controllers/admin/adminAuthController')
 const express = require('express')
 
 const router = express.Router()
-
+router.post('/login', adminLogIn)
+router.post('/verifyadmin', verifyAdmin)
 router.post('/addcategory', addCategory)
 router.post('/addsubcategory', addSubCategory)
 router.get("/category/getsubcategoriesbycategory", getSubCategoriesByMainCategory)

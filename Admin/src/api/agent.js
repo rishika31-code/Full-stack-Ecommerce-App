@@ -3,6 +3,8 @@ const PORT = 4000
 
 // all admin apis
 const agent = {
+    LOGIN_ADMIN: `http://localhost:${PORT}/admin/login`,
+    VERIFY_ADMIN: `http://localhost:${PORT}/admin/verifyadmin`,
     ADD_CATEGORY: `http://localhost:${PORT}/admin/addcategory`,
     GET_ALL_CATEGORIES: `http://localhost:${PORT}/admin/getallcategories`,
     GET_ALL_SUBCATEGORIES: `http://localhost:${PORT}/admin/getallsubcategories`,
@@ -21,6 +23,8 @@ const agent = {
 
 //exports 
 export const {
+    LOGIN_ADMIN,
+    VERIFY_ADMIN,
     ADD_CATEGORY,
     GET_ALL_CATEGORIES,
     GET_ALL_SUBCATEGORIES,

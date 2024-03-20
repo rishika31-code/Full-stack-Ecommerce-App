@@ -1,27 +1,15 @@
-import SideBar from "../components/common/SideBar";
-import Header from "../components/common/Header";
-import PageWrapper from "../components/Wrapper/PageWrapper";
+import { useState } from "react";
 import MyRoutes from "../Routes/MyRoutes";
+import useVerfiyAdmin from "../hooks/useVerfiyAdmin";
 import "./App.css";
-import Auth from "../components/Auth/Auth";
+import PageLoader from "../components/Loaders/PageLoader";
 
 const App = () => {
-  const isLoggedIn = false;
-  return (
-    <>
-      {isLoggedIn ? (
-        <>
-          <Header />
-          <SideBar />
-          <PageWrapper>
-            <MyRoutes />
-          </PageWrapper>
-        </>
-      ) : (
-        <Auth />
-      )}
-    </>
-  );
-};
+  const [loader, setLoader] = useState(true);
 
+  // use verify admin hook to check admin is logged in or not
+  useVerfiyAdmin(setLoader);
+
+  return <>{loader ? <PageLoader /> : <MyRoutes />}</>;
+};
 export default App;

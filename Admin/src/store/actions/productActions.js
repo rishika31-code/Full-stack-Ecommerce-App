@@ -72,7 +72,7 @@ export const getAllProductsAction = (setError, setLoader) => {
 }
 
 // for adding a product type 
-export const addProductTypeAction = (typeValues, showModal) => {
+export const addProductTypeAction = (typeValues, showModal, setBtnLoader) => {
     return async (dispatch, getState) => {
         try {
             const { data } = await axios.post(ADD_PRODUCT_TYPE, typeValues)
@@ -81,28 +81,35 @@ export const addProductTypeAction = (typeValues, showModal) => {
             dispatch(addProductType(newTypes))
             showModal(false)
         } catch (error) {
-            console.log(error);
+            toast.error(error.response.data.message)
         }
+        setBtnLoader(false)
     }
 }
 
 
 // get all produt action to get all the product types
-export const getAllProductTypes = () => {
+export const getAllProductTypes = (setError, setLoader) => {
     return async (dispatch, getState) => {
-        const { data } = await axios.get(GET_PRODUCT_TYPES)
-        const allTypes = data.map((values) => {
-            const obj = {
-                id: values.id,
-                type: values.type,
-                price: values.price,
-                productName: values.product.name,
-                productId: values.productId,
+        try {
+            const { data } = await axios.get(GET_PRODUCT_TYPES)
+            const allTypes = data.map((values) => {
+                const obj = {
+                    id: values.id,
+                    type: values.type,
+                    price: values.price,
+                    productName: values.product.name,
+                    productId: values.productId,
 
-            }
-            return obj
-        })
-        dispatch(addProductType(allTypes))
+                }
+                return obj
+            })
+            dispatch(addProductType(allTypes))
+            setLoader(false)
+        } catch (err) {
+            setError(true)
+            toast.error(err.response.data.message)
+        }
     }
 }
 
