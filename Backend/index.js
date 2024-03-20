@@ -17,7 +17,7 @@ const app = express()
 
 
 // Applying middlewares
-app.use(cors())
+app.use(cors({ origin: "*" }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
