@@ -4,7 +4,7 @@ import { MdOutlineSendToMobile } from "react-icons/md";
 import CreateOfferModal from "./CreateOfferModal";
 import GivenOffersTable from "./GivenOffersTable";
 import CreatedOffersTable from "./CreatedOffersTable";
-import GiveOfferModal from "./giveOfferModal";
+import GiveOfferModal from "./GiveOfferModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUserAction } from "../../store/actions/userActions";
 import {
