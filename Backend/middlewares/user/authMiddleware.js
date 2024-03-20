@@ -5,6 +5,9 @@ const { findUserService } = require("../../services/userServices")
 const authMiddleware = async (req, res, next) => {
     const { token } = req.headers
     try {
+        if (!token) {
+            throw new Error({ message: "LogIn Again " })
+        }
         const decodeValues = decodeToken(token)
         if (!decodeValues) {
             throw new Error({ message: "LogIn Again " })

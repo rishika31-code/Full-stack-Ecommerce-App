@@ -8,7 +8,7 @@ const authSlice = createSlice({
             state.isLoggedIn = true,
                 state.email = action.payload
         },
-        logOutAdmin(state, action) {
+        logOutAdmin(state) {
             state.email = ""
             state.isLoggedIn = false
         }

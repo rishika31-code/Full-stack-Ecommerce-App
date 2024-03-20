@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { addProductAction } from "../../store/actions/productActions";
 import { RiLoader3Fill } from "react-icons/ri";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { GET_SUBCATEGORY_BY_CATEGORY } from "../../api/agent";
+import { getSubcategoriesByCategoryApi } from "../../api/agent";
 
 const AddProductForm = ({ showModal }) => {
   const dispatch = useDispatch();
@@ -24,8 +23,8 @@ const AddProductForm = ({ showModal }) => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `${GET_SUBCATEGORY_BY_CATEGORY}${mainCategoryData.id}`
+        const { data } = await getSubcategoriesByCategoryApi(
+          mainCategoryData.id
         );
         setSubCategories(data);
         setSubCategoryData(data[0]);
@@ -80,10 +79,11 @@ const AddProductForm = ({ showModal }) => {
       imageUrls,
       mainCategoryId: mainCategoryData.id,
       subCategoryId: subCategoryData.id,
-      mainCategoryName: subCategoryData.name,
+      mainCategoryName: mainCategoryData.name,
       subCategoryName: subCategoryData.name,
       description,
     };
+    console.log(addedProduct);
     dispatch(addProductAction(addedProduct, showModal, setLoader));
   };
 

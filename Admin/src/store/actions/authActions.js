@@ -1,17 +1,17 @@
 import toast from "react-hot-toast"
 import { logInAdmin } from "../reducers/authSlice"
-import axios from "axios"
-import { LOGIN_ADMIN, VERIFY_ADMIN } from "../../api/agent"
+import { loginAdmin, verifyAdmin } from "../../api/agent"
 
 export const adminLoginAction = (submitedVal, navigate, setBtnLoader) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.post(LOGIN_ADMIN, submitedVal)
+            const { data } = await loginAdmin(submitedVal)
             dispatch(logInAdmin(data.email))
             localStorage.setItem("token", data.token)
             toast.success("Login Success")
             navigate("/categories")
         } catch (error) {
+            console.log(error)
             toast.error(error.response.data.message)
         }
         setBtnLoader(false)
@@ -24,9 +24,9 @@ export const verifyAdminAction = (navigate, setLoader) => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
-                const { data } = await axios.post(VERIFY_ADMIN, { token });
+                const { data } = await verifyAdmin(token);
                 dispatch(logInAdmin(data.email));
-                navigate("/categories");
+
             } catch (error) {
                 toast.error(error.response.data.message);
             }

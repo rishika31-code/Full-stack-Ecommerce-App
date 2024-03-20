@@ -1,8 +1,11 @@
 import toast from "react-hot-toast";
-import { ADD_PRODUCT, ADD_PRODUCT_TYPE, GET_ALL_PRODUCTS, GET_PRODUCT_TYPES } from "../../api/agent";
 import { addProduct, addProductType } from "../reducers/productSlice";
-import axios from "axios";
-
+import {
+    getAllProducts,
+    addProductApi,
+    addProductTypeApi,
+    getProductTypesApi
+} from "../../api/agent";
 
 /**
  * 
@@ -13,9 +16,13 @@ import axios from "axios";
 
 // action for adding a new product
 export const addProductAction = (productValues, showModal, setLoader) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Login again")
+    }
     return async (dispatch, getState) => {
         try {
-            const { data } = await axios.post(ADD_PRODUCT, productValues)
+            const { data } = await addProductApi(productValues, token)
 
             // product that added in the db
             const addedProduct = {
@@ -47,7 +54,7 @@ export const addProductAction = (productValues, showModal, setLoader) => {
 export const getAllProductsAction = (setError, setLoader) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_ALL_PRODUCTS)
+            const { data } = await getAllProducts()
             if (data) {
                 const allProducts = data.map((val) => {
                     const newObj = {
@@ -73,9 +80,13 @@ export const getAllProductsAction = (setError, setLoader) => {
 
 // for adding a product type 
 export const addProductTypeAction = (typeValues, showModal, setBtnLoader) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Login again")
+    }
     return async (dispatch, getState) => {
         try {
-            const { data } = await axios.post(ADD_PRODUCT_TYPE, typeValues)
+            const { data } = await addProductTypeApi(typeValues, token)
             const { productTypes } = getState().productSlice
             const newTypes = [...productTypes, data]
             dispatch(addProductType(newTypes))
@@ -90,9 +101,9 @@ export const addProductTypeAction = (typeValues, showModal, setBtnLoader) => {
 
 // get all produt action to get all the product types
 export const getAllProductTypes = (setError, setLoader) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_PRODUCT_TYPES)
+            const { data } = await getProductTypesApi()
             const allTypes = data.map((values) => {
                 const obj = {
                     id: values.id,

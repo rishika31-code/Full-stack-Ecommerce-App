@@ -1,14 +1,22 @@
 import toast from "react-hot-toast"
-import { ADD_CATEGORY, GET_ALL_CATEGORIES, ADD_SUBCATEGORY, GET_ALL_SUBCATEGORIES } from "../../api/agent"
-import { addcategory, makeLoaderTrue, makeLoaderFalse, addSubCategory } from "../reducers/categorySlice"
-import axios from "axios"
+import { addcategory, addSubCategory } from "../reducers/categorySlice"
 
+import {
+    addCategory,
+    getAllCategories,
+    getAllSubcategories,
+    addSubcategory
+} from "../../api/agent"
 // to add a main category 
 export const addCategoryAction = (categoryVal, showModal, setLoader) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Log in again")
+    }
     return async (dispatch, getState) => {
         try {
 
-            const { data } = await axios.post(ADD_CATEGORY, categoryVal)
+            const { data } = await addCategory(categoryVal, token)
             const { categories } = getState().categorySlice
 
             const categoryAdded = {
@@ -31,7 +39,7 @@ export const addCategoryAction = (categoryVal, showModal, setLoader) => {
 export const getAllCategoriesAction = (setError, setLoader) => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_ALL_CATEGORIES)
+            const { data } = await getAllCategories()
             dispatch(addcategory(data))
             setLoader(false)
         } catch (err) {
@@ -43,10 +51,14 @@ export const getAllCategoriesAction = (setError, setLoader) => {
 
 
 // for add a subcategory under the maincatgeory 
-export const addSubCategoryAction = (subCategoryVal, setLoader) => {
+export const addSubCategoryAction = (subCategoryVal, setLoader, showModal) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Log in again")
+    }
     return async (dispatch, getState) => {
         try {
-            const { data } = await axios.post(ADD_SUBCATEGORY, subCategoryVal)
+            const { data } = await addSubcategory(subCategoryVal, token)
             const { subCategories } = getState().categorySlice
             // Added sub categroy 
             const addedSubcategory = {
@@ -72,9 +84,9 @@ export const addSubCategoryAction = (subCategoryVal, setLoader) => {
 // for getting all the subcategories 
 
 export const getAllSubcategoriesAction = (setError, setLoader) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_ALL_SUBCATEGORIES)
+            const { data } = await getAllSubcategories()
             dispatch(addSubCategory(data))
             setLoader(false)
         } catch (error) {

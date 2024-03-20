@@ -1,13 +1,16 @@
-import axios from "axios"
-import { CREATE_OFFER, GET_CREATED_OFFERS, GET_GIVEN_OFFERS, GIVE_OFFER } from "../../api/agent"
 import { addCreatedOffer, addGivenOffer } from "../reducers/offerSlice"
+import { createOfferApi, getCreatedOffersApi, getGivenOffersApi } from "../../api/agent"
 import toast from "react-hot-toast"
 
 // create offer action for create an offer and store into db
 export const createOfferAction = (addedOffer, setLoader, setOffers, showModal) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Login again")
+    }
     return async (dispatch, getState) => {
         try {
-            const { data } = await axios.post(CREATE_OFFER, addedOffer)
+            const { data } = await createOfferApi(addedOffer, token)
             const { createdOffers } = getState().offerSlice
             const newOffers = [...createdOffers, data]
             dispatch(addCreatedOffer(newOffers))
@@ -15,7 +18,7 @@ export const createOfferAction = (addedOffer, setLoader, setOffers, showModal) =
             setOffers(null)
             showModal(false)
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
         }
         setLoader(false)
     }
@@ -25,7 +28,7 @@ export const createOfferAction = (addedOffer, setLoader, setOffers, showModal) =
 export const getAllCreatedOffersAction = () => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_CREATED_OFFERS)
+            const { data } = await getCreatedOffersApi()
             if (data) {
                 dispatch(addCreatedOffer(data))
             }
@@ -34,7 +37,7 @@ export const getAllCreatedOffersAction = () => {
             }
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
             throw error
         }
     }
@@ -44,7 +47,7 @@ export const getAllCreatedOffersAction = () => {
 export const getAllGivenOffersAction = () => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_GIVEN_OFFERS)
+            const { data } = await getGivenOffersApi()
             if (data) {
                 dispatch(addGivenOffer(data))
             }
@@ -53,7 +56,7 @@ export const getAllGivenOffersAction = () => {
             }
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
             throw error
         }
 
@@ -62,10 +65,14 @@ export const getAllGivenOffersAction = () => {
 
 // give offer action to give offer to a user 
 export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
+    const token = localStorage.getItem("token")
+    if (!token) {
+        return toast.error("Login again")
+    }
     return async (dispatch, getState) => {
         try {
 
-            const { data } = await axios.post(GIVE_OFFER, offerDetails)
+            const { data } = await giveOfferApi(offerDetails, token)
             const { givenOffers } = getState().offerSlice
             const newOffers = [...givenOffers, data]
             dispatch(addGivenOffer(newOffers))
@@ -73,7 +80,7 @@ export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
             showModal(false)
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
         }
     }
 }

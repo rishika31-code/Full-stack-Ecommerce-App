@@ -1,13 +1,12 @@
-import axios from "axios"
-import { GET_ALL_USERS } from "../../api/agent"
 import { addUsers } from "../reducers/userSlice"
 import toast from "react-hot-toast"
+import { getAllUsersApi } from "../../api/agent"
 
 // get all users action to fecth all the users 
 export const getAllUserAction = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
-            const { data } = await axios.get(GET_ALL_USERS)
+            const { data } = await getAllUsersApi()
             if (data) {
                 dispatch(addUsers(data))
             }

@@ -1,42 +1,147 @@
-// backend server port 
-const PORT = 4000
+import axios from "axios";
 
-// all admin apis
-const agent = {
-    LOGIN_ADMIN: `http://localhost:${PORT}/admin/login`,
-    VERIFY_ADMIN: `http://localhost:${PORT}/admin/verifyadmin`,
-    ADD_CATEGORY: `http://localhost:${PORT}/admin/addcategory`,
-    GET_ALL_CATEGORIES: `http://localhost:${PORT}/admin/getallcategories`,
-    GET_ALL_SUBCATEGORIES: `http://localhost:${PORT}/admin/getallsubcategories`,
-    GET_ALL_PRODUCTS: `http://localhost:${PORT}/admin/getallproducts`,
-    ADD_SUBCATEGORY: `http://localhost:${PORT}/admin/addsubcategory`,
-    ADD_PRODUCT: `http://localhost:${PORT}/admin/addproduct`,
-    ADD_PRODUCT_TYPE: `http://localhost:${PORT}/admin/addproducttype`,
-    GET_PRODUCT_TYPES: `http://localhost:${PORT}/admin/getallproducttypes`,
-    CREATE_OFFER: `http://localhost:${PORT}/admin/offer/createoffer`,
-    GET_CREATED_OFFERS: `http://localhost:${PORT}/admin/offer/getcreatedoffers`,
-    GET_GIVEN_OFFERS: `http://localhost:${PORT}/admin/offer/getgivenoffers`,
-    GIVE_OFFER: `http://localhost:${PORT}/admin/offer/giveoffer`,
-    GET_ALL_USERS: `http://localhost:${PORT}/admin/getusers`,
-    GET_SUBCATEGORY_BY_CATEGORY: `http://localhost:${PORT}/admin/category/getsubcategoriesbycategory?id=`,
-}
+const baseURL = import.meta.env.VITE_BASE_URL;
+const api = axios.create({
+    baseURL,
+});
 
-//exports 
-export const {
-    LOGIN_ADMIN,
-    VERIFY_ADMIN,
-    ADD_CATEGORY,
-    GET_ALL_CATEGORIES,
-    GET_ALL_SUBCATEGORIES,
-    ADD_SUBCATEGORY,
-    ADD_PRODUCT,
-    GET_ALL_PRODUCTS,
-    ADD_PRODUCT_TYPE,
-    GET_PRODUCT_TYPES,
-    CREATE_OFFER,
-    GIVE_OFFER,
-    GET_CREATED_OFFERS,
-    GET_GIVEN_OFFERS,
-    GET_ALL_USERS,
-    GET_SUBCATEGORY_BY_CATEGORY
-} = agent
+export default api;
+
+
+// Authentication APIs
+
+/**
+ * Login Admin API
+ * @param {Object} creds - admin credentials for login
+ * @returns {Promise} Axios promise
+ */
+export const loginAdmin = (creds) => api.post('/login', creds);
+
+/**
+ * Verify Admin API
+ * @param {string} token - Admin token for verification
+ * @returns {Promise} Axios promise
+ */
+export const verifyAdmin = (token) => api.post('/verifyadmin', { token });
+
+// Category APIs
+
+/**
+ * Add Category API
+ * @param {Object} categoryData - Data for adding a new category
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const addCategory = (categoryData, token) => {
+    return api.post('/addcategory', categoryData, { headers: { token } })
+};
+
+/**
+ * Get All Categories API
+ * @returns {Promise} Axios promise
+ */
+export const getAllCategories = () => api.get('/getallcategories');
+
+/**
+ * Get All Subcategories API
+ * @returns {Promise} Axios promise
+ */
+export const getAllSubcategories = () => api.get('/getallsubcategories');
+
+/**
+ * Add Subcategory API
+ * @param {Object} subcategoryData - Data for adding a new subcategory
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const addSubcategory = (subcategoryData, token) => {
+    return api.post('/addsubcategory', subcategoryData, { headers: { token } })
+};
+
+// // Product APIs
+
+/**
+ * Get All Products API
+ * @returns {Promise} Axios promise
+ */
+export const getAllProducts = () => api.get('/getallproducts');
+
+
+/**
+ * Add Product API
+ * @param {Object} productData - Data for adding a new product
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const addProductApi = (productData, token) => {
+    return api.post('/addproduct', productData, { headers: { token } })
+};
+
+/**
+ * Add Product Type API
+ * @param {Object} productTypeData - Data for adding a new product type
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const addProductTypeApi = (productTypeData, token) => {
+    return api.post('/addproducttype', productTypeData, { headers: { token } })
+};
+
+/**
+ * Get Product Types API
+ * @returns {Promise} Axios promise
+ */
+export const getProductTypesApi = () => api.get('/getallproducttypes');
+
+// Offer APIs
+
+/**
+ * Create Offer API
+ * @param {Object} offerData - Data for creating a new offer
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const createOfferApi = (offerData, token) => {
+    return api.post('/offer/createoffer', offerData, { headers: { token } })
+};
+
+/**
+ * Get Created Offers API
+ * @returns {Promise} Axios promise
+ */
+export const getCreatedOffersApi = () => api.get('/offer/getcreatedoffers');
+
+/**
+ * Get Given Offers API
+ * @returns {Promise} Axios promise
+ */
+export const getGivenOffersApi = () => api.get('/offer/getgivenoffers');
+
+/**
+ * Give Offer API
+ * @param {Object} offerData - Data for giving an offer
+ * @param {string} token -  Authentication token
+ * @returns {Promise} Axios promise
+ */
+export const giveOfferApi = (offerData, token) => {
+    return api.post('/offer/giveoffer', offerData, { headers: { token } })
+};
+
+// // User APIs
+
+/**
+ * Get All Users API
+ * @returns {Promise} Axios promise
+ */
+export const getAllUsersApi = () => api.get('/getusers');
+
+
+
+/**
+ * Get Subcategories by Category ID API
+ * @param {string} categoryId - Category ID to get subcategories
+ * @returns {Promise} Axios promise
+ */
+export const getSubcategoriesByCategoryApi = (categoryId) => {
+    return api.get(`/category/getsubcategoriesbycategory?id=${categoryId}`)
+};
