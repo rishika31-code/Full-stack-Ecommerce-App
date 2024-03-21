@@ -15,16 +15,6 @@ const bodyParser = require('body-parser')
 const db = require('./util/database')
 const app = express()
 
-// Configure CORS with options
-const corsOptions = {
-    origin: 'https://adminredbuuble.vercel.app/',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 200
-};
-
 
 
 // Applying middlewares
@@ -47,7 +37,7 @@ require('./relations/relations')()
 
 // sync database and listen
 db.sync(
-    { force: true }
+    // { force: true }
 )
     .then(() => {
         app.listen(process.env.RUNNING_PORT, () => {
