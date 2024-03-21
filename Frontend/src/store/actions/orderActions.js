@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { getOrders } from "../../api/agent"
-import { addOrder } from "../reducers/OrderSlice"
+import { addOrder } from "../reducers/orderSlice"
 
 
 export const getAllOrdersAction = (setLoader, setError) => {
