@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { setOffersEmpty } from "../../store/reducers/offerSlice";
 import { setCartEmpty } from "../../store/reducers/cartSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { RiLoader3Fill } from "react-icons/ri";
 
 const PaymentButton = ({ address, appliedOffer }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [btnLoader, setBtnLoader] = useState(false);
   // when user want to create the order
   const createOrderHandeler = async () => {
     const token = localStorage.getItem("token");
@@ -25,6 +27,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
       return;
     }
 
+    setBtnLoader(true);
     try {
       // creating the order
       const { data } = await createOrder(appliedOffer, token);
@@ -35,6 +38,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
         order_id: data.order.id,
         handler: async (response) => {
           try {
+            setBtnLoader(true);
             const data = await orderCompleted(
               {
                 orderId: options.order_id,
@@ -58,6 +62,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
             console.error("Error completing order");
             toast.error("Order completion failed. Please try again.");
           }
+          setBtnLoader(false);
         },
       };
 
@@ -76,6 +81,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
       console.log(error);
       toast.error("Payment Failed !");
     }
+    setBtnLoader(false);
   };
 
   return (
@@ -83,10 +89,14 @@ const PaymentButton = ({ address, appliedOffer }) => {
       {address ? (
         <button
           type="submit"
-          className="primary-bg-darker-pink text-white py-2 rounded-md my-4 mx-2"
+          className="primary-bg-darker-pink text-white py-2 rounded-md my-4 mx-2 flex justify-center items-center"
           onClick={createOrderHandeler}
         >
-          CONTINUE TO PAYEMNT
+          {btnLoader ? (
+            <RiLoader3Fill className="text-2xl animate-spin" />
+          ) : (
+            "CONTINUE TO PAYEMNT"
+          )}
         </button>
       ) : (
         <button

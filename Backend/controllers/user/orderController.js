@@ -117,7 +117,7 @@ const orderController = {
 
             res.send({ message: "Order completed" })
         } catch (error) {
-            console.log(error)
+
             tran.rollback()
             res.status(400).send({ message: "error while creating order" })
         }

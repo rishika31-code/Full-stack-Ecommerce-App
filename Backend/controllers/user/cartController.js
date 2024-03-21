@@ -56,7 +56,8 @@ const cartController = {
     deceraseQuantity: async (req, res) => {
         const { quantity, productTypeId } = req.body
         const { id } = req.user
-        if (!quantity || !productTypeId || !id) {
+
+        if (!productTypeId || !id) {
             return res.status(400).send({ message: "Error while decreasing quantity!" })
         }
 
@@ -69,11 +70,11 @@ const cartController = {
                     productTypeId,
                     quantity: quantity
                 }
-                res.send(cart)
+                return res.send(cart)
             }
             else {
                 await dbRes.destroy()
-                res.send({ quantity: 0 })
+                return res.send({ quantity: 0 })
             }
 
         } catch (error) {

@@ -4,8 +4,18 @@ import { IoChatbubblesOutline } from "react-icons/io5";
 import { SlLocationPin } from "react-icons/sl";
 import { VscAccount } from "react-icons/vsc";
 import Orders from "./Orders";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOutAction } from "../../store/actions/authActions";
 const Home = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logOutUser = () => {
+    dispatch(logOutAction());
+    navigate("/");
+  };
+
   return (
     <>
       <div className="hidden md:flex">
@@ -51,7 +61,10 @@ const Home = () => {
           </NavLink>
         </div>
         <div className=" mt-8 flex justify-center items-center text-2xl">
-          <button className=" border px-5 py-1 rounded-md primary-color-darker-pink">
+          <button
+            className=" border px-5 py-1 rounded-md primary-color-darker-pink"
+            onClick={logOutUser}
+          >
             Log Out
           </button>
         </div>

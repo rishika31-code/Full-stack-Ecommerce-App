@@ -4,26 +4,28 @@ import toast from "react-hot-toast"
 
 
 // for add a new address
-export const addAdressAction = (addedAdress, showModal) => {
+export const addAdressAction = (addedAdress, showModal, setBtnLoader) => {
     const token = localStorage.getItem('token')
     return async (dispatch, getState) => {
         if (!token) {
             toast.error("Login Again !")
             return
         }
+        setBtnLoader(true)
         try {
+
             const { data } = await addAddress(addedAdress, token)
             const { addresses } = getState().addressSlice
             const newAddresses = [...addresses, data]
+            setBtnLoader(false)
             dispatch(addAdress(newAddresses))
             showModal(false)
-
         } catch (error) {
             toast.error("Some error occurred ! ")
+            setBtnLoader(false)
             throw error
 
         }
-
     }
 }
 

@@ -3,7 +3,7 @@ import GoogleMapView from "./GoogleMapView";
 import { useState } from "react";
 import { addAdressAction } from "../../store/actions/addressAction";
 import { useDispatch } from "react-redux";
-
+import { RiLoader3Fill } from "react-icons/ri";
 // default point if the user doesn't allow location
 const defaultCenter = {
   lat: -3.745,
@@ -18,6 +18,7 @@ const AddAddressForm = ({ showModal }) => {
   const [landmark, setLandMark] = useState("");
   const [phone, setPhone] = useState("");
   const [label, setLabel] = useState("Home");
+  const [btnLoader, setBtnLoader] = useState(false);
   const dispatch = useDispatch();
 
   // when user want to add a new address
@@ -36,7 +37,7 @@ const AddAddressForm = ({ showModal }) => {
       label,
       phone,
     };
-    dispatch(addAdressAction(SubmitedAddress, showModal));
+    dispatch(addAdressAction(SubmitedAddress, showModal, setBtnLoader));
   };
 
   return (
@@ -130,8 +131,12 @@ const AddAddressForm = ({ showModal }) => {
             <option value={"others"}>Others</option>
           </select>
         </div>
-        <button className="primary-bg-darker-pink py-3 rounded-md mt-5 text-center text-white justify-end">
-          Save & Continue
+        <button className="primary-bg-darker-pink py-3 rounded-md mt-5 text-center text-white flex justify-center items-center">
+          {btnLoader ? (
+            <RiLoader3Fill className="text-2xl animate-spin" />
+          ) : (
+            "Save & Continue"
+          )}
         </button>
       </form>
     </div>

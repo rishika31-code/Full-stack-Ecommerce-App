@@ -10,7 +10,7 @@ const SideBar = ({ categories, path }) => {
       {categories.map((category) => {
         return (
           <NavLink to={`/category/${path}/${category.id}`} key={category.id}>
-            <div className=" flex items-center px-4 py-2 gap-4 hover:bg-gray-100 border-y cursor-pointer font-medium text-base">
+            <div className=" flex items-center px-4 py-2 gap-4 hover:bg-blue-600 hover:text-white border-y cursor-pointer font-medium text-base">
               <div className=" w-[3rem] h-[3rem] rounded-full bg-[#f7f0fa]">
                 <img
                   src={category.imageUrl}
