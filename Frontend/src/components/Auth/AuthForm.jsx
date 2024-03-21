@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { logInAction, signUpAction } from "../../store/actions/AuthActions";
+import { logInAction, signUpAction } from "../../store/actions/authActions";
 import { useDispatch } from "react-redux";
 import { LuLoader2 } from "react-icons/lu";
 const AuthForm = () => {
