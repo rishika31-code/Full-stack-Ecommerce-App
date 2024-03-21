@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { getCart } from "../api/agent";
 import { useEffect } from "react";
 import { getAddreesesAction } from "../store/actions/addressAction";
-import { getOffersAction } from "../store/actions/offersActionS";
-import axios from "axios";
+import { getOffersAction } from "../store/actions/offersActions";
 import toast from "react-hot-toast";
 
 const useFetchCartDetails = (
@@ -41,7 +40,7 @@ const useFetchCartDetails = (
       toast.error("error while getting the cart");
       return;
     }
-    
+
     (async () => {
       try {
         const { data } = await getCart(token);
