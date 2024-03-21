@@ -1,4 +1,4 @@
-const { createCategoryService, getAllCategoriesService, createSubCategoryService } = require('../../services/categoryServices')
+const { createCategoryService, getAllCategoriesService, createSubCategoryService, getAllSubCategoriesService } = require('../../services/categoryServices')
 const { getSubCategoriesService } = require('../../services/userCategoryServices')
 
 const categoryController = {
@@ -61,7 +61,7 @@ const categoryController = {
     // for getting all the subcategories 
     getAllSubCategories: async (req, res) => {
         try {
-            const dbRes = await getAllCategoriesService()
+            const dbRes = await getAllSubCategoriesService()
             return res.send(dbRes)
         } catch (error) {
             res.status(500).send({ message: "error while gettng subcategories" })
