@@ -6,7 +6,7 @@ import { SlLocationPin } from "react-icons/sl";
 import { VscAccount } from "react-icons/vsc";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logOutAction } from "../../store/actions/authActions";
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
 const SideBar = () => {
   const { userDetails } = useSelector((state) => state.authSlice);
   const dispatch = useDispatch();
@@ -41,12 +41,19 @@ catgeory-sidebar sticky z-30 top-[5.75rem] left-0 shadow-md  flex-col font-poppi
             <h1 className=" text-xl">Support</h1>
           </div>
         </NavLink>
-        <NavLink to={"/account/addresses"}>
-          <div className=" flex gap-3 p-2 items-center cursor-pointer">
-            <SlLocationPin className=" text-2xl" />
-            <h1 className=" text-xl">Addresses</h1>
-          </div>
-        </NavLink>
+        <div className=" flex gap-3 p-2 items-center cursor-pointer">
+          <SlLocationPin className=" text-2xl" />
+          <h1 className=" text-xl">Addresses</h1>
+        </div>
+        <div
+          className=" flex gap-3 p-2 items-center cursor-pointer"
+          onClick={() => {
+            navigate("/cart");
+          }}
+        >
+          <AiOutlineShoppingCart className=" text-2xl" />
+          <h1 className=" text-xl">Cart</h1>
+        </div>
         <NavLink to={"/account/profile"}>
           <div className=" flex gap-3 p-2 items-center cursor-pointer">
             <VscAccount className=" text-2xl" />

@@ -9,13 +9,14 @@ import useFetchCartDetails from "../../hooks/useFetchCartDetails";
 import PaymentButton from "./PaymentButton";
 import PageLoader from "../common/PageLoader";
 import Error from "../common/Error";
+import SkeletonCart from "./SkeletonCart";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cartSlice);
   const [error, setError] = useState(false);
   const [cart, setCart] = useState([]);
   const [loader1, setLoader1] = useState(true);
-  const [loader2, setLoader2] = useState(true);
+  const [loader2, setLoader2] = useState(false);
   const [cartData, setCartData] = useState(null);
   const [appliedOffer, setAppliedOffer] = useState(null);
   const [address, setAddress] = useState(null);
@@ -39,7 +40,7 @@ const Cart = () => {
       ) : (
         <>
           {loader1 || loader2 ? (
-            <PageLoader />
+            <SkeletonCart />
           ) : (
             <>
               {cart.length == 0 ? (

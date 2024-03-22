@@ -1,5 +1,5 @@
 import { addCreatedOffer, addGivenOffer } from "../reducers/offerSlice"
-import { createOfferApi, getCreatedOffersApi, getGivenOffersApi } from "../../api/agent"
+import { createOfferApi, getCreatedOffersApi, getGivenOffersApi, giveOfferApi } from "../../api/agent"
 import toast from "react-hot-toast"
 
 // create offer action for create an offer and store into db
@@ -65,6 +65,7 @@ export const getAllGivenOffersAction = () => {
 
 // give offer action to give offer to a user 
 export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
+
     const token = localStorage.getItem("token")
     if (!token) {
         return toast.error("Login again")
@@ -76,11 +77,10 @@ export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
             const { givenOffers } = getState().offerSlice
             const newOffers = [...givenOffers, data]
             dispatch(addGivenOffer(newOffers))
-            setBtnLoader(false)
             showModal(false)
-
         } catch (error) {
             toast.error(error.response.data.message)
         }
+        setBtnLoader(false)
     }
 }

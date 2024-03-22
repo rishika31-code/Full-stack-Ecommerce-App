@@ -34,8 +34,11 @@ const PaymentButton = ({ address, appliedOffer }) => {
 
       // options
       const options = {
+        name: "RedBubble",
         key: data.key_id,
         order_id: data.order.id,
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj0_P5pMDJo1r8zYSDslQKYw8ybDYqSKd-e_zDoudxRQ&s",
         handler: async (response) => {
           try {
             setBtnLoader(true);

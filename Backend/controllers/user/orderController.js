@@ -19,8 +19,10 @@ const orderController = {
             // calculating total price 
             let totalPrice = cartProducts.reduce((prev, curr) => {
                 const productTotal = curr.quantity * curr.price;
-                return prev + productTotal + 5;
+                return prev + productTotal;
             }, 0)
+            // including 5
+            totalPrice = totalPrice + 5
 
             // if user applied some offer
             if (offerId) {
@@ -43,14 +45,14 @@ const orderController = {
                     res.send({ order, key_id: process.env.RZP_KEY_ID })
 
                 } catch (error) {
-                    res.status(400).send({ message: "error while creating order", error: error })
-                    console.log(error)
+                    res.status(400).send({ message: "error while creating order" })
+
                 }
 
             })
 
         } catch (error) {
-            console.log(error)
+            res.status(400).send({ message: "error while creating order" })
         }
     },
     updateOrderCompleted: async (req, res) => {

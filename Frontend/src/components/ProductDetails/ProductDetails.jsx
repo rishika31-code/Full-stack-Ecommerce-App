@@ -47,7 +47,7 @@ const ProductDetails = () => {
                 <ProductCarousel images={product.imageUrls} />
                 <ProductTypes
                   productName={product.name}
-                  categoryName={product.mainCategory.name}
+                  category={product.mainCategory}
                   productType={product.productTypes}
                 />
               </div>

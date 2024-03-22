@@ -42,6 +42,7 @@ const useFetchCartDetails = (
     }
 
     (async () => {
+      setLoader2(true);
       try {
         const { data } = await getCart(token);
         setCart(data);

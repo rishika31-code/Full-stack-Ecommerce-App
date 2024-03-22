@@ -99,7 +99,7 @@ const OrderDetails = () => {
                       </p>
                     </div>
                   )}
-                  {findedOrder.orderStatus === "Complete" && (
+                  {findedOrder.orderStatus === "Completed" && (
                     <div className=" flex justify-center items-center gap-2 px-16">
                       <p>Don't blink we are delivering your order</p>
                       <MdOutlineDeliveryDining className=" text-4xl" />

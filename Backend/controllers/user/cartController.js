@@ -90,7 +90,7 @@ const cartController = {
         }
         try {
             const dbRes = await getCartProducts(id)
-            res.send(dbRes);
+            return res.send(dbRes);
         } catch (error) {
             res.status(400).send({ message: "error while getting the cart" })
         }
