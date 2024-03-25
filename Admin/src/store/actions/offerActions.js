@@ -71,6 +71,7 @@ export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
         return toast.error("Login again")
     }
     return async (dispatch, getState) => {
+        setBtnLoader(true)
         try {
 
             const { data } = await giveOfferApi(offerDetails, token)
@@ -78,6 +79,7 @@ export const giveOfferAction = (offerDetails, setBtnLoader, showModal) => {
             const newOffers = [...givenOffers, data]
             dispatch(addGivenOffer(newOffers))
             showModal(false)
+            toast.success('Offer Given')
         } catch (error) {
             toast.error(error.response.data.message)
         }

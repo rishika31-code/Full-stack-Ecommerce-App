@@ -56,7 +56,6 @@ const AvailOfferModal = ({ showModal, price, setAppliedOffer }) => {
 
   // apply offer handeler to apply offer
   const applyOfferHandeler = (offer) => {
-    console.log(price);
     if (price >= offer.minValue) {
       setAppliedOffer(offer);
       showModal(false);

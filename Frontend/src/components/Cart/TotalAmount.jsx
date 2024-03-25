@@ -10,15 +10,15 @@ const TotalAmount = ({ price, appliedOffer }) => {
         <h1 className="font-semibold"> &#8377; {price}</h1>
       </div>
       <div className=" flex justify-between items-center text-sm">
-        <h1>Handeling Fee </h1>
-        <h1 className=" text-green-400"> &#8377; 5</h1>
-      </div>
-      <div className=" flex justify-between items-center text-sm">
         <h1>Offer Discount </h1>
         <h1 className=" text-green-400">
           &#8377;
           {appliedOffer ? calcDiscount(price, appliedOffer.discount) : 0}
         </h1>
+      </div>
+      <div className=" flex justify-between items-center text-sm">
+        <h1>Handeling Fee </h1>
+        <h1 className=" text-green-400"> &#8377; 5</h1>
       </div>
       <div className=" flex justify-between items-center text-sm ">
         <h1>Delivery Charges </h1>
@@ -29,7 +29,7 @@ const TotalAmount = ({ price, appliedOffer }) => {
         <h1>
           &#8377;
           {appliedOffer
-            ? price + 5 - calcDiscount(price, appliedOffer.discount)
+            ? price - calcDiscount(price, appliedOffer.discount) + 5
             : price + 5}
         </h1>
       </div>

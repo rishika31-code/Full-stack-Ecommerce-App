@@ -9,6 +9,7 @@ import Divider from "@mui/material/Divider";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaShoppingBag } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
+import { BiLogoRedbubble } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarPaths } from "../../constants/pathConstants";
 import { NavLink } from "react-router-dom";
@@ -123,9 +124,9 @@ const SideBar = () => {
                 </button>
               )}
               {open && (
-                <div className="flex items-center font-sans justify-center gap-1 cursor-pointer">
-                  <h1>Admin @</h1>
-                  <FaShoppingBag className="text-pink-500 text-3xl" />
+                <div className="flex items-center font-poppins justify-center gap-1 cursor-pointer">
+                  <h1 className=" text-2xl">Admin | </h1>
+                  <BiLogoRedbubble className="text-pink-500 text-5xl" />
                 </div>
               )}
             </div>

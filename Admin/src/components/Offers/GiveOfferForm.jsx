@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { giveOfferAction } from "../../store/actions/offerActions";
+import { RiLoader3Fill } from "react-icons/ri";
 
 const GiveOfferForm = ({ showModal }) => {
   const dispatch = useDispatch();

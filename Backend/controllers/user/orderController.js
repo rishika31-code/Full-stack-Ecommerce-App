@@ -21,14 +21,15 @@ const orderController = {
                 const productTotal = curr.quantity * curr.price;
                 return prev + productTotal;
             }, 0)
-            // including 5
-            totalPrice = totalPrice + 5
 
             // if user applied some offer
             if (offerId) {
                 const appliedOffer = await findOfferbyId(offerId)
-                if (appliedOffer) { totalPrice = Math.round(totalPrice - (totalPrice * (appliedOffer.discount / 100))) }
+                if (appliedOffer) { totalPrice = totalPrice - Math.floor((totalPrice * (appliedOffer.discount / 100))) }
             }
+            // including 5
+            totalPrice = totalPrice + 5
+
             // razorpay instance
             const amount = totalPrice * 100
             const rzp = new Razorpay({

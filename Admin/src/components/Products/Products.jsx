@@ -77,16 +77,13 @@ const Products = () => {
                         className=" px-3 py-3 flex justify-center items-center gap-2 bg-gray-100 rounded-md"
                         defaultValue={"Status"}
                       >
-                        <option>pending</option>
-                        <option>Shipped</option>
-                        <option>Delivered</option>
+                        <option>category</option>
                       </select>
                       <select
                         className=" px-3 py-3 flex justify-center items-center gap-2 bg-gray-100 rounded-md"
                         defaultValue={"Sort"}
                       >
-                        <option>Low to High</option>
-                        <option>High To Low</option>
+                        <option>Sub Category</option>
                       </select>
                     </div>
                   </div>
