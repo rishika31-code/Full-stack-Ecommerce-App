@@ -1,10 +1,10 @@
 For a detailed walkthrough, check out the full video explaining all the
 features and functionalities:
-🔗 https://lnkd.in/gYMU-_d6
+🔗https://www.youtube.com/watch?v=ZJbk8Z5tVhk
 
 Deployed Links :
-🔗 User: https://lnkd.in/gVJeJgHD
-🔗 Admin: https://lnkd.in/gM8DG8p6
+🔗 User: https://redbubble.vercel.app
+🔗 Admin: https://adminredbuuble.vercel.app
 
 🌟 Exciting Announcement! 🌟
 Hey everyone, I'm thrilled to unveil my latest full-stack e-commerce project, which comes packed with essential features for a seamless user experience.
