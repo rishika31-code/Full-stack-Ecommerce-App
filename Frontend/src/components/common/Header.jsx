@@ -16,14 +16,7 @@ const Header = () => {
   const { cartItems } = useSelector((state) => state.cartSlice);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   // placeholders
-  const placeholders = [
-    "ganja",
-    "daaru",
-    "wine",
-    "fruits",
-    "milk",
-    "vegetables",
-  ];
+  const placeholders = ["atta", "rice", "oil", "fruits", "milk", "vegetables"];
 
   // useffect for changing the placeholder index
   useEffect(() => {
