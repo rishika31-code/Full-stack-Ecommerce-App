@@ -7,7 +7,7 @@ import CartFooter from "../Cart/CartFooter";
 const Account = () => {
   const navigate = useNavigate();
 
-  // for navigating to home handeler
+  // for navigating to home
   const navigateToHome = () => {
     navigate("/");
   };

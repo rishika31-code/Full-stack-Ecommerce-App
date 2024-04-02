@@ -116,12 +116,12 @@ const orderController = {
 
 
             // if all promises fulfiled
-            tran.commit()
+            await tran.commit()
 
             res.send({ message: "Order completed" })
         } catch (error) {
 
-            tran.rollback()
+            await tran.rollback()
             res.status(400).send({ message: "error while creating order" })
         }
     },
