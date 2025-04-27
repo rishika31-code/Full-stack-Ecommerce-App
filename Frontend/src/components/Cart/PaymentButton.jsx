@@ -1,133 +1,153 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { RiLoader3Fill } from "react-icons/ri";
 import toast from "react-hot-toast";
 
-import { createOrder, orderCompleted, orderFailed } from "../../api/agent";
-import { setOffersEmpty } from "../../store/reducers/offerSlice";
-import { setCartEmpty } from "../../store/reducers/cartSlice";
-
-const PaymentButton = ({ address, appliedOffer }) => {
-  const [btnLoader, setBtnLoader] = useState(false);
+const PaymentButton = ({ appliedOffer }) => {
+  const [showForm, setShowForm] = useState(false);
+  const [orderDetails, setOrderDetails] = useState({
+    name: "",
+    address: "",
+    phone: "",
+    paymentMethod: "",
+  });
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const createOrderHandler = async () => {
-    const token = localStorage.getItem("token");
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setOrderDetails({
+      ...orderDetails,
+      [name]: value,
+    });
+  };
 
-    if (!token) {
-      toast.error("User not found. Please log in again!");
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (!orderDetails.name || !orderDetails.address || !orderDetails.phone || !orderDetails.paymentMethod) {
+      toast.error("Please fill in all the details!");
       return;
     }
 
-    if (!address) {
-      toast.error("Address cannot be blank!");
-      return;
-    }
+    // Show the "Place Order" button after the user submits the form
+    setShowForm(false);
+  };
 
-    setBtnLoader(true);
+  const handlePlaceOrder = () => {
+    // Here you would typically send the order data to the backend (using an API)
+    console.log("Order details:", orderDetails);
 
-    try {
-      // Create order on the server
-      const { data } = await createOrder(appliedOffer, token);
-      console.log("Order created:", data);
+    // Assuming the order was placed successfully
+    toast.success("Order placed successfully!");
 
-      const options = {
-        key: data.key_id,
-        order_id: data.order.id,
-        name: "RedBubble",
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj0_P5pMDJo1r8zYSDslQKYw8ybDYqSKd-e_zDoudxRQ&s",
-        handler: async (response) => {
-          console.log("Payment success:", response);
+    setIsOrderPlaced(true);
 
-          try {
-            await orderCompleted(
-              {
-                orderId: options.order_id,
-                paymentId: response.razorpay_payment_id,
-                offerId: appliedOffer?.createdOfferId,
-                address,
-              },
-              token
-            );
-
-            toast.success("Order completed!");
-
-            if (appliedOffer) {
-              dispatch(setOffersEmpty());
-            }
-            dispatch(setCartEmpty());
-
-            setTimeout(() => {
-              navigate(`/account/orders/${options.order_id}`);
-            }, 500);
-          } catch (error) {
-            console.error("Error completing order:", error);
-            toast.error("Order completion failed. Please try again.");
-          }
-
-          setBtnLoader(false);
-        },
-        prefill: {
-          email: "user@example.com",
-          contact: "9999999999",
-        },
-        theme: {
-          color: "#F37254",
-        },
-      };
-
-      const razorpay = new Razorpay(options);
-      razorpay.open();
-
-      razorpay.on("payment.failed", async (response) => {
-        console.error("Payment failed:", response);
-        toast.error("Payment failed. Please try again.");
-
-        try {
-          await orderFailed(options.order_id, token);
-        } catch (error) {
-          console.error("Failed to mark order as failed:", error);
-        }
-      });
-    } catch (error) {
-      console.error("Error creating order:", error);
-      toast.error("Something went wrong while creating your order.");
-    }
-
-    setBtnLoader(false);
+    // Optionally, navigate to the order confirmation page after a delay
+    setTimeout(() => {
+      navigate(`/account/orders`);
+    }, 2000);
   };
 
   return (
     <div className="my-4 mx-2">
-      {address ? (
-        <button
-          type="button"
-          className="primary-bg-darker-pink text-white py-2 rounded-md w-full flex justify-center items-center"
-          onClick={createOrderHandler}
-          disabled={btnLoader}
-        >
-          {btnLoader ? (
-            <RiLoader3Fill className="text-2xl animate-spin" />
-          ) : (
-            "CONTINUE TO PAYMENT"
-          )}
-        </button>
+      {isOrderPlaced ? (
+        <div className="text-center text-green-500">
+          <h2>Order Successfully Placed!</h2>
+          <p>Redirecting to your orders...</p>
+        </div>
       ) : (
-        <button
-          type="button"
-          disabled
-          className="bg-gray-400 text-white py-2 rounded-md w-full"
-        >
-          CONTINUE TO PAYMENT
-        </button>
+        <>
+          {!showForm ? (
+            <button
+              type="button"
+              className="primary-bg-darker-pink text-white py-2 rounded-md w-full flex justify-center items-center"
+              onClick={() => setShowForm(true)}
+            >
+              CONTINUE TO PAYMENT
+            </button>
+          ) : (
+            <div className="p-4 border rounded-md">
+              <h2 className="text-xl font-bold mb-4">Enter Your Details</h2>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label htmlFor="name" className="block">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    value={orderDetails.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="address" className="block">Address</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    value={orderDetails.address}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="phone" className="block">Phone Number</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    value={orderDetails.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="paymentMethod" className="block">Payment Method</label>
+                  <select
+                    id="paymentMethod"
+                    name="paymentMethod"
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    value={orderDetails.paymentMethod}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">Select a payment method</option>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="cashOnDelivery">Cash on Delivery</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                >
+                  Submit Details
+                </button>
+              </form>
+            </div>
+          )}
+
+          {showForm && !isOrderPlaced && orderDetails.name && orderDetails.address && orderDetails.phone && orderDetails.paymentMethod && (
+            <button
+              type="button"
+              className="bg-green-500 text-white py-2 px-4 rounded-md mt-4 w-full"
+              onClick={handlePlaceOrder}
+            >
+              PLACE ORDER
+            </button>
+          )}
+        </>
       )}
     </div>
   );
 };
 
 export default PaymentButton;
+
 
 
