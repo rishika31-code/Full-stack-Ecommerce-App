@@ -12,7 +12,7 @@ const PaymentButton = ({ address, appliedOffer }) => {
   const dispatch = useDispatch();
   const [btnLoader, setBtnLoader] = useState(false);
   // when user want to create the order
-  const createOrderHandeler = async () => {
+  const createOrderHandler = async () => {
     const token = localStorage.getItem("token");
 
     // if token is not found
