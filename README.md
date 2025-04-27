@@ -1,17 +1,8 @@
-For a detailed walkthrough, check out the full video explaining all the
-features and functionalities:
-🔗https://www.youtube.com/watch?v=ZJbk8Z5tVhk
+
 
 Deployed Links :
 🔗 User: https://redbubble.vercel.app
 🔗 Admin: https://adminredbuuble.vercel.app
-
-🌟 Exciting Announcement! 🌟
-Hey everyone, I'm thrilled to unveil my latest full-stack e-commerce project, which comes packed with essential features for a seamless user experience.
-
-One of the highlights is an intuitive admin panel that empowers admins to efficiently manage products, categories, subcategories, and product types.
-
-What sets this project apart? Admins can customize user experiences by offering special discounts and offers, seamlessly integrated with Razorpay for secure transactions.
 
 Tech Stack:
 1. React: Building engaging user interfaces.
